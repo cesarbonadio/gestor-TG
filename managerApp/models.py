@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 '''TODO->VER LO DEL ATRIBUTOS UNIQUE'''
-'''TODO->VER LO DEL verbose_name '''
+'''TODO->VER LO DEL verbose_name PARA CADA CAMPO'''
 '''TODO->VER SI TODOS LOS ATRIBUTOS FORANEOS LLEVAN ON_DELETE=MODELS.CASCADE'''
 
 
@@ -36,6 +36,13 @@ class Person(models.Model):
     def __str__(self):
         return self.first_name_1 + " " + self.last_name_1
 
+    #Overriding la clase meta para setear el verbose_name 
+    #del modelo (el que lee el usuario)
+    class Meta:
+        verbose_name = "Persona"
+        verbose_name_plural = "Personas"
+
+
 
 
 #Modelo para la terminología del período
@@ -47,6 +54,12 @@ class Term(models.Model):
     def __str__(self):
         return self.id + " (" + self.description + ")"
 
+    #Overriding la clase meta para setear el verbose_name 
+    #del modelo (el que lee el usuario)
+    class Meta:
+        verbose_name = "Terminología"
+        verbose_name_plural = "Terminologías"
+
 
 
 #Modelo para los estados de las propuestas
@@ -57,6 +70,12 @@ class ProposalStatus(models.Model):
     def __str__(self):
         return self.name
 
+    #Overriding la clase meta para setear el verbose_name 
+    #del modelo (el que lee el usuario)
+    class Meta:
+        verbose_name = "Estado de propuesta"
+        verbose_name_plural = "Estados de propuestas"
+
 
 
 #Modelo para los estados de las Tesis
@@ -66,6 +85,12 @@ class ThesisStatus(models.Model):
 
     def __str__(self):
         return self.name
+
+    #Overriding la clase meta para setear el verbose_name 
+    #del modelo (el que lee el usuario)
+    class Meta:
+        verbose_name = "Estado de tesis"
+        verbose_name_plural = "Estados de tesis"
 
 
 
@@ -83,6 +108,12 @@ class Proposal(models.Model):
 
     def __str__(self):
         return self.title
+
+    #Overriding la clase meta para setear el verbose_name 
+    #del modelo (el que lee el usuario)
+    class Meta:
+        verbose_name = "Propuesta"
+        verbose_name_plural = "Propuestas"
 
 
 
@@ -102,6 +133,12 @@ class Thesis(models.Model):
 
     def __str__(self):
         return self.title
+
+    #Overriding la clase meta para setear el verbose_name 
+    #del modelo (el que lee el usuario)
+    class Meta:
+        verbose_name = "Tesis"
+        verbose_name_plural = "Tesis"
 
 
 
@@ -123,4 +160,10 @@ class Defense(models.Model):
 
     def __str__(self):
         return self.defense_date
+    
+    #Overriding la clase meta para setear el verbose_name 
+    #del modelo (el que lee el usuario)
+    class Meta:
+        verbose_name = "Defensa"
+        verbose_name_plural = "Defensas"
 
