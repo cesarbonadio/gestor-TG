@@ -7,7 +7,7 @@ from django.http import Http404
 # Create your views here.
 
 def index(request):
-    latest_propuestas = Proposal.objects.order_by('-fecha_entrega')[:5]
+    latest_propuestas = Proposal.objects.order_by('-delivery_date')[:5]
     template = loader.get_template('propuestas/index.html')
     context = {
         'latest_propuestas': latest_propuestas

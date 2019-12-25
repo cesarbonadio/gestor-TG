@@ -17,9 +17,9 @@
                 <tbody>
         {% for p in latest_propuestas %}
             <tr>
-                <td><a href="{% url 'propuestas:detail' p.id %}">{{ p.titulo }}</a></td>
-                <td>{{p.estatus}}</td>
-                <td>{{p.fecha_entrega}}</td>
+                <td><a href="{% url 'propuestas:detail' p.id %}">{{ p.title }}</a></td>
+                <td>{{p.status}}</td>
+                <td>{{p.delivery_date}}</td>
             </tr>
         {% endfor %}
                 </tbody>
