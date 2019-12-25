@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Section title</h2>
+
+    {% if latest_propuestas %}
+    
+        <div class="table-responsive">
+            <table class="table table-striped table-sm">
+                <thead>
+                    <tr>
+                        <th>titulo</th>
+                        <th>estatus</th>
+                        <th>fecha_entrega</th>
+                    </tr>
+                </thead>
+                <tbody>
+        {% for p in latest_propuestas %}
+            <tr>
+                <td><a href="{% url 'propuestas:detail' p.id %}">{{ p.titulo }}</a></td>
+                <td>{{p.estatus}}</td>
+                <td>{{p.fecha_entrega}}</td>
+            </tr>
+        {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    {% else %}
+        <p>No propuetass are available.</p>
+    {% endif %}
+
+{% endblock %}
+
+
