@@ -2,14 +2,16 @@ from django.urls import include,path
 from .views import managerApp
 from .views import proposal
 
-#app_name = 'propuestas'
+
+#app_name = 'managerApp'
 
 urlpatterns = [
 
     path('', managerApp.home, name='home'),
 
     path('proposals/', include(([
-        path('', proposal.index, name='proposals_list')
+        path('', proposal.IndexView.as_view(), name='proposals_list'),
+        path('<int:pk>/', proposal.DetailView.as_view(), name='proposals_details')
     ], 'managerApp'), namespace='proposals')),
 
     # ex: /polls/

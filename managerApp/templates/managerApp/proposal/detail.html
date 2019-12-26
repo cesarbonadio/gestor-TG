@@ -1,6 +1,23 @@
 {% extends 'base.html' %}
+    
     {% block content %}
+    
+    <br>
+    <h4>Detalle de propuesta</h4>
+    
     <p>
-        Esta viendo la propuesta de titulo: {{ propuesta.titulo }}
+        <br>
+        <strong>Título:&nbsp;</strong> <i>{{ proposal.title }}</i><br>
+        <strong>Fecha que fue entregada:&nbsp;</strong> <i>{{ proposal.delivery_date }}</i><br>
+        <strong>Estatus:&nbsp;</strong> <i>{{ proposal.status }}</i><br>
+        {% if not proposal.student_2 %}
+            <strong>Estudiante:&nbsp;</strong> <i>{{ proposal.student_1 }}</i><br>
+        {% else %}
+            <strong>Estudiantes:&nbsp;</strong> <i>{{ proposal.student_1 }}</i> y <i>{{ proposal.student_1 }}</i><br>
+        {% endif %}
+        <strong>Tutor académico:&nbsp;</strong> <i>{{ proposal.academic_tutor }}</i><br>
+        <strong>Tutor empresarial:&nbsp;</strong> <i>{{ proposal.company_tutor }}</i><br>
+        <strong>Terminología:&nbsp;</strong> <i>{{ proposal.term }}</i><br>
     </p>
+
 {% endblock %}
