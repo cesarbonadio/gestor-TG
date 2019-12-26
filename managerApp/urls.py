@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import include,path
 from .views import managerApp
 from .views import proposal
 
@@ -6,7 +6,11 @@ from .views import proposal
 
 urlpatterns = [
 
-    path('', managerApp.home, name='home')
+    path('', managerApp.home, name='home'),
+
+    path('proposals/', include(([
+        path('', proposal.index, name='proposals_list')
+    ], 'managerApp'), namespace='proposals')),
 
     # ex: /polls/
     #path('', views.index, name='index'),

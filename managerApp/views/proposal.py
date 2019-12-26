@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-#from .models import Proposal
+from ..models import Proposal
 from django.template import loader
 from django.http import Http404
 
@@ -8,11 +8,7 @@ from django.http import Http404
 
 def index(request):
     latest_propuestas = Proposal.objects.order_by('-delivery_date')[:5]
-    template = loader.get_template('propuestas/index.html')
-    context = {
-        'latest_propuestas': latest_propuestas
-    }
-    return HttpResponse(template.render(context, request))
+    return render(request,'managerApp/proposal/index.html',{ 'latest_propuestas': latest_propuestas})
 
 def detail(request, propuesta_id):
     try:
