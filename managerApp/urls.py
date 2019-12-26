@@ -11,7 +11,8 @@ urlpatterns = [
 
     path('proposals/', include(([
         path('', proposal.IndexView.as_view(), name='proposals_list'),
-        path('<int:pk>/', proposal.DetailView.as_view(), name='proposals_details')
+        path('<int:pk>/', proposal.DetailView.as_view(), name='proposals_details'),
+        path('create/', proposal.CreateProposalView.as_view(), name='proposals_create')
     ], 'managerApp'), namespace='proposals')),
 
     # ex: /polls/

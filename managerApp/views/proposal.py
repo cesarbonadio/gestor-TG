@@ -1,14 +1,19 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpResponse
-from ..models import Proposal
 from django.template import loader
 from django.http import Http404
+from django.contrib import messages
 
 #importando vistas genéricas
 #las vistas genéricas ayudan a ahorrar código
 #en caso de que no existan se utilizan funciones
 from django.views import generic
 from django.urls import reverse, reverse_lazy
+
+from ..models import Proposal
+from ..forms import proposalForms
+
+
 
 
 class IndexView(generic.ListView):
@@ -24,21 +29,14 @@ class DetailView(generic.DetailView):
     template_name = 'managerApp/proposal/detail.html'
 
 
+class CreateProposalView(generic.CreateView):
+    model = Proposal
+    fields = "__all__"
+    template_name = 'managerApp/proposal/create.html'
 
-def detail(request, propuesta_id):
-    try:
-        propuesta = Proposal.objects.get(pk=propuesta_id)
-    except Propuesta.DoesNotExist:
-        raise Http404("La propuesta no existe")
-    return render(request, 'propuestas/detail.html', {'propuesta': propuesta})
-
-
-def results(request, propuesta_id):
-    response = "Está buscando los resultados de la propuesta %s."
-    return HttpResponse(response % propuesta_id)
-
-
-def modify(request, propuesta_id):
-    return HttpResponse("Está modificando la propuesta %s." % propuesta_id)
-
+    def form_valid(self, form):
+        proposal = form.save(commit=False)
+        proposal.save()
+        messages.success(self.request, 'La propuesta fue creada satisfactoriamente')
+        return redirect('proposals:proposals_list')
 
