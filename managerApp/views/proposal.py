@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.template import loader
 from django.http import Http404
 from django.contrib import messages
+from django.urls import reverse_lazy
 
 #importando vistas genéricas
 #las vistas genéricas ayudan a ahorrar código
@@ -52,3 +53,8 @@ class UpdateProposalView(generic.UpdateView):
         messages.success(self.request, 'La propuesta fue actualizada satisfactoriamente')
         return redirect('proposals:proposals_list')
 
+
+class DeleteProposalView(generic.DeleteView):
+    model = Proposal
+    template_name = 'managerApp/proposal/delete.html'
+    success_url = reverse_lazy('proposals:proposals_list')

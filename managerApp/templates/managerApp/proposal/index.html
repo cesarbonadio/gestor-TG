@@ -37,7 +37,10 @@
                 <td><a href="{% url 'proposals:proposals_details' p.id %}">{{ p.title }}</a></td>
                 <td>{{p.status}}</td>
                 <td>{{p.delivery_date}}</td>
-                <td><a href="{% url 'proposals:proposals_update' p.id %}">Actualizar</a></td>
+                <td>
+                    <a href="{% url 'proposals:proposals_update' p.id %}">Actualizar</a>
+                    <a href="{% url 'proposals:proposals_delete' p.id %}">Eliminar</a>
+                </td>
             </tr>
         {% endfor %}
                 </tbody>
