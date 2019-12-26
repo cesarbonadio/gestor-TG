@@ -40,3 +40,15 @@ class CreateProposalView(generic.CreateView):
         messages.success(self.request, 'La propuesta fue creada satisfactoriamente')
         return redirect('proposals:proposals_list')
 
+
+class UpdateProposalView(generic.UpdateView):
+    model = Proposal
+    fields = "__all__"
+    template_name = 'managerApp/proposal/update.html'
+
+    def form_valid(self, form):
+        proposal = form.save(commit=False)
+        proposal.save()
+        messages.success(self.request, 'La propuesta fue actualizada satisfactoriamente')
+        return redirect('proposals:proposals_list')
+

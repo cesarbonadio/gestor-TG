@@ -4,7 +4,7 @@ from django.forms.utils import ValidationError
 from ..models import Proposal
 
 
-
+#ESTO NO ESTA HACIENDO NADA POR AHORA
 class CreateProposalForm(forms.ModelForm):
 
     class Meta:
