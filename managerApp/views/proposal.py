@@ -22,7 +22,7 @@ class IndexView(generic.ListView):
 class DetailView(generic.DetailView):
     model = Proposal
     template_name = 'managerApp/proposal/detail.html'
-    
+
 
 
 def detail(request, propuesta_id):
