@@ -7,6 +7,8 @@ from .models import Proposal
 from .models import Thesis
 from .models import Defense
 
+'''TODO-> ver si realmente es necesario el sitio de administrador'''
+
 # Para el site de administrador.
 admin.site.register(Person)
 admin.site.register(Term)
