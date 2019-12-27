@@ -35,3 +35,15 @@ class CreatePersonView(generic.CreateView):
         person.save()
         messages.success(self.request, 'La persona fue creada satisfactoriamente')
         return redirect('persons:persons_list')
+
+
+class UpdatePersonView(generic.UpdateView):
+    model = Person
+    fields = "__all__"
+    template_name = 'managerApp/person/update.html'
+
+    def form_valid(self, form):
+        person = form.save(commit=False)
+        person.save()
+        messages.success(self.request, 'La persona fue actualizada satisfactoriamente')
+        return redirect('persons:persons_list')

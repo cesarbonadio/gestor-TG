@@ -41,7 +41,7 @@
                 <td>{{p.type}}</td>
                 <td>{{p.document_id}}</td>
                 <td>
-                    <a href="">Actualizar</a>
+                    <a href="{% url 'persons:persons_update' p.id %}">Actualizar</a>
                     <a href="">Eliminar</a>
                 </td>
             </tr>
