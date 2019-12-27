@@ -29,7 +29,8 @@ urlpatterns = [
 
 
     path('term/', include(([
-        path('', term.IndexView.as_view(), name='term_list')
+        path('', term.IndexView.as_view(), name='terms_list'),
+        path('create/', term.CreateTermView.as_view(), name='terms_create')
     ], 'managerApp'), namespace='terms')),
 
     # ex: /polls/
