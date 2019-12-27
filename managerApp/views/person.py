@@ -47,3 +47,9 @@ class UpdatePersonView(generic.UpdateView):
         person.save()
         messages.success(self.request, 'La persona fue actualizada satisfactoriamente')
         return redirect('persons:persons_list')
+
+
+class DeletePersonView(generic.DeleteView):
+    model = Person
+    template_name = 'managerApp/person/delete.html'
+    success_url = reverse_lazy('persons:persons_list')

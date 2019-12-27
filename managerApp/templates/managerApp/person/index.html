@@ -42,7 +42,7 @@
                 <td>{{p.document_id}}</td>
                 <td>
                     <a href="{% url 'persons:persons_update' p.id %}">Actualizar</a>
-                    <a href="">Eliminar</a>
+                    <a href="{% url 'persons:persons_delete' p.id %}">Eliminar</a>
                 </td>
             </tr>
         {% endfor %}

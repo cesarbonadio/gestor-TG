@@ -23,6 +23,7 @@ urlpatterns = [
         path('<int:pk>/', person.DetailView.as_view(), name='persons_details'),
         path('create/', person.CreatePersonView.as_view(), name='persons_create'),
         path('<int:pk>/update/', person.UpdatePersonView.as_view(), name='persons_update'),
+        path('<int:pk>/delete/', person.DeletePersonView.as_view(), name='persons_delete'),
     ], 'managerApp'), namespace='persons')),
 
     # ex: /polls/
