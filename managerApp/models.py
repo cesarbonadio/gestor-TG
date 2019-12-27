@@ -51,7 +51,7 @@ class Term(models.Model):
     description = models.CharField(max_length=50, verbose_name="descripción")
 
     def __str__(self):
-        return self.id + " (" + self.description + ")"
+        return str(self.id) + " (" + self.description + ")"
 
     #Overriding la clase meta para setear el verbose_name 
     #del modelo (el que lee el usuario)

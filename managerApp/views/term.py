@@ -42,3 +42,9 @@ class UpdateTermView(generic.UpdateView):
         proposal.save()
         messages.success(self.request, 'La terminología fue actualizada satisfactoriamente')
         return redirect('terms:terms_list')
+
+
+class DeleteTermView(generic.DeleteView):
+    model = Term
+    template_name = 'managerApp/term/delete.html'
+    success_url = reverse_lazy('terms:terms_list')

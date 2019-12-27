@@ -37,7 +37,7 @@
                 <td>{{ t.description }}</td>
                 <td>
                     <a href="{% url 'terms:terms_update' t.id %}">Actualizar</a>
-                    <a href="">Eliminar</a>
+                    <a href="{% url 'terms:terms_delete' t.id %}">Eliminar</a>
                 </td>
             </tr>
         {% endfor %}

@@ -24,14 +24,15 @@ urlpatterns = [
         path('<int:pk>/', person.DetailView.as_view(), name='persons_details'),
         path('create/', person.CreatePersonView.as_view(), name='persons_create'),
         path('<int:pk>/update/', person.UpdatePersonView.as_view(), name='persons_update'),
-        path('<int:pk>/delete/', person.DeletePersonView.as_view(), name='persons_delete'),
+        path('<int:pk>/delete/', person.DeletePersonView.as_view(), name='persons_delete')
     ], 'managerApp'), namespace='persons')),
 
 
     path('term/', include(([
         path('', term.IndexView.as_view(), name='terms_list'),
         path('create/', term.CreateTermView.as_view(), name='terms_create'),
-        path('<int:pk>/update/', term.UpdateTermView.as_view(), name='terms_update')
+        path('<int:pk>/update/', term.UpdateTermView.as_view(), name='terms_update'),
+        path('<int:pk>/delete/', term.DeleteTermView.as_view(), name='terms_delete')
     ], 'managerApp'), namespace='terms')),
 
     # ex: /polls/
