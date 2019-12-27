@@ -1,6 +1,7 @@
 from django.urls import include,path
 from .views import managerApp
 from .views import proposal
+from .views import person
 
 
 #app_name = 'managerApp'
@@ -16,6 +17,10 @@ urlpatterns = [
         path('<int:pk>/update/', proposal.UpdateProposalView.as_view(), name='proposals_update'),
         path('<int:pk>/delete/', proposal.DeleteProposalView.as_view(), name='proposals_delete')
     ], 'managerApp'), namespace='proposals')),
+
+    path('persons/', include(([
+        path('', person.IndexView.as_view(), name='persons_list')
+    ], 'managerApp'), namespace='persons')),
 
     # ex: /polls/
     #path('', views.index, name='index'),
