@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      <h1 class="h2">Terminologías</h1>
+      <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group mr-2">
+            <a href="" class="btn btn-outline-secondary" role="button">
+                Crear Term
+            </a>
+        </div>
+        <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+          Exportar
+        </button>
+      </div>
+    </div>
+
+    <h5>Aquí deberían ir los filtros de búsqueda</h5>
+
+    {% if term_list %}
+    
+        <div class="table-responsive">
+            <table class="table table-striped table-sm">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Descripción</th>
+                        <th>Accciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+        {% for t in term_list %}
+            <tr>
+                <td><a href="">{{ t.id }}</a></td>
+                <td>{{ t.description }}</td>
+                <td>
+                    <a href="">Actualizar</a>
+                    <a href="">Eliminar</a>
+                </td>
+            </tr>
+        {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    {% else %}
+        <p>No existen terminologías almacenadas</p>
+    {% endif %}
+
+{% endblock %}
