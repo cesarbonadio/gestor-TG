@@ -18,3 +18,8 @@ class IndexView(generic.ListView):
     
     def get_queryset(self):
         return Person.objects.order_by('first_name_1')[:5]
+
+
+class DetailView(generic.DetailView):
+    model = Person
+    template_name = 'managerApp/person/detail.html'

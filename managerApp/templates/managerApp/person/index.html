@@ -36,20 +36,8 @@
                 <tbody>
         {% for p in list_of_persons %}
             <tr>
-
-                {% if not p.first_name_2 %}
-                    <td><a href="">{{ p.first_name_1 }}</a></td>
-                {% else %}
-                    <td><a href="">{{ p.first_name_1 }} {{ p.first_name_2 }}</a></td>
-                {% endif %}
-
-                {% if not p.last_name_2 %}
-                    <td>{{ p.last_name_1 }}</td>
-                {% else %}
-                    <td>{{ p.last_name_1 }} {{ p.last_name_2 }}</td>
-                {% endif %}
-
-
+                <td><a href="{% url 'persons:persons_details' p.id %}">{{ p.first_name_1 }} {{ p.first_name_2|default:"" }}</a></td>
+                <td>{{ p.last_name_1 }} {{ p.last_name_2|default:"" }}</td>
                 <td>{{p.type}}</td>
                 <td>{{p.document_id}}</td>
                 <td>

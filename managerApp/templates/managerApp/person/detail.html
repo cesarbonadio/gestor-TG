@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+    
+    {% block content %}
+    
+    <br>
+    <h4>Detalle de Persona</h4>
+    
+    <p>
+        <br>
+        <strong>Nombre(s):&nbsp;</strong> <i>{{ person.first_name_1 }} {{ person.first_name_2|default:""}}</i><br>
+        <strong>Apellido(s):&nbsp;</strong> <i>{{ person.last_name_1 }} {{ person.last_name_2|default:""}}</i><br>
+        <strong>Tipo:&nbsp;</strong> <i>{{ person.type }}</i><br>
+        <strong>Cédula de identidad:&nbsp;</strong> <i>{{ person.document_id }}</i><br>
+        <strong>Correo ucab:&nbsp;</strong> <i>{{ person.ucab_mail|default:"No posee" }}</i><br>
+        <strong>Correo personal:&nbsp;</strong> <i>{{ person.personal_mail }}</i><br>
+        <strong>Teléfonos:&nbsp;</strong> <i>{{ person.phone_1 }} &nbsp;&nbsp; {{ person.phone_2|default:"" }}</i><br>
+        <strong>Observaciones:&nbsp;</strong> <i>{{ person.observations|default:"No posee" }}</i><br>
+    </p>
+
+    <a href="{% url 'persons:persons_list' %}" class="btn btn-outline-secondary" role="button">
+        volver
+    </a>
+
+{% endblock %}
