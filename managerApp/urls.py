@@ -21,6 +21,7 @@ urlpatterns = [
     path('persons/', include(([
         path('', person.IndexView.as_view(), name='persons_list'),
         path('<int:pk>/', person.DetailView.as_view(), name='persons_details'),
+        path('create/', person.CreatePersonView.as_view(), name='persons_create'),
     ], 'managerApp'), namespace='persons')),
 
     # ex: /polls/
