@@ -19,6 +19,5 @@ from managerApp.views import managerApp,proposal
 
 urlpatterns = [
     path('', include('managerApp.urls')),
-    path('admin/', admin.site.urls, name="admin"),
-    #path('',include('propuestas.urls'))
+    path('admin/', admin.site.urls, name="admin")
 ]

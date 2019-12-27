@@ -47,8 +47,8 @@ class Person(models.Model):
 #Modelo para la terminología del período
 class Term(models.Model):
     
-    id = models.CharField(primary_key=True,max_length=6, verbose_name="código terminología (Ej:201915)")
-    description = models.CharField(max_length=30, verbose_name="descripción")
+    id = models.IntegerField(primary_key=True, verbose_name="código terminología (Ej:201915)")
+    description = models.CharField(max_length=50, verbose_name="descripción")
 
     def __str__(self):
         return self.id + " (" + self.description + ")"

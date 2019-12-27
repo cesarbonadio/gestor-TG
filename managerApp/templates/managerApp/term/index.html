@@ -33,10 +33,10 @@
                 <tbody>
         {% for t in term_list %}
             <tr>
-                <td><a href="">{{ t.id }}</a></td>
+                <td>{{ t.id }}</td>
                 <td>{{ t.description }}</td>
                 <td>
-                    <a href="">Actualizar</a>
+                    <a href="{% url 'terms:terms_update' t.id %}">Actualizar</a>
                     <a href="">Eliminar</a>
                 </td>
             </tr>

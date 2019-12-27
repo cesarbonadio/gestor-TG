@@ -61,8 +61,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Term',
             fields=[
-                ('id', models.CharField(max_length=6, primary_key=True, serialize=False, verbose_name='código terminología (Ej:201915)')),
-                ('description', models.CharField(max_length=30, verbose_name='descripción')),
+                ('id', models.IntegerField(primary_key=True, serialize=False, verbose_name='código terminología (Ej:201915)')),
+                ('description', models.CharField(max_length=50, verbose_name='descripción')),
             ],
             options={
                 'verbose_name': 'Terminología',

@@ -30,3 +30,15 @@ class CreateTermView(generic.CreateView):
         proposal.save()
         messages.success(self.request, 'La terminología fue creada satisfactoriamente')
         return redirect('terms:terms_list')
+
+
+class UpdateTermView(generic.UpdateView):
+    model = Term
+    fields = "__all__"
+    template_name = 'managerApp/term/update.html'
+
+    def form_valid(self, form):
+        proposal = form.save(commit=False)
+        proposal.save()
+        messages.success(self.request, 'La terminología fue actualizada satisfactoriamente')
+        return redirect('terms:terms_list')
