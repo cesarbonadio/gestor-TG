@@ -3,9 +3,9 @@ from .views import managerApp
 from .views import proposal
 from .views import person
 from .views import term
+from .views import proposalstatus
 
 
-#app_name = 'managerApp'
 
 urlpatterns = [
 
@@ -27,7 +27,6 @@ urlpatterns = [
         path('<int:pk>/delete/', person.DeletePersonView.as_view(), name='persons_delete')
     ], 'managerApp'), namespace='persons')),
 
-
     path('term/', include(([
         path('', term.IndexView.as_view(), name='terms_list'),
         path('create/', term.CreateTermView.as_view(), name='terms_create'),
@@ -35,12 +34,14 @@ urlpatterns = [
         path('<int:pk>/delete/', term.DeleteTermView.as_view(), name='terms_delete')
     ], 'managerApp'), namespace='terms')),
 
-    # ex: /polls/
-    #path('', views.index, name='index'),
-    # ex: /polls/5/
-    #path('<int:propuesta_id>/', views.detail, name='detail'),
-    # ex: /polls/5/results/
-    #path('<int:propuesta_id>/results/', views.results, name='results'),
-    # ex: /polls/5/vote/
-    #path('<int:propuesta_id>/modify/', views.modify, name='modify'),
+    path('proposalstatus/', include(([
+        path('', proposalstatus.IndexView.as_view(), name='proposal_status_list'),
+        path('create/', proposalstatus.CreateProposalStatusView.as_view(), name='proposal_status_create'),
+        path('<int:pk>/update/', proposalstatus.UpdateProposalStatusView.as_view(), name='proposal_status_update'),
+        path('<int:pk>/delete/', proposalstatus.DeleteProposalStatusView.as_view(), name='proposal_status_delete'),
+    ], 'managerApp'), namespace='proposal_status')),
+
+    
+
+
 ]

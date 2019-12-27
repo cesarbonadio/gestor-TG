@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      <h1 class="h2">Estatus de propuestas</h1>
+      <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group mr-2">
+            <a href="{% url 'proposal_status:proposal_status_create' %}" class="btn btn-outline-secondary" role="button">
+                Crear estatus
+            </a>
+        </div>
+        <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+          Exportar
+        </button>
+      </div>
+    </div>
+
+    <h5>Aquí deberían ir los filtros de búsqueda</h5>
+
+    {% if proposalstatus_list %}
+    
+        <div class="table-responsive">
+            <table class="table table-striped table-sm">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nombre</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+        {% for s in proposalstatus_list %}
+            <tr>
+                <td>{{ s.id }}</td>
+                <td>{{ s.name }}</td>
+                <td>
+                    <a href="{% url 'proposal_status:proposal_status_update' s.id %}">Actualizar</a>
+                    <a href="{% url 'proposal_status:proposal_status_delete' s.id %}">Eliminar</a>
+                </td>
+            </tr>
+        {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    {% else %}
+        <p>No propuetass are available.</p>
+    {% endif %}
+
+{% endblock %}

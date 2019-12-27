@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<form method="post">
+    {% csrf_token %}
+    <p>
+        <br>
+        <h4 class="mb-3">Eliminando Tipo de estatus de propuesta</h4>
+        ¿Estas seguro de que quieres eliminar este estatus de propuesta? "{{ proposalstatus }}"?
+        <div style="margin-bottom: 50px; margin-top:10px">
+            <button type="submit" class="btn btn-success">guardar</button>
+            <a href="{% url 'proposal_status:proposal_status_list' %}" class="btn btn-outline-secondary" role="button">
+                volver
+            </a>
+        </div>
+    </p>
+</form>
+
+{% endblock %}
