@@ -5,6 +5,7 @@ from .views import person
 from .views import term
 from .views import proposalstatus
 from .views import thesisstatus
+from .views import thesis
 
 
 
@@ -48,6 +49,14 @@ urlpatterns = [
         path('<int:pk>/update/', thesisstatus.UpdateThesisStatusView.as_view(), name='thesis_status_update'),
         path('<int:pk>/delete/', thesisstatus.DeleteThesisStatusView.as_view(), name='thesis_status_delete'),
     ], 'managerApp'), namespace='thesis_status')),
+
+    path('thesis/', include(([
+        path('', thesis.IndexView.as_view(), name='thesis_list'),
+        path('create/', thesis.CreateThesisView.as_view(), name='thesis_create'),
+        path('<int:pk>/', thesis.DetailView.as_view(), name='thesis_details'),
+        path('<int:pk>/update/', thesis.UpdateThesisView.as_view(), name='thesis_update'),
+        path('<int:pk>/delete/', thesis.DeleteThesisView.as_view(), name='thesis_delete'),
+    ], 'managerApp'), namespace='thesis'))
 
     
 

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+    
+    {% block content %}
+    
+    <br>
+    <h4>Detalle de Tesis</h4>
+    
+    <p>
+        <br>
+        <strong>ID:&nbsp;</strong> <i>{{ thesis.id }}</i><br>
+        <strong>Título:&nbsp;</strong> <i>{{ thesis.title|default:"No posee (mismo que la propuesta)" }}</i><br>
+        <strong>Fecha tope:&nbsp;</strong> <i>{{ thesis.top_date }}</i><br>
+        <strong>Estatus:&nbsp;</strong> <i>{{ thesis.status }}</i><br>
+        <strong>NRC:&nbsp;</strong> <i>{{ thesis.nrc }}</i><br>
+        <strong>Descriptores:&nbsp;</strong> <i>{{ thesis.descriptors }}</i><br>
+        <strong>Nombre de la compañía:&nbsp;</strong> <i>{{ thesis.company_name }}</i><br>
+        <strong>Terminología:&nbsp;</strong> <i>{{ thesis.term }}</i><br>
+        <strong>Proposal:&nbsp;</strong> <i>{{ thesis.proposal }}</i><br>
+    </p>
+
+    <a href="{% url 'thesis:thesis_list' %}" class="btn btn-outline-secondary" role="button">
+        volver
+    </a>
+
+{% endblock %}

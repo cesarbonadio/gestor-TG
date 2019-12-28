@@ -131,6 +131,8 @@ class Thesis(models.Model):
 
 
     def __str__(self):
+        if self.title==None:
+            return str(self.proposal) 
         return self.title
 
     #Overriding la clase meta para setear el verbose_name 

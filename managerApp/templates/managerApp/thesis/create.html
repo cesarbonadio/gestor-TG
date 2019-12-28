@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <br>
+  <h4 class="mb-3">Agregando una nueva Tesis</h4>
+  <div class="row">
+    <div class="col-md-6 col-sm-8 col-12">
+      <form method="post" novalidate>
+        {% csrf_token %}
+        {{ form|crispy }}
+        <div style="margin-bottom: 50px;">
+            <button type="submit" class="btn btn-success">guardar</button>
+            <a href="{% url 'thesis:thesis_list' %}" class="btn btn-outline-secondary" role="button">
+                volver
+            </a>
+        </div>
+        </form>
+      </form>
+    </div>
+  </div>
+{% endblock %}
