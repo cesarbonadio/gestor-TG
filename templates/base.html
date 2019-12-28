@@ -39,7 +39,7 @@
   <!--<input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">-->
   <ul class="navbar-nav px-3">
     <li class="nav-item text-nowrap">
-      <a class="nav-link" href="https://getbootstrap.com/docs/4.4/examples/dashboard/#">Sign out</a>
+      <a class="nav-link" href="{% url 'logout' %}">Cerrar sesión</a>
     </li>
   </ul>
 </nav>
@@ -73,12 +73,16 @@
               Estatus de propuestas
             </a>
           </li>
+          {% if user.is_authenticated %}
+            {% if user.is_admin %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'thesis_status:thesis_status_list' %}">
               <span data-feather="check"></span>
               Estatus de tesis
             </a>
           </li>
+            {% endif %}
+          {% endif %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'thesis:thesis_list' %}">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>

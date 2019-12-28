@@ -10,10 +10,15 @@ from django.urls import reverse_lazy
 #en caso de que no existan se utilizan funciones
 from django.views import generic
 from django.urls import reverse, reverse_lazy
+from django.utils.decorators import method_decorator
+from ..decorators import admin_permissions
+from django.contrib.auth.decorators import login_required
+
 
 from ..models import ThesisStatus
 
 
+@method_decorator([login_required, admin_permissions], name='dispatch')
 class IndexView(generic.ListView):
     template_name = 'managerApp/thesisstatus/index.html'
     context_object_name = 'thesisstatus_list'
@@ -22,6 +27,7 @@ class IndexView(generic.ListView):
         return ThesisStatus.objects.order_by('id')[:10]
 
 
+@method_decorator([login_required, admin_permissions], name='dispatch')
 class CreateThesisStatusView(generic.CreateView):
     model = ThesisStatus
     fields = "__all__"
@@ -34,6 +40,7 @@ class CreateThesisStatusView(generic.CreateView):
         return redirect('thesis_status:thesis_status_list')
 
 
+@method_decorator([login_required, admin_permissions], name='dispatch')
 class UpdateThesisStatusView(generic.UpdateView):
     model = ThesisStatus
     fields = "__all__"
@@ -46,6 +53,7 @@ class UpdateThesisStatusView(generic.UpdateView):
         return redirect('thesis_status:thesis_status_list')
 
 
+@method_decorator([login_required, admin_permissions], name='dispatch')
 class DeleteThesisStatusView(generic.DeleteView):
     model = ThesisStatus
     template_name = 'managerApp/thesisstatus/delete.html'

@@ -133,3 +133,11 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+
+
+# Custom Django auth settings
+AUTH_USER_MODEL = 'managerApp.User'
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
+LOGIN_REDIRECT_URL = 'proposals:proposals_list'
+LOGOUT_REDIRECT_URL = 'home'

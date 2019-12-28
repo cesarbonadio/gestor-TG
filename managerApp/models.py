@@ -1,10 +1,23 @@
 from django.db import models
-#getText lazy es para enumerar las opciones de ciertos atributos
-from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.models import AbstractUser
 
 
 '''TODO->VER LO DEL ATRIBUTOS UNIQUE'''
 '''TODO->VER SI TODOS LOS ATRIBUTOS FORANEOS LLEVAN ON_DELETE=MODELS.CASCADE'''
+'''TODO->CAMBIAR ENUM TYPE_CHOICES POR UN MODELO INDEPENDIENE'''
+
+
+
+# Para la autenticacion y autorización
+# Extender de AbstractUser
+class User(AbstractUser):
+    is_admin = models.BooleanField(default=False)
+    is_manager = models.BooleanField(default=False)
+    is_guest = models.BooleanField(default=False)
+
+    def __init__(self, *args, **kwargs):
+        super(User, self).__init__(*args, **kwargs)
+
 
 
 #Modelo para las personas

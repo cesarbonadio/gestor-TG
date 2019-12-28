@@ -19,5 +19,6 @@ from managerApp.views import managerApp,proposal
 
 urlpatterns = [
     path('', include('managerApp.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls, name="admin")
 ]
