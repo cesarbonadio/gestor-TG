@@ -65,12 +65,13 @@
           
           {% if user.is_authenticated %}
           Usted ya inició sesión, haga clic a continuación para entrar
-          <br><br>
-          <a href="{% url 'proposals:proposals_list' %}" class="btn btn-outline-primary" role="button">
-            Entrar
-          </a>
-          <br>
-          {% else %}
+            <br><br>
+            <a href="{% url 'proposals:proposals_list' %}" class="btn btn-outline-primary" role="button">
+              Entrar
+            </a>
+            <br>
+            {% else %}
+            
           Usted no ha iniciado sesión, haga clic a continuación o arriba a la izquierda para iniciar web
           <br><br>
           <a href="{% url 'login' %}" class="btn btn-outline-primary" role="button">
