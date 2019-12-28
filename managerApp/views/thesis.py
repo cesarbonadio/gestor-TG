@@ -12,6 +12,8 @@ from django.views import generic
 from django.urls import reverse, reverse_lazy
 from ..models import Thesis
 
+# para no repetir
+THESIS_CRUD_FIELDS = ("title","status","nrc","descriptors","thematic_category","top_date","company_name","term","proposal")
 
 
 class IndexView(generic.ListView):
@@ -29,7 +31,7 @@ class DetailView(generic.DetailView):
 
 class CreateThesisView(generic.CreateView):
     model = Thesis
-    fields = "__all__"
+    fields = THESIS_CRUD_FIELDS
     template_name = 'managerApp/thesis/create.html'
 
     def form_valid(self, form):
@@ -41,7 +43,7 @@ class CreateThesisView(generic.CreateView):
 
 class UpdateThesisView(generic.UpdateView):
     model = Thesis
-    fields = "__all__"
+    fields = THESIS_CRUD_FIELDS
     template_name = 'managerApp/thesis/update.html'
 
     def form_valid(self, form):

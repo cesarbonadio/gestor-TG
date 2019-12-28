@@ -25,6 +25,7 @@
             <table class="table table-striped table-sm">
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Título</th>
                         <th>Estatus</th>
                         <th>NRC</th>
@@ -35,7 +36,8 @@
                 <tbody>
         {% for t in thesis_list %}
             <tr>
-                <td><a href="{% url 'thesis:thesis_details' t.id %}">{{ t.title|default:"--" }}</a></td>
+                <td><a href="{% url 'thesis:thesis_details' t.id %}">{{ t.id }}</a></td>
+                <td>{{ t.title|default:"--" }}</td>
                 <td>{{t.status}}</td>
                 <td>{{t.nrc}}</td>
                 <td>{{t.proposal}}</td>

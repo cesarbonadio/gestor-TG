@@ -53,9 +53,9 @@ urlpatterns = [
     path('thesis/', include(([
         path('', thesis.IndexView.as_view(), name='thesis_list'),
         path('create/', thesis.CreateThesisView.as_view(), name='thesis_create'),
-        path('<int:pk>/', thesis.DetailView.as_view(), name='thesis_details'),
-        path('<int:pk>/update/', thesis.UpdateThesisView.as_view(), name='thesis_update'),
-        path('<int:pk>/delete/', thesis.DeleteThesisView.as_view(), name='thesis_delete'),
+        path('<str:pk>/', thesis.DetailView.as_view(), name='thesis_details'),
+        path('<str:pk>/update/', thesis.UpdateThesisView.as_view(), name='thesis_update'),
+        path('<str:pk>/delete/', thesis.DeleteThesisView.as_view(), name='thesis_delete'),
     ], 'managerApp'), namespace='thesis'))
 
     

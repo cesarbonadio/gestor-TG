@@ -83,7 +83,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Thesis',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.CharField(max_length=100, primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(blank=True, max_length=200, null=True, verbose_name='título')),
                 ('nrc', models.IntegerField(verbose_name='código NRC')),
                 ('descriptors', models.CharField(max_length=50, verbose_name='descriptores')),

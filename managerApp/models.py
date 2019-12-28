@@ -107,6 +107,9 @@ class Proposal(models.Model):
 
     def __str__(self):
         return self.title
+    
+    def get_id(self):
+        return self.id
 
     #Overriding la clase meta para setear el verbose_name 
     #del modelo (el que lee el usuario)
@@ -119,6 +122,7 @@ class Proposal(models.Model):
 #Modelo para el trabajo de grado (TG)
 class Thesis(models.Model):
 
+    id = models.CharField(max_length=100,primary_key=True)
     title = models.CharField(max_length=200, null=True, blank=True, verbose_name="título")
     status = models.ForeignKey(ThesisStatus, on_delete=models.CASCADE, related_name="status_thesis", verbose_name="estatus")
     nrc = models.IntegerField(verbose_name="código NRC")
@@ -134,6 +138,10 @@ class Thesis(models.Model):
         if self.title==None:
             return str(self.proposal) 
         return self.title
+
+    def save(self, *args, **kwargs):
+        self.id = "TG-" + str(self.proposal.get_id())
+        super(Thesis, self).save(*args, **kwargs)
 
     #Overriding la clase meta para setear el verbose_name 
     #del modelo (el que lee el usuario)
