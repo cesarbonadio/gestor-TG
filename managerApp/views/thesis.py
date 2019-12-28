@@ -12,10 +12,15 @@ from django.views import generic
 from django.urls import reverse, reverse_lazy
 from ..models import Thesis
 
+from django.utils.decorators import method_decorator
+from ..decorators import *
+from django.contrib.auth.decorators import login_required
+
+
 # para no repetir
 THESIS_CRUD_FIELDS = ("title","status","nrc","descriptors","thematic_category","top_date","company_name","term","proposal")
 
-
+@method_decorator([login_required, guest_permissions], name='dispatch')
 class IndexView(generic.ListView):
     template_name = 'managerApp/thesis/index.html'
     context_object_name = 'thesis_list'
@@ -23,12 +28,12 @@ class IndexView(generic.ListView):
     def get_queryset(self):
         return Thesis.objects.order_by('id')[:10]
 
-
+@method_decorator([login_required, guest_permissions], name='dispatch')
 class DetailView(generic.DetailView):
     model = Thesis
     template_name = 'managerApp/thesis/detail.html'
 
-
+@method_decorator([login_required, manager_permissions], name='dispatch')
 class CreateThesisView(generic.CreateView):
     model = Thesis
     fields = THESIS_CRUD_FIELDS
@@ -40,7 +45,7 @@ class CreateThesisView(generic.CreateView):
         messages.success(self.request, 'La thesis fue creada satisfactoriamente')
         return redirect('thesis:thesis_list')
 
-
+@method_decorator([login_required, manager_permissions], name='dispatch')
 class UpdateThesisView(generic.UpdateView):
     model = Thesis
     fields = THESIS_CRUD_FIELDS
@@ -52,7 +57,7 @@ class UpdateThesisView(generic.UpdateView):
         messages.success(self.request, 'La propuesta fue actualizada satisfactoriamente')
         return redirect('thesis:thesis_list')
 
-
+@method_decorator([login_required, manager_permissions], name='dispatch')
 class DeleteThesisView(generic.DeleteView):
     model = Thesis
     template_name = 'managerApp/thesis/delete.html'

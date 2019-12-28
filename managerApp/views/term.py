@@ -10,7 +10,12 @@ from django.urls import reverse, reverse_lazy
 
 from ..models import Term
 
+from django.utils.decorators import method_decorator
+from ..decorators import *
+from django.contrib.auth.decorators import login_required
 
+
+@method_decorator([login_required, admin_permissions], name='dispatch')
 class IndexView(generic.ListView):
     template_name = 'managerApp/term/index.html'
     context_object_name = 'term_list'
@@ -19,7 +24,7 @@ class IndexView(generic.ListView):
         return Term.objects.order_by('-id')[:5]
 
 
-
+@method_decorator([login_required, admin_permissions], name='dispatch')
 class CreateTermView(generic.CreateView):
     model = Term
     fields = "__all__"
@@ -32,6 +37,7 @@ class CreateTermView(generic.CreateView):
         return redirect('terms:terms_list')
 
 
+@method_decorator([login_required, admin_permissions], name='dispatch')
 class UpdateTermView(generic.UpdateView):
     model = Term
     fields = "__all__"
@@ -44,6 +50,7 @@ class UpdateTermView(generic.UpdateView):
         return redirect('terms:terms_list')
 
 
+@method_decorator([login_required, admin_permissions], name='dispatch')
 class DeleteTermView(generic.DeleteView):
     model = Term
     template_name = 'managerApp/term/delete.html'
