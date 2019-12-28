@@ -34,8 +34,8 @@ class CreateThesisStatusView(generic.CreateView):
     template_name = 'managerApp/thesisstatus/create.html'
 
     def form_valid(self, form):
-        proposal = form.save(commit=False)
-        proposal.save()
+        thesisstatus = form.save(commit=False)
+        thesisstatus.save()
         messages.success(self.request, 'Fue creao un nuevo tipo de estatus de tesis')
         return redirect('thesis_status:thesis_status_list')
 
@@ -47,8 +47,8 @@ class UpdateThesisStatusView(generic.UpdateView):
     template_name = 'managerApp/thesisstatus/update.html'
 
     def form_valid(self, form):
-        proposal = form.save(commit=False)
-        proposal.save()
+        thesisstatus = form.save(commit=False)
+        thesisstatus.save()
         messages.success(self.request, 'Fue modificado un tipo de estatus de tesis')
         return redirect('thesis_status:thesis_status_list')
 

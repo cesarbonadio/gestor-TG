@@ -28,8 +28,8 @@ class CreateProposalStatusView(generic.CreateView):
     template_name = 'managerApp/proposalstatus/create.html'
 
     def form_valid(self, form):
-        proposal = form.save(commit=False)
-        proposal.save()
+        proposalstatus = form.save(commit=False)
+        proposalstatus.save()
         messages.success(self.request, 'Fue creao un nuevo tipo de estatus de propuesta')
         return redirect('proposal_status:proposal_status_list')
 
@@ -40,8 +40,8 @@ class UpdateProposalStatusView(generic.UpdateView):
     template_name = 'managerApp/proposalstatus/update.html'
 
     def form_valid(self, form):
-        proposal = form.save(commit=False)
-        proposal.save()
+        proposalstatus = form.save(commit=False)
+        proposalstatus.save()
         messages.success(self.request, 'Fue modificado un tipo de estatus de propuesta')
         return redirect('proposal_status:proposal_status_list')
 

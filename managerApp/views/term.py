@@ -26,8 +26,8 @@ class CreateTermView(generic.CreateView):
     template_name = 'managerApp/term/create.html'
 
     def form_valid(self, form):
-        proposal = form.save(commit=False)
-        proposal.save()
+        term = form.save(commit=False)
+        term.save()
         messages.success(self.request, 'La terminología fue creada satisfactoriamente')
         return redirect('terms:terms_list')
 
@@ -38,8 +38,8 @@ class UpdateTermView(generic.UpdateView):
     template_name = 'managerApp/term/update.html'
 
     def form_valid(self, form):
-        proposal = form.save(commit=False)
-        proposal.save()
+        term = form.save(commit=False)
+        term.save()
         messages.success(self.request, 'La terminología fue actualizada satisfactoriamente')
         return redirect('terms:terms_list')
 

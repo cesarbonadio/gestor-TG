@@ -47,8 +47,8 @@ class UpdateThesisView(generic.UpdateView):
     template_name = 'managerApp/thesis/update.html'
 
     def form_valid(self, form):
-        proposal = form.save(commit=False)
-        proposal.save()
+        thesis = form.save(commit=False)
+        thesis.save()
         messages.success(self.request, 'La propuesta fue actualizada satisfactoriamente')
         return redirect('thesis:thesis_list')
 
