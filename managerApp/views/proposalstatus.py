@@ -10,10 +10,14 @@ from django.urls import reverse_lazy
 #en caso de que no existan se utilizan funciones
 from django.views import generic
 from django.urls import reverse, reverse_lazy
+from django.utils.decorators import method_decorator
+from ..decorators import admin_permissions
+from django.contrib.auth.decorators import login_required
 
 from ..models import ProposalStatus
 
 
+@method_decorator([login_required, admin_permissions], name='dispatch')
 class IndexView(generic.ListView):
     template_name = 'managerApp/proposalstatus/index.html'
     context_object_name = 'proposalstatus_list'
@@ -22,6 +26,7 @@ class IndexView(generic.ListView):
         return ProposalStatus.objects.order_by('id')[:10]
 
 
+@method_decorator([login_required, admin_permissions], name='dispatch')
 class CreateProposalStatusView(generic.CreateView):
     model = ProposalStatus
     fields = "__all__"
@@ -34,6 +39,7 @@ class CreateProposalStatusView(generic.CreateView):
         return redirect('proposal_status:proposal_status_list')
 
 
+@method_decorator([login_required, admin_permissions], name='dispatch')
 class UpdateProposalStatusView(generic.UpdateView):
     model = ProposalStatus
     fields = "__all__"
@@ -46,6 +52,7 @@ class UpdateProposalStatusView(generic.UpdateView):
         return redirect('proposal_status:proposal_status_list')
 
 
+@method_decorator([login_required, admin_permissions], name='dispatch')
 class DeleteProposalStatusView(generic.DeleteView):
     model = ProposalStatus
     template_name = 'managerApp/proposalstatus/delete.html'

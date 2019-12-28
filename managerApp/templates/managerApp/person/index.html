@@ -7,9 +7,13 @@
       <h1 class="h2">Personas</h1>
       <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group mr-2">
+            {% if user.is_authenticated %}
+                 {% if user.is_admin or user.is_manager %}
             <a href="{% url 'persons:persons_create' %}" class="btn btn-outline-secondary" role="button">
                 Crear Persona
             </a>
+            {% endif %}
+                {% endif %}
         </div>
         <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
           Exportar
@@ -40,10 +44,18 @@
                 <td>{{ p.last_name_1 }} {{ p.last_name_2|default:"" }}</td>
                 <td>{{p.type}}</td>
                 <td>{{p.document_id}}</td>
+
+                
+                {% if user.is_authenticated %}
+                 {% if user.is_admin or user.is_manager %}
                 <td>
                     <a href="{% url 'persons:persons_update' p.id %}">Actualizar</a>
                     <a href="{% url 'persons:persons_delete' p.id %}">Eliminar</a>
                 </td>
+                    {% endif %}
+                {% endif %}
+
+
             </tr>
         {% endfor %}
                 </tbody>
