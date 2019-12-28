@@ -1,9 +1,21 @@
+
+<!--TODO 
+  CAMBIAR ESTE CODIGO JAVAVSCRIPT DE REDIRECCIÓN ESPANTOSO
+  POR UNA SOLUCION ELEGANTE EN DJANGO.
+-->
+{% if user.is_authenticated %}
+<script>
+window.location.replace(window.location.href.replace("/accounts/login","/proposals"))
+</script>
+{% endif %}
+
 {% load static %}
 {% load crispy_forms_tags %}
 
 <!doctype html>
 <html lang="en">
   <head>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -51,13 +63,16 @@
         {% endif %}
 
         <div class="container" style="width: 50%;">
-        <h2>Log in</h2>
+        <h2>Iniciar sesión web</h2>
             <form method="post" novalidate>
               {% csrf_token %}
               <input type="hidden" name="next" value="{{ next }}">
               {{ form.username|as_crispy_field }}
               {{ form.password|as_crispy_field }}
-              <button type="submit" class="btn btn-primary">Log in</button>
+              <button type="submit" class="btn btn-primary">Iniciar</button>
+              <a href="{% url 'home' %}" class="btn btn-outline-secondary" role="button">
+                Volver
+              </a>
         </form>
       </div>
           

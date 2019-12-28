@@ -33,14 +33,28 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'login' %}">Entrar<span class="sr-only">(current)</span></a>
+            {% if not user.is_authenticated %}
+            <a class="nav-link" href="{% url 'login' %}">Iniciar Sesión web<span class="sr-only">(current)</span></a>
+            {% endif %}
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
+            {% if not user.is_authenticated %}
+            <a class="nav-link" href="/admin">Iniciar Sesión Admin Site</a>
+            {% endif %}
           </li>
         </ul>
+
+        {% if user.is_authenticated %}
+        <ul class="navbar-nav px-3">
+          <li class="nav-item text-nowrap" style="color:white">
+            Logeado como {{ user.username }} 
+          </li>
+        </ul>
+        {% endif %}
+
       </div>
     </nav>
 
@@ -48,9 +62,25 @@
       <div class="starter-template">
         <h1>¡Bienvenido al gestor web de tesis!</h1>
         <p class="lead">
-          Aquí una descripción bla bla bla. 
-          <br> Indicando que inicie sesión el usuario. Bla bla bla</p>
-          Aquí quiero poner una imagen (algo como una toga y birrete o un diploma)
+          
+          {% if user.is_authenticated %}
+          Usted ya inició sesión, haga clic a continuación para entrar
+          <br><br>
+          <a href="{% url 'proposals:proposals_list' %}" class="btn btn-outline-primary" role="button">
+            Entrar
+          </a>
+          <br>
+          {% else %}
+          Usted no ha iniciado sesión, haga clic a continuación o arriba a la izquierda para iniciar web
+          <br><br>
+          <a href="{% url 'login' %}" class="btn btn-outline-primary" role="button">
+            Iniciar
+          </a>
+          <br>
+          {% endif %}
+          
+          <br>
+          <img src="{% static 'diploma.png' %}" width="360" height="180">
       </div>
     </main>
 
