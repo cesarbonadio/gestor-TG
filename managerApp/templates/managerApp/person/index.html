@@ -34,7 +34,11 @@
                         <th>Apellido(s)</th>
                         <th>Tipo</th>
                         <th>Cedula</th>
-                        <th>Acciones</th>
+                        {% if user.is_authenticated %}
+                            {% if user.is_admin or user.is_manager %}
+                            <th>Accciones</th>
+                            {% endif %}
+                        {% endif %}
                     </tr>
                 </thead>
                 <tbody>

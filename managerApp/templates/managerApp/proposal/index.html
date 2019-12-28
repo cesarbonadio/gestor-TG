@@ -7,9 +7,13 @@
       <h1 class="h2">Propuestas</h1>
       <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group mr-2">
+            {% if user.is_authenticated %}
+                 {% if user.is_admin or user.is_manager %}
             <a href="{% url 'proposals:proposals_create' %}" class="btn btn-outline-secondary" role="button">
                 Crear propuesta
             </a>
+            {% endif %}
+                {% endif %}
         </div>
         <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
           Exportar
@@ -28,7 +32,11 @@
                         <th>Título</th>
                         <th>Estatus</th>
                         <th>Fecha de entrega</th>
-                        <th>Accciones</th>
+                        {% if user.is_authenticated %}
+                            {% if user.is_admin or user.is_manager %}
+                            <th>Accciones</th>
+                            {% endif %}
+                        {% endif %}
                     </tr>
                 </thead>
                 <tbody>
@@ -37,10 +45,16 @@
                 <td><a href="{% url 'proposals:proposals_details' p.id %}">{{ p.title }}</a></td>
                 <td>{{p.status}}</td>
                 <td>{{p.delivery_date}}</td>
+
+                {% if user.is_authenticated %}
+                 {% if user.is_admin or user.is_manager %}
                 <td>
                     <a href="{% url 'proposals:proposals_update' p.id %}">Actualizar</a>
                     <a href="{% url 'proposals:proposals_delete' p.id %}">Eliminar</a>
                 </td>
+                {% endif %}
+                {% endif %}
+
             </tr>
         {% endfor %}
                 </tbody>

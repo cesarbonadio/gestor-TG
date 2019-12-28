@@ -7,9 +7,13 @@
       <h1 class="h2">Tesis</h1>
       <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group mr-2">
+            {% if user.is_authenticated %}
+                            {% if user.is_admin or user.is_manager %}
             <a href="{% url 'thesis:thesis_create' %}" class="btn btn-outline-secondary" role="button">
                 Crear Tesis
             </a>
+            {% endif %}
+                        {% endif %}
         </div>
         <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
           Exportar
@@ -30,7 +34,11 @@
                         <th>Estatus</th>
                         <th>NRC</th>
                         <th>Propuesta</th>
+                        {% if user.is_authenticated %}
+                            {% if user.is_admin or user.is_manager %}
                         <th>Accciones</th>
+                        {% endif %}
+                        {% endif %}
                     </tr>
                 </thead>
                 <tbody>
@@ -41,10 +49,14 @@
                 <td>{{t.status}}</td>
                 <td>{{t.nrc}}</td>
                 <td>{{t.proposal}}</td>
+                {% if user.is_authenticated %}
+                            {% if user.is_admin or user.is_manager %}
                 <td>
                     <a href="{% url 'thesis:thesis_update' t.id %}">Actualizar</a>
                     <a href="{% url 'thesis:thesis_delete' t.id %}">Eliminar</a>
                 </td>
+                {% endif %}
+                        {% endif %}
             </tr>
         {% endfor %}
                 </tbody>
