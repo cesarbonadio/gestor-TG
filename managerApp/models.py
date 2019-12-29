@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractUser
 
 '''TODO->VER LO DEL ATRIBUTOS UNIQUE'''
 '''TODO->VER SI TODOS LOS ATRIBUTOS FORANEOS LLEVAN ON_DELETE=MODELS.CASCADE'''
-'''TODO->CAMBIAR ENUM TYPE_CHOICES POR UN MODELO INDEPENDIENE'''
+'''TODO->CAMBIAR ENUM TYPE_CHOICES POR UN MODELO INDEPENDIENE '''
 
 
 
@@ -48,8 +48,6 @@ class Person(models.Model):
     def __str__(self):
         return self.first_name_1 + " " + self.last_name_1
 
-    #Overriding la clase meta para setear el verbose_name 
-    #del modelo (el que lee el usuario)
     class Meta:
         verbose_name = "Persona"
         verbose_name_plural = "Personas"
@@ -66,8 +64,6 @@ class Term(models.Model):
     def __str__(self):
         return str(self.id) + " (" + self.description + ")"
 
-    #Overriding la clase meta para setear el verbose_name 
-    #del modelo (el que lee el usuario)
     class Meta:
         verbose_name = "Terminología"
         verbose_name_plural = "Terminologías"
@@ -82,8 +78,6 @@ class ProposalStatus(models.Model):
     def __str__(self):
         return self.name
 
-    #Overriding la clase meta para setear el verbose_name 
-    #del modelo (el que lee el usuario)
     class Meta:
         verbose_name = "Estado de propuesta"
         verbose_name_plural = "Estados de propuestas"
@@ -98,8 +92,6 @@ class ThesisStatus(models.Model):
     def __str__(self):
         return self.name
 
-    #Overriding la clase meta para setear el verbose_name 
-    #del modelo (el que lee el usuario)
     class Meta:
         verbose_name = "Estado de tesis"
         verbose_name_plural = "Estados de tesis"
@@ -124,8 +116,6 @@ class Proposal(models.Model):
     def get_id(self):
         return self.id
 
-    #Overriding la clase meta para setear el verbose_name 
-    #del modelo (el que lee el usuario)
     class Meta:
         verbose_name = "Propuesta"
         verbose_name_plural = "Propuestas"
@@ -159,8 +149,6 @@ class Thesis(models.Model):
         self.id = "TG-" + str(self.proposal.get_id())
         super(Thesis, self).save(*args, **kwargs)
 
-    #Overriding la clase meta para setear el verbose_name 
-    #del modelo (el que lee el usuario)
     class Meta:
         verbose_name = "Tesis"
         verbose_name_plural = "Tesis"
@@ -187,13 +175,10 @@ class Defense(models.Model):
     def __str__(self):
         return str(self.id) + "-" +  str(self.thesis) +  "-" + str(self.grade) 
 
-
     def save(self, *args, **kwargs):
         self.id = "D-" + str(self.thesis.get_id())
         super(Defense, self).save(*args, **kwargs)
     
-    #Overriding la clase meta para setear el verbose_name 
-    #del modelo (el que lee el usuario)
     class Meta:
         verbose_name = "Defensa"
         verbose_name_plural = "Defensas"
