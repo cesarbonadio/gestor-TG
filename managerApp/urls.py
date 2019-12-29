@@ -6,6 +6,7 @@ from .views import term
 from .views import proposalstatus
 from .views import thesisstatus
 from .views import thesis
+from .views import defense
 
 
 
@@ -57,5 +58,13 @@ urlpatterns = [
         path('<str:pk>/update/', thesis.UpdateThesisView.as_view(), name='thesis_update'),
         path('<str:pk>/delete/', thesis.DeleteThesisView.as_view(), name='thesis_delete'),
     ], 'managerApp'), namespace='thesis')),
+
+    path('defense/', include(([
+        path('', defense.IndexView.as_view(), name='defense_list'),
+        path('create/', defense.CreateDefenseView.as_view(), name='defense_create'),
+        path('<str:pk>/', defense.DetailView.as_view(), name='defense_details'),
+        path('<str:pk>/update/', defense.UpdateDefenseView.as_view(), name='defense_update'),
+        path('<str:pk>/delete/', defense.DeleteDefenseView.as_view(), name='defense_delete'),
+    ], 'managerApp'), namespace='defense'))
 
 ]

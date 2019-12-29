@@ -152,6 +152,9 @@ class Thesis(models.Model):
             return str(self.proposal) 
         return self.title
 
+    def get_id(self):
+        return self.id
+
     def save(self, *args, **kwargs):
         self.id = "TG-" + str(self.proposal.get_id())
         super(Thesis, self).save(*args, **kwargs)
@@ -167,6 +170,7 @@ class Thesis(models.Model):
 #Modelo para la defensa del trabajo de grado (TG)
 class Defense(models.Model):   
 
+    id = models.CharField(max_length=100,primary_key=True)
     defense_date = models.DateTimeField(verbose_name="fecha de la defensa")
     jury_1_assistance_confirmation = models.BooleanField(default=False,verbose_name="jurado 1 asiste")
     jury_2_assistance_confirmation = models.BooleanField(default=False,verbose_name="jurado 2 asiste")
@@ -181,7 +185,12 @@ class Defense(models.Model):
     thesis = models.ForeignKey(Thesis, on_delete=models.CASCADE, related_name="thesis_defense",verbose_name="tesis asociada")
 
     def __str__(self):
-        return str(self.defense_date)
+        return str(self.id) + "-" +  str(self.thesis) +  "-" + str(self.grade) 
+
+
+    def save(self, *args, **kwargs):
+        self.id = "D-" + str(self.thesis.get_id())
+        super(Defense, self).save(*args, **kwargs)
     
     #Overriding la clase meta para setear el verbose_name 
     #del modelo (el que lee el usuario)

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+    
+    {% block content %}
+    
+    <br>
+    <h4>Detalle de defensa</h4>
+    
+    <p>
+        <br>
+        <strong>ID:&nbsp;</strong> <i>{{ defense.id }}</i><br>
+        <strong>Fecha:&nbsp;</strong> <i>{{ defense.defense_date }}</i><br>
+        <strong>Jurado 1 asiste:&nbsp;</strong> <i>{{ defense.jury_1_assistance_confirmation }}</i><br>
+        <strong>Jurado 2 asiste:&nbsp;</strong> <i>{{ defense.jury_2_assistance_confirmation }}</i><br>
+        <strong>Jurado 3 asiste:&nbsp;</strong> <i>{{ defense.jury_3_assistance_confirmation }}</i><br>
+        <strong>Calificación:&nbsp;</strong> <i>{{ defense.grade }}</i><br>
+        <strong>Mención publicación:&nbsp;</strong> <i>{{ defense.publication_mention }}</i><br>
+        <strong>Mención honorífica:&nbsp;</strong> <i>{{ defense.honorific_mention }}</i><br>
+        <strong>Se entregaron correcciones:&nbsp;</strong> <i>{{ defense.corrections_delivered }}</i><br>
+        <strong>Fecha tope de entrega de correcciones:&nbsp;</strong> <i>{{ defense.top_date_corrections }}</i><br>
+        <strong>Se subió la calificación:&nbsp;</strong> <i>{{ defense.grade_uploaded }}</i><br>
+        <strong>Observaciones:&nbsp;</strong> <i>{{ defense.observations }}</i><br>
+        <strong>Thesis:&nbsp;</strong> <i>{{ defense.thesis }}</i><br>
+
+    </p>
+
+    <a href="{% url 'thesis:thesis_list' %}" class="btn btn-outline-secondary" role="button">
+        volver
+    </a>
+
+{% endblock %}

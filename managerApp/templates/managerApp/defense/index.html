@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      <h1 class="h2">Defensas</h1>
+      <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group mr-2">
+            {% if user.is_authenticated %}
+                {% if user.is_admin or user.is_manager %}
+            <a href="{% url 'defense:defense_create' %}" class="btn btn-outline-secondary" role="button">
+                Crear Defensa
+            </a>
+                {% endif %}
+            {% endif %}
+        </div>
+        <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+          Exportar
+        </button>
+      </div>
+    </div>
+
+    <h5>Aquí deberían ir los filtros de búsqueda</h5>
+
+    {% if defense_list %}
+    
+        <div class="table-responsive">
+            <table class="table table-striped table-sm">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Calificación</th>
+                        <th>M.Publicación</th>
+                        <th>M.Honorífica</th>
+                        <th>Tesis</th>
+                        {% if user.is_authenticated %}
+                            {% if user.is_admin or user.is_manager %}
+                        <th>Accciones</th>
+                        {% endif %}
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+        {% for d in defense_list %}
+            <tr>
+                <td><a href="{% url 'defense:defense_details' d.id %}">{{ d.id }}</a></td>
+                <td>{{d.grade|default:"--"}}</td>
+                <td>{{d.publication_mention}}</td>
+                <td>{{d.honorific_mention}}</td>
+                <td>{{d.thesis}}</td>
+                {% if user.is_authenticated %}
+                            {% if user.is_admin or user.is_manager %}
+                <td>
+                    <a href="{% url 'defense:defense_update' d.id %}">Actualizar</a>
+                    <a href="{% url 'defense:defense_delete' d.id %}">Eliminar</a>
+                </td>
+                {% endif %}
+                        {% endif %}
+            </tr>
+        {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    {% else %}
+        <p>No hay defensas existentes.</p>
+    {% endif %}
+
+{% endblock %}
+
+

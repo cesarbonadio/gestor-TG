@@ -121,6 +121,17 @@
           {% endif %}
           {% endif %}
 
+          {% if user.is_authenticated %}
+            {% if user.is_guest or user.is_admin or user.is_manager %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'defense:defense_list' %}">
+              <span data-feather="clipboard"></span>
+              Defensas
+            </a>
+          </li>
+          {% endif %}
+          {% endif %}
+
         </ul>
 
 
