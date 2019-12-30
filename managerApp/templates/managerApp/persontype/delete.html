@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<form method="post">
+    {% csrf_token %}
+    <p>
+        <br>
+        <h4 class="mb-3">Eliminando Tipo de persona</h4>
+        ¿Estas seguro de que quieres eliminar este tipo de persona? "{{ persontype }}"?
+        <div style="margin-bottom: 50px; margin-top:10px">
+            <button type="submit" class="btn btn-success">guardar</button>
+            <a href="{% url 'person_type:person_type_list' %}" class="btn btn-outline-secondary" role="button">
+                volver
+            </a>
+        </div>
+    </p>
+</form>
+
+{% endblock %}

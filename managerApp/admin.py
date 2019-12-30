@@ -1,11 +1,5 @@
 from django.contrib import admin
-from .models import Person
-from .models import Term
-from .models import ProposalStatus
-from .models import ThesisStatus
-from .models import Proposal
-from .models import Thesis
-from .models import Defense
+from .models import *
 
 '''TODO-> ver si realmente es necesario el sitio de administrador'''
 
@@ -17,3 +11,4 @@ admin.site.register(ThesisStatus)
 admin.site.register(Proposal)
 admin.site.register(Thesis)
 admin.site.register(Defense)
+admin.site.register(PersonType)

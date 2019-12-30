@@ -4,8 +4,6 @@ from django.contrib.auth.models import AbstractUser
 
 '''TODO->VER LO DEL ATRIBUTOS UNIQUE'''
 '''TODO->VER SI TODOS LOS ATRIBUTOS FORANEOS LLEVAN ON_DELETE=MODELS.CASCADE'''
-'''TODO->CAMBIAR ENUM TYPE_CHOICES POR UN MODELO INDEPENDIENE '''
-
 
 
 # Para la autenticacion y autorización
@@ -20,20 +18,25 @@ class User(AbstractUser):
 
 
 
+#Modelo para el tipo de persona
+class PersonType(models.Model):
+
+    name = models.CharField(max_length=50, verbose_name="nombre")
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "Tipo de persona"
+        verbose_name_plural = "Tipos de persona"
+
+
+
+
 #Modelo para las personas
 class Person(models.Model):
 
-    PROFESSOR = 'PRO'
-    STUDENT = 'EST'
-    EXTERNAL = 'EXT'
-
-    TYPE_CHOICES = [
-        (PROFESSOR, 'Profesor'),
-        (STUDENT, 'Estudiante'),
-        (EXTERNAL, 'Externo')
-    ]
-
-    type = models.CharField(max_length=20,choices=TYPE_CHOICES, verbose_name="tipo")
+    type = models.ForeignKey(PersonType, on_delete=models.CASCADE, related_name="type_person",verbose_name="tipo de persona")
     document_id = models.IntegerField(unique=True, verbose_name="cédula") #cedula
     first_name_1 = models.CharField(max_length=100, verbose_name="primer nombre")
     first_name_2 = models.CharField(max_length=100, null=True, blank=True, verbose_name="segundo nombre")

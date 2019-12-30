@@ -49,6 +49,12 @@ def create_example_users(apps, schema_editor):
         username="invitado",
         is_guest=True
     )
+
+def create_persons_type(apps, schema_editor):
+    PersonType = apps.get_model('managerApp', 'PersonType')
+    PersonType.objects.create(name='Estudiante')
+    PersonType.objects.create(name='Profesor')
+    PersonType.objects.create(name='Externo')
     
 
 
@@ -62,5 +68,6 @@ class Migration(migrations.Migration):
         migrations.RunPython(create_proposal_status),
         migrations.RunPython(create_thesis_status),
         migrations.RunPython(create_terms),
-        migrations.RunPython(create_example_users)
+        migrations.RunPython(create_example_users),
+        migrations.RunPython(create_persons_type)
     ]

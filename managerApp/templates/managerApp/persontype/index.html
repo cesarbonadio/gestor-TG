@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      <h1 class="h2">Tipos de personas</h1>
+      <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group mr-2">
+            <a href="{% url 'person_type:person_type_create' %}" class="btn btn-outline-secondary" role="button">
+                Crear tipo de persona
+            </a>
+        </div>
+        <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+          Exportar
+        </button>
+      </div>
+    </div>
+
+    <h5>Aquí deberían ir los filtros de búsqueda</h5>
+
+    {% if person_type_list %}
+    
+        <div class="table-responsive">
+            <table class="table table-striped table-sm">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nombre</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+        {% for pt in person_type_list %}
+            <tr>
+                <td>{{ pt.id }}</td>
+                <td>{{ pt.name }}</td>
+                <td>
+                    <a href="{% url 'person_type:person_type_update' pt.id %}">Actualizar</a>
+                    <a href="{% url 'person_type:person_type_delete' pt.id %}">Eliminar</a>
+                </td>
+            </tr>
+        {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    {% else %}
+        <p>No hay tipos de personas existentes.</p>
+    {% endif %}
+
+{% endblock %}

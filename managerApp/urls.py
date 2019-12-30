@@ -7,6 +7,7 @@ from .views import proposalstatus
 from .views import thesisstatus
 from .views import thesis
 from .views import defense
+from .views import persontype
 
 
 
@@ -65,6 +66,13 @@ urlpatterns = [
         path('<str:pk>/', defense.DetailView.as_view(), name='defense_details'),
         path('<str:pk>/update/', defense.UpdateDefenseView.as_view(), name='defense_update'),
         path('<str:pk>/delete/', defense.DeleteDefenseView.as_view(), name='defense_delete'),
-    ], 'managerApp'), namespace='defense'))
+    ], 'managerApp'), namespace='defense')),
+
+    path('persontype/', include(([
+        path('', persontype.IndexView.as_view(), name='person_type_list'),
+        path('create/', persontype.CreatePersonTypeView.as_view(), name='person_type_create'),
+        path('<int:pk>/update/', persontype.UpdatePersonTypeView.as_view(), name='person_type_update'),
+        path('<int:pk>/delete/', persontype.DeletePersonTypeView.as_view(), name='person_type_delete'),
+    ], 'managerApp'), namespace='person_type'))
 
 ]
