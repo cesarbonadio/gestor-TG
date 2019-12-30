@@ -63,7 +63,7 @@ class CreateUserView(generic.CreateView):
 
     def form_valid(self, form):
         user = form.save(commit=False)
-        user.save()
+        user.save_hashing()
         messages.success(self.request, 'Fue creado un nuevo usuario')
         return redirect('user:user_list')
 

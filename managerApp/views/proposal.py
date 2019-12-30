@@ -10,10 +10,7 @@ from django.urls import reverse_lazy
 #en caso de que no existan se utilizan funciones
 from django.views import generic
 from django.urls import reverse, reverse_lazy
-
 from ..models import Proposal
-from ..forms import proposalForms
-
 from django.utils.decorators import method_decorator
 from ..decorators import *
 from django.contrib.auth.decorators import login_required
