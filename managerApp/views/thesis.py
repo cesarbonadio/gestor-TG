@@ -18,7 +18,17 @@ from django.contrib.auth.decorators import login_required
 
 
 # para no repetir
-THESIS_CRUD_FIELDS = ("title","status","nrc","descriptors","thematic_category","top_date","company_name","term","proposal")
+THESIS_CRUD_FIELDS = (
+    "title",
+    "status",
+    "nrc",
+    "descriptors",
+    "thematic_category",
+    "top_date",
+    "company_name",
+    "term",
+    "proposal"
+)
 
 @method_decorator([login_required, guest_permissions], name='dispatch')
 class IndexView(generic.ListView):

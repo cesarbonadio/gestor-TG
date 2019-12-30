@@ -25,8 +25,8 @@ def create_thesis_status(apps, schema_editor):
 
 def create_terms(apps, schema_editor):
     Term = apps.get_model('managerApp','Term')
-    Term.objects.create(id="201915", description='primer semestre del año académico')
-    Term.objects.create(id="201925", description='segundo semestre del año académico')
+    Term.objects.create(id="201915", description='primer semestre del año académico 2019')
+    Term.objects.create(id="201925", description='segundo semestre del año académico 2019')
 
 
 def create_example_users(apps, schema_editor):
