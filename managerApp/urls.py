@@ -1,14 +1,5 @@
 from django.urls import include,path
-from .views import managerApp
-from .views import proposal
-from .views import person
-from .views import term
-from .views import proposalstatus
-from .views import thesisstatus
-from .views import thesis
-from .views import defense
-from .views import persontype
-
+from .views import managerApp,proposal,person,term,proposalstatus,thesisstatus,thesis,defense,persontype,user
 
 
 urlpatterns = [
@@ -73,6 +64,14 @@ urlpatterns = [
         path('create/', persontype.CreatePersonTypeView.as_view(), name='person_type_create'),
         path('<int:pk>/update/', persontype.UpdatePersonTypeView.as_view(), name='person_type_update'),
         path('<int:pk>/delete/', persontype.DeletePersonTypeView.as_view(), name='person_type_delete'),
-    ], 'managerApp'), namespace='person_type'))
+    ], 'managerApp'), namespace='person_type')),
+
+    path('users/', include(([
+        path('', user.IndexView.as_view(), name='user_list'),
+        path('create/', user.CreateUserView.as_view(), name='user_create'),
+        path('<int:pk>/', user.DetailView.as_view(), name='user_details'),
+        path('<int:pk>/update/', user.UpdateUserView.as_view(), name='user_update'),
+        path('<int:pk>/delete/', user.DeleteUserView.as_view(), name='user_delete'),
+    ], 'managerApp'), namespace='user'))
 
 ]

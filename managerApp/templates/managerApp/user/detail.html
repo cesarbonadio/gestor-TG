@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+    
+    {% block content %}
+    
+    <br>
+    <h4>Detalle de Usuario</h4>
+    
+    <p>
+        <br>
+        <strong>Id:&nbsp;</strong> <i>{{ user_context_object.id }}</i><br>
+        <strong>Último inicio:&nbsp;</strong> <i>{{ user_context_object.last_login|default:"No ha iniciado sesión todavía" }}</i><br>
+        <strong>Nombre de usuario:&nbsp;</strong> <i>{{ user_context_object.username }}</i><br>
+        <strong>Primer nombre:&nbsp;</strong> <i>{{ user_context_object.first_name|default:"No posee" }}</i><br>
+        <strong>Apellido:&nbsp;</strong> <i>{{ user_context_object.last_name|default:"No posee" }}</i><br>
+        <strong>Email:&nbsp;</strong> <i>{{ user_context_object.email|default:"No posee" }}</i><br>
+        <strong>Fecha de creación:&nbsp;</strong> <i>{{ user_context_object.date_joined }}</i><br>
+        {% if not user_context_object.is_admin and not user.user_context_object.is_manager and user_context_object.is_guest %}
+        <strong>Tipo:&nbsp;</strong> <i>Invitado</i><br>
+        {% elif user_context_object.is_admin and not user.user_context_object.is_manager and not user_context_object.is_guest %}
+        <strong>Tipo:&nbsp;</strong> <i>Administrador</i><br>
+        {% else %}
+        <strong>Tipo:&nbsp;</strong> <i>Gestor</i><br>
+        {% endif %}
+    </p>
+
+    <a href="{% url 'user:user_list' %}" class="btn btn-outline-secondary" role="button">
+        volver
+    </a>
+
+{% endblock %}

@@ -1,20 +1,33 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.hashers import make_password
 
 
 '''TODO->VER LO DEL ATRIBUTOS UNIQUE'''
-'''TODO->VER SI TODOS LOS ATRIBUTOS FORANEOS LLEVAN ON_DELETE=MODELS.CASCADE'''
-
 
 # Para la autenticacion y autorización
 # Extender de AbstractUser
 class User(AbstractUser):
-    is_admin = models.BooleanField(default=False)
-    is_manager = models.BooleanField(default=False)
-    is_guest = models.BooleanField(default=False)
+    is_admin = models.BooleanField(default=False, verbose_name="Es administrador")
+    is_manager = models.BooleanField(default=False, verbose_name="Es gestor")
+    is_guest = models.BooleanField(default=False, verbose_name="Es invitado")
 
     def __init__(self, *args, **kwargs):
         super(User, self).__init__(*args, **kwargs)
+
+    def __str__(self):
+        return self.username
+
+    def save(self, *args, **kwargs):
+        self.password = make_password(self.password)
+        super(User, self).save(*args, **kwargs)
+    
+    def save_without_hashing(self, *args, **kwargs):
+        super(User, self).save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = "Usuario"
+        verbose_name_plural = "Usuarios"
 
 
 

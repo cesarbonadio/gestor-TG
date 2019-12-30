@@ -2,9 +2,7 @@ from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth.decorators import user_passes_test
 
 
-'''TODO->ABSTRAER ESTOS TRES METODOS EN UNO SOLO (AÑADIR PARAMETRO)'''
-
-
+#permisologias de administrador
 def admin_permissions(function=None, redirect_field_name=REDIRECT_FIELD_NAME, login_url='login'):
 
     actual_decorator = user_passes_test(
@@ -17,7 +15,7 @@ def admin_permissions(function=None, redirect_field_name=REDIRECT_FIELD_NAME, lo
     return actual_decorator
 
 
-
+#permisologias de gestor
 def manager_permissions(function=None, redirect_field_name=REDIRECT_FIELD_NAME, login_url='login'):
 
     actual_decorator = user_passes_test(
@@ -30,7 +28,7 @@ def manager_permissions(function=None, redirect_field_name=REDIRECT_FIELD_NAME, 
     return actual_decorator
 
 
-
+#permisologias de invitado
 def guest_permissions(function=None, redirect_field_name=REDIRECT_FIELD_NAME, login_url='login'):
 
     actual_decorator = user_passes_test(

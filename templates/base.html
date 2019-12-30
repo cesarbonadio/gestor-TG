@@ -150,6 +150,17 @@
           {% endif %}
           {% endif %}
 
+          {% if user.is_authenticated %}
+            {% if user.is_admin  %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'user:user_list' %}">
+              <span data-feather="user"></span>
+              Usuarios
+            </a>
+          </li>
+          {% endif %}
+          {% endif %}
+
         </ul>
 
 
