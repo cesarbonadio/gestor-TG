@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.hashers import make_password
+from django.db.models import Q, Count
+
 
 
 '''TODO->VER LO DEL ATRIBUTOS UNIQUE'''
@@ -192,7 +194,8 @@ class Defense(models.Model):
         return str(self.id) + "-" +  str(self.thesis) +  "-" + str(self.grade) 
 
     def save(self, *args, **kwargs):
-        self.id = "D-" + str(self.thesis.get_id())
+        count_defenses_related = len(list(Defense.objects.filter(thesis=self.thesis.get_id())))
+        self.id = "D" + str(count_defenses_related+1) + "-" + str(self.thesis.get_id())
         super(Defense, self).save(*args, **kwargs)
     
     class Meta:
