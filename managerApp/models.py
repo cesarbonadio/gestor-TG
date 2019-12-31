@@ -193,7 +193,7 @@ class Defense(models.Model):
     def __str__(self):
         return str(self.id) + "-" +  str(self.thesis) +  "-" + str(self.grade) 
 
-    def save(self, *args, **kwargs):
+    def save_creating(self, *args, **kwargs):
         count_defenses_related = len(list(Defense.objects.filter(thesis=self.thesis.get_id())))
         self.id = "D" + str(count_defenses_related+1) + "-" + str(self.thesis.get_id())
         super(Defense, self).save(*args, **kwargs)

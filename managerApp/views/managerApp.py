@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from . import *
 
 
 #Paginas principales para la aplicacion

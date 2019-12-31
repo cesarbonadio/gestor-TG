@@ -1,20 +1,4 @@
-from django.shortcuts import get_object_or_404, redirect, render
-from django.http import HttpResponse
-from django.template import loader
-from django.http import Http404
-from django.contrib import messages
-from django.urls import reverse_lazy
-
-#importando vistas genéricas
-#las vistas genéricas ayudan a ahorrar código
-#en caso de que no existan se utilizan funciones
-from django.views import generic
-from django.urls import reverse, reverse_lazy
-from ..models import Defense
-
-from django.utils.decorators import method_decorator
-from ..decorators import *
-from django.contrib.auth.decorators import login_required
+from . import *
 
 
 # para no repetir
@@ -57,7 +41,7 @@ class CreateDefenseView(generic.CreateView):
 
     def form_valid(self, form):
         defense = form.save(commit=False)
-        defense.save()
+        defense.save_creating()
         messages.success(self.request, 'La defensa fue creada satisfactoriamente')
         return redirect('defense:defense_list')
 
