@@ -27,8 +27,8 @@ class IndexView(generic.ListView):
     context_object_name = 'users_list'
     
     def get_queryset(self):
-        return User.objects.order_by('id')[:10]
-
+        return User.objects.order_by('id')
+        
 
 @method_decorator([login_required, admin_permissions], name='dispatch')
 class DetailView(generic.DetailView):

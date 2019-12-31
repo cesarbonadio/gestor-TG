@@ -7,7 +7,7 @@ class IndexView(generic.ListView):
     context_object_name = 'latest_propuestas'
     
     def get_queryset(self):
-        return Proposal.objects.order_by('-delivery_date')[:5]
+        return Proposal.objects.order_by('-delivery_date')
 
 
 @method_decorator([login_required, guest_permissions], name='dispatch')

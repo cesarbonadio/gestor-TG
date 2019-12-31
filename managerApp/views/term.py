@@ -6,7 +6,7 @@ class IndexView(generic.ListView):
     context_object_name = 'term_list'
     
     def get_queryset(self):
-        return Term.objects.order_by('-id')[:5]
+        return Term.objects.order_by('-id')
 
 
 @method_decorator([login_required, admin_permissions], name='dispatch')

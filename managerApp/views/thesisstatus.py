@@ -6,7 +6,7 @@ class IndexView(generic.ListView):
     context_object_name = 'thesisstatus_list'
     
     def get_queryset(self):
-        return ThesisStatus.objects.order_by('id')[:10]
+        return ThesisStatus.objects.order_by('id')
 
 
 @method_decorator([login_required, admin_permissions], name='dispatch')

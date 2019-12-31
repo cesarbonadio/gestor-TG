@@ -24,7 +24,7 @@ class IndexView(generic.ListView):
     context_object_name = 'defense_list'
     
     def get_queryset(self):
-        return Defense.objects.order_by('id')[:10]
+        return Defense.objects.order_by('thesis')
 
 
 @method_decorator([login_required, guest_permissions], name='dispatch')

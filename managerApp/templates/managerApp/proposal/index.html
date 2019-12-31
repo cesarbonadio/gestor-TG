@@ -29,6 +29,7 @@
             <table class="table table-striped table-sm">
                 <thead>
                     <tr>
+                        <th>Id</th>
                         <th>Título</th>
                         <th>Estatus</th>
                         <th>Fecha de entrega</th>
@@ -42,6 +43,7 @@
                 <tbody>
         {% for p in latest_propuestas %}
             <tr>
+                <td>{{p.id}}</td>
                 <td><a href="{% url 'proposals:proposals_details' p.id %}">{{ p.title }}</a></td>
                 <td>{{p.status}}</td>
                 <td>{{p.delivery_date}}</td>

@@ -7,7 +7,7 @@ class IndexView(generic.ListView):
     context_object_name = 'list_of_persons'
     
     def get_queryset(self):
-        return Person.objects.order_by('first_name_1')[:5]
+        return Person.objects.order_by('first_name_1')
 
 @method_decorator([login_required, guest_permissions], name='dispatch')
 class DetailView(generic.DetailView):

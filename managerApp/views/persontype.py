@@ -1,6 +1,3 @@
-#importando vistas genéricas
-#las vistas genéricas ayudan a ahorrar código
-#en caso de que no existan se utilizan funciones
 from . import *
 
 

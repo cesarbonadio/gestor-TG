@@ -20,7 +20,7 @@ class IndexView(generic.ListView):
     context_object_name = 'thesis_list'
     
     def get_queryset(self):
-        return Thesis.objects.order_by('id')[:10]
+        return Thesis.objects.order_by('id')
 
 @method_decorator([login_required, guest_permissions], name='dispatch')
 class DetailView(generic.DetailView):

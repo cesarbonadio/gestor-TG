@@ -7,7 +7,7 @@ class IndexView(generic.ListView):
     context_object_name = 'proposalstatus_list'
     
     def get_queryset(self):
-        return ProposalStatus.objects.order_by('id')[:10]
+        return ProposalStatus.objects.order_by('id')
 
 
 @method_decorator([login_required, admin_permissions], name='dispatch')
