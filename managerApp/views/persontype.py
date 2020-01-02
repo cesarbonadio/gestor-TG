@@ -41,3 +41,7 @@ class DeletePersonTypeView(generic.DeleteView):
     model = PersonType
     template_name = 'managerApp/persontype/delete.html'
     success_url = reverse_lazy('person_type:person_type_list')
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(request, "El tipo de persona fue eliminado exitosamente")
+        return super().delete(request, *args, **kwargs)

@@ -73,3 +73,7 @@ class DeleteUserView(generic.DeleteView):
     template_name = 'managerApp/user/delete.html'
     success_url = reverse_lazy('user:user_list')
     context_object_name = USER_CRUD_CONTEXT_OBJECT_NAME
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(request, "Usuario eliminado exitosamente")
+        return super().delete(request, *args, **kwargs)

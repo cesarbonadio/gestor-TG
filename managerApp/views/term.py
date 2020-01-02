@@ -40,3 +40,7 @@ class DeleteTermView(generic.DeleteView):
     model = Term
     template_name = 'managerApp/term/delete.html'
     success_url = reverse_lazy('terms:terms_list')
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(request, "Terminología eliminada exitosamente")
+        return super().delete(request, *args, **kwargs)

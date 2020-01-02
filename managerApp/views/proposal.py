@@ -45,3 +45,7 @@ class DeleteProposalView(generic.DeleteView):
     model = Proposal
     template_name = 'managerApp/proposal/delete.html'
     success_url = reverse_lazy('proposals:proposals_list')
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(request, "Propuesta eliminada exitosamente")
+        return super().delete(request, *args, **kwargs)

@@ -40,3 +40,7 @@ class DeleteThesisStatusView(generic.DeleteView):
     model = ThesisStatus
     template_name = 'managerApp/thesisstatus/delete.html'
     success_url = reverse_lazy('thesis_status:thesis_status_list')
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(request, "Estatus de tesis eliminado exitosamente")
+        return super().delete(request, *args, **kwargs)

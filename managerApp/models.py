@@ -202,3 +202,4 @@ class Defense(models.Model):
         verbose_name = "Defensa"
         verbose_name_plural = "Defensas"
 
+        

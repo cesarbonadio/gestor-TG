@@ -48,7 +48,7 @@ class UpdateThesisView(generic.UpdateView):
     def form_valid(self, form):
         thesis = form.save(commit=False)
         thesis.save()
-        messages.success(self.request, 'La propuesta fue actualizada satisfactoriamente')
+        messages.success(self.request, 'La tesis fue actualizada satisfactoriamente')
         return redirect('thesis:thesis_list')
 
 @method_decorator([login_required, manager_permissions], name='dispatch')
@@ -56,3 +56,7 @@ class DeleteThesisView(generic.DeleteView):
     model = Thesis
     template_name = 'managerApp/thesis/delete.html'
     success_url = reverse_lazy('thesis:thesis_list')
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(request, "Tesis eliminada exitosamente")
+        return super().delete(request, *args, **kwargs)

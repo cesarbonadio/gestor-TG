@@ -64,3 +64,7 @@ class DeleteDefenseView(generic.DeleteView):
     model = Defense
     template_name = 'managerApp/defense/delete.html'
     success_url = reverse_lazy('defense:defense_list')
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(request, "La defensa fue eliminada exitosamente")
+        return super().delete(request, *args, **kwargs)

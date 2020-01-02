@@ -46,3 +46,7 @@ class DeletePersonView(generic.DeleteView):
     model = Person
     template_name = 'managerApp/person/delete.html'
     success_url = reverse_lazy('persons:persons_list')
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(request, "La persona fue eliminada exitosamente")
+        return super().delete(request, *args, **kwargs)
