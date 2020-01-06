@@ -60,3 +60,16 @@ class DeleteThesisView(generic.DeleteView):
     def delete(self, request, *args, **kwargs):
         messages.success(request, "Tesis eliminada exitosamente")
         return super().delete(request, *args, **kwargs)
+
+@method_decorator([login_required, guest_permissions], name='dispatch')
+class ThesisEnEjecucionView(generic.ListView):
+    model = Thesis
+    template_name = 'managerApp/reporte/tgenejecucion/index.html'
+    context_object_name = 'thesis_list'
+    success_url = reverse_lazy('reporte:tgenejecucion')
+    paginate_by = 15
+    
+    def get_queryset(self):
+        aprobado = ThesisStatus.objects.get(name='Aprobado')
+        rechazado = ThesisStatus.objects.get(name='Rechazado')
+        return Thesis.objects.all().exclude(status=aprobado.id).exclude(status=rechazado.id).order_by('proposal__student_1__document_id')

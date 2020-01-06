@@ -178,9 +178,13 @@ class Defense(models.Model):
 
     id = models.CharField(max_length=100,primary_key=True)
     defense_date = models.DateTimeField(verbose_name="fecha de la defensa")
+    jury_1 = models.ForeignKey(Person, on_delete=models.CASCADE, related_name="jury_1_defense", verbose_name="jurado 1")
+    jury_2 = models.ForeignKey(Person, on_delete=models.CASCADE, related_name="jury_2_defense", verbose_name="jurado 2")
+    jury_suplente = models.ForeignKey(Person, on_delete=models.CASCADE, related_name="jury_suplente_defense", verbose_name="jurado suplente", null=True, blank=True)
     jury_1_assistance_confirmation = models.BooleanField(default=False,verbose_name="jurado 1 asiste")
     jury_2_assistance_confirmation = models.BooleanField(default=False,verbose_name="jurado 2 asiste")
-    jury_3_assistance_confirmation = models.BooleanField(default=False,verbose_name="jurado 3 asiste")
+    jury_suplente_assistance_confirmation = models.BooleanField(default=False,verbose_name="jurado suplente asiste")
+    tutor_assistance_confirmation = models.BooleanField(default=False,verbose_name="tutor asiste")
     grade = models.IntegerField(verbose_name="calificación") #AGregar validacion de la calificacion
     publication_mention = models.BooleanField(default=False,verbose_name="mención publicación")
     honorific_mention = models.BooleanField(default=False,verbose_name="mención honorífica")

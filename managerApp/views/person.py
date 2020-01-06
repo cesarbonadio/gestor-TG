@@ -50,3 +50,35 @@ class DeletePersonView(generic.DeleteView):
     def delete(self, request, *args, **kwargs):
         messages.success(request, "La persona fue eliminada exitosamente")
         return super().delete(request, *args, **kwargs)
+
+@method_decorator([login_required, guest_permissions], name='dispatch')
+class SelectorDeReporteView(generic.ListView):
+    template_name = 'managerApp/reporte/asignadoaprofesor/index.html'
+    context_object_name = 'list_of_persons'
+    def get_queryset(self):
+        profesor = PersonType.objects.get(name='Profesor')
+        return Person.objects.all().filter(type=profesor.id)
+
+@method_decorator([login_required, guest_permissions], name='dispatch')
+class TareasPorProfesorView(generic.ListView):
+    template_name = 'managerApp/reporte/asignadoaprofesor/index.html'
+    context_object_name = 'list_of_persons'
+    model = Person
+
+    def get_context_data(self, **kwargs):
+        query = self.request.GET.get('profesor')
+        context = super(TareasPorProfesorView, self).get_context_data(**kwargs)
+        context.update({
+            'profesor': Person.objects.get(id=query),
+            'propuestas': Proposal.objects.all().filter(academic_tutor=query),
+            'tesis': Thesis.objects.all().filter(proposal__academic_tutor=query),
+            'defensas': Defense.objects.filter(
+                 Q(jury_1=query) | Q(jury_2=query) | Q(jury_suplente=query) | Q(thesis__proposal__academic_tutor=query)
+            ),
+
+        })
+        return context
+
+    def get_queryset(self):
+        profesor = PersonType.objects.get(name='Profesor')
+        return Person.objects.all().filter(type=profesor.id)

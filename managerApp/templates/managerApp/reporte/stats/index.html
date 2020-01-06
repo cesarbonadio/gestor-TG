@@ -1,0 +1,226 @@
+{% extends 'base.html' %} {% block content %}
+
+<div
+  class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
+>
+  <h1 class="h2">
+    Estadísticas de Notas
+  </h1>
+  <div class="btn-toolbar mb-2 mb-md-0">
+    <button type="button" class="btn btn-sm btn-outline-secondary">
+      Exportar lista en PDF
+    </button>
+  </div>
+</div>
+
+{% include '../../messages.html' %} {% if term_list %}
+
+<div class="form-group">
+  <label for="term" class="mr-2">Terminología <small class="text-secondary">(ctrl + click para seleccion multiple)</small> </label>
+  <select multiple class="form-control mr-2" name="term" id="term" required>
+    <option value="">Todas</option>
+    {% for p in term_list %}
+    <option value="{{p.id}}">
+      {{p.description}}
+    </option>
+    {% endfor %}
+  </select>
+</div>
+<button
+  onclick="actualizarStats()"
+  class="btn btn-outline-primary"
+  type="submit"
+>
+  Filtrar
+</button>
+<br/><br>
+{% endif %}
+<table class="table table-striped table-sm">
+  <thead>
+    <tr>
+      <th>Terminología</th>
+      <th style="text-align: center;">Notas</th>
+    </tr>
+  </thead>
+  <tbody id="data_notas">
+    <tr>
+      <td>{{p.id}}</td>
+      <td>
+        <ul >
+
+        </ul>
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+<div class="row">
+    <div class="col-12">
+        <br />
+        <h3>Gráficos por terminología</h3>
+        <br />
+    </div>
+</div>
+<div class="row" id="chart_div">
+  <div class="col-6">
+    <canvas id="mediaChart"></canvas>
+  </div>
+  <div class="col-6">
+    <canvas id="medianChart"></canvas>
+  </div>
+  <div class="col-12">
+    <hr />
+  </div>
+  <div class="col-6">
+    <canvas id="modaChart"></canvas>
+  </div>
+  <div class="col-6">
+    <canvas id="desvChart"></canvas>
+  </div>
+</div>
+<script>
+
+
+  var endpoint = "/reporte/data/estadisticas";
+  $(document).ready(function() {
+    actualizarStats();
+  });
+
+  function actualizarStats() {
+    $("#chart_div").empty();
+    $("#chart_div").append('<div class="col-6"><canvas id="mediaChart"></canvas></div><div class="col-6"><canvas id="medianChart"></canvas></div><div class="col-12"><hr /></div><div class="col-6"><canvas id="modaChart"></canvas></div><div class="col-6"><canvas id="desvChart"></canvas></div>');
+    var mediaChart = document.getElementById("mediaChart").getContext("2d");
+    var medianChart = document.getElementById("medianChart").getContext("2d");
+    var modaChart = document.getElementById("modaChart").getContext("2d");
+    var desvChart = document.getElementById("desvChart").getContext("2d");
+    $.ajax({
+        
+      method: "GET",
+      url: endpoint + "?l_terms=" + $("#term").val(),
+      success: function(data) {
+        $("#data_notas").empty();
+        var data_html;
+        $.each( data.notas, function( key, value ) {
+            data_html = "<tr><td>"+data.terms[key]+"</td><td><ul>"
+            $.each(value, function( sec_key, sec_value){
+                data_html = data_html+"<li>"+sec_value+"</li>";
+            });
+            $("#data_notas").append(data_html+"</ul></td></tr>");
+        });
+        var meanChart = new Chart(mediaChart, {
+          type: "line",
+          data: {
+            labels: data.terms,
+            datasets: [
+              {
+                label: "Media Aritmética",
+                data: data.media,
+                borderWidth: 1,
+                borderColor: "rgba(255, 99, 132, 1)",
+                fill: false
+              }
+            ]
+          },
+          options: {
+            scales: {
+              yAxes: [
+                {
+                  ticks: {
+                    suggestedMin: 0,
+                    suggestedMax: 20
+                  }
+                }
+              ]
+            }
+          }
+        });
+        var medChart = new Chart(medianChart, {
+          type: "bar",
+          data: {
+            labels: data.terms,
+            datasets: [
+              {
+                label: "Mediana",
+                data: data.mediana,
+                borderWidth: 1,
+                backgroundColor: "rgba(54, 162, 235, 0.2)",
+                borderColor: "rgba(54, 162, 235, 1)"
+              }
+            ]
+          },
+          options: {
+            scales: {
+              yAxes: [
+                {
+                  ticks: {
+                    suggestedMin: 0,
+                    suggestedMax: 20
+                  }
+                }
+              ]
+            }
+          }
+        });
+        var modChart = new Chart(modaChart, {
+          type: "bar",
+          data: {
+            labels: data.terms,
+            datasets: [
+              {
+                label: "Moda",
+                data: data.moda,
+                borderWidth: 1,
+                backgroundColor: "rgba(255, 206, 86, 0.2)",
+                borderColor: "rgba(255, 206, 86, 1)"
+              }
+            ]
+          },
+          options: {
+            scales: {
+              yAxes: [
+                {
+                  ticks: {
+                    suggestedMin: 0,
+                    suggestedMax: 20
+                  }
+                }
+              ]
+            }
+          }
+        });
+        var desChart = new Chart(desvChart, {
+          type: "line",
+          data: {
+            labels: data.terms,
+            datasets: [
+              {
+                label: "Desviación estandar",
+                data: data.desviacion,
+                borderWidth: 1,
+                backgroundColor: "rgba(75, 192, 192, 0.2)",
+                borderColor: "rgba(75, 192, 192, 1)"
+              }
+            ]
+          },
+          options: {
+            scales: {
+              yAxes: [
+                {
+                  ticks: {
+                    suggestedMin: 0,
+                    suggestedMax: 20
+                  }
+                }
+              ]
+            }
+          }
+        });
+      },
+      error: function(error_data) {
+        console.log("error");
+        console.log(error_data);
+      }
+    });
+  }
+</script>
+{% if defensas %} {{defensas.count}} {% endif %} {% endblock %}

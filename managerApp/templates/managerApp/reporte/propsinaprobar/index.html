@@ -1,0 +1,110 @@
+{% extends 'base.html' %} {% block content %}
+
+<div
+  class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
+>
+  <h1 class="h2">Propuestas sin aprobar</h1>
+  <div class="btn-toolbar mb-2 mb-md-0">
+    <button type="button" class="btn btn-sm btn-outline-secondary">
+      Exportar PDF
+    </button>
+  </div>
+</div>
+
+{% include '../../messages.html' %} {% if propuestas_sin_aprobar %}
+
+<div class="table-responsive">
+  <table class="table table-striped table-sm">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Alumno</th>
+        <th>Terminología</th>
+        <th>Propuesta</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for p in propuestas_sin_aprobar %}
+      <tr>
+        <td>{{p.id}}</td>
+        <td>
+          {{p.student_1.last_name_1}}
+          {{p.student_1.last_name_2|default_if_none:""}},
+          {{p.student_1.first_name_1}}
+          {{p.student_1.first_name_2|default_if_none:""}}
+        </td>
+        <td>{{p.term}}</td>
+        <td>
+          <a href="{% url 'reporte:propsinaprobar_details' p.id %}"
+            >{{ p.title }}</a
+          >
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% else %}
+<p>No propuetass are available.</p>
+{% endif %} {% if is_paginated %}
+<hr />
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center pagination-sm">
+    {% if page_obj.has_previous %} {% if not search %}
+    <li class="page-item">
+      <a
+        class="page-link"
+        href="{% url 'reporte:propsinaprobar' %}?page={{ page_obj.previous_page_number }}"
+        tabindex="-1"
+      >
+        Anterior
+      </a>
+    </li>
+    {% else %}
+    <li class="page-item">
+      <a
+        class="page-link"
+        href="{% url 'reporte:propsinaprobar' %}?{{search}}&page={{ page_obj.previous_page_number }}"
+        tabindex="-1"
+        >Anterior</a
+      >
+    </li>
+    {% endif %} {% else %}
+    <li class="page-item disabled">
+      <a class="page-link" href="#" tabindex="-1">Anterior</a>
+    </li>
+    {% endif %} {% for object in page_obj.paginator.page_range %}
+    <li
+      class="page-item {% if page_obj.number == forloop.counter %} active {% endif %}"
+    >
+      <a
+        class="page-link"
+        href="{% url 'reporte:propsinaprobar' %}?page={{ forloop.counter }}"
+        >{{ forloop.counter }}</a
+      >
+    </li>
+    {% endfor %} {% if page_obj.has_next %} {% if not search %}
+    <li class="page-item">
+      <a
+        class="page-link"
+        href="{% url 'reporte:propsinaprobar' %}?page={{ page_obj.next_page_number }}"
+        >Siguiente</a
+      >
+    </li>
+    {% else %}
+    <li class="page-item">
+      <a
+        class="page-link"
+        href="{% url 'reporte:propsinaprobar' %}?{{search}}&page={{ page_obj.next_page_number }}"
+        >Siguiente</a
+      >
+    </li>
+    {% endif %} {% else %}
+    <li class="page-item disabled">
+      <a class="page-link" href="#">Siguiente</a>
+    </li>
+    {% endif %}
+  </ul>
+</nav>
+{% endif %} {% endblock %}

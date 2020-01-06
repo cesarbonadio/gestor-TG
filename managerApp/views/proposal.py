@@ -49,3 +49,19 @@ class DeleteProposalView(generic.DeleteView):
     def delete(self, request, *args, **kwargs):
         messages.success(request, "Propuesta eliminada exitosamente")
         return super().delete(request, *args, **kwargs)
+
+@method_decorator([login_required, manager_permissions], name='dispatch')
+class PropuestasSinAprobarView(generic.ListView):
+    model = Proposal
+    template_name = 'managerApp/reporte/propsinaprobar/index.html'
+    context_object_name = 'propuestas_sin_aprobar'
+    success_url = reverse_lazy('reporte:propsinaprobar')
+    paginate_by = 15
+    def get_queryset(self):
+        aprobado = ProposalStatus.objects.get(name='Aprobada')
+        return Proposal.objects.all().exclude(status=aprobado.id).order_by('student_1__document_id')
+
+@method_decorator([login_required, guest_permissions], name='dispatch')
+class PropuestasSinAprobarDetailView(generic.DetailView):
+    model = Proposal
+    template_name = 'managerApp/reporte/propsinaprobar/detail.html'

@@ -72,6 +72,21 @@ urlpatterns = [
         path('<int:pk>/', user.DetailView.as_view(), name='user_details'),
         path('<int:pk>/update/', user.UpdateUserView.as_view(), name='user_update'),
         path('<int:pk>/delete/', user.DeleteUserView.as_view(), name='user_delete'),
-    ], 'managerApp'), namespace='user'))
+    ], 'managerApp'), namespace='user')),
 
+    path('reporte/', include(([
+        path('propsinaprobar', proposal.PropuestasSinAprobarView.as_view(), name='propsinaprobar'),
+        path('propsinaprobar/<int:pk>/', proposal.PropuestasSinAprobarDetailView.as_view(), name='propsinaprobar_details'),
+        path('tgenejecucion', thesis.ThesisEnEjecucionView.as_view(), name='tgenejecucion'),
+        path('defensapendiente', defense.DefensaPendienteView.as_view(), name='defensapendiente'), 
+        path('asignadoaprofesor', person.SelectorDeReporteView.as_view(), name='asignadoaprofesor'), 
+        path('tareasdeprofesor', person.TareasPorProfesorView.as_view(), name='tareasdeprofesor'), 
+        path('actporterminologia', term.SelectorTermView.as_view(), name='actporterminologia'), 
+        path('tareasporterm', term.TareasPorTermView.as_view(), name='tareasporterm'), 
+        path('estadisticas', defense.TermSelectorView.as_view(), name='estadisticas'),
+        path('data/estadisticas', defense.TermSelectorView.get_data, name='data_estadisticas')
+
+    ], 'managerApp'), namespace='reporte')),
+    
 ]
+ 
