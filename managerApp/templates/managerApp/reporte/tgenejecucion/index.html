@@ -1,0 +1,175 @@
+{% extends 'base.html' %} {% block content %}
+
+<div
+  class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
+>
+  <h1 class="h2">TG en ejecución</h1>
+  <div class="btn-toolbar mb-2 mb-md-0">
+    <button type="button" class="btn btn-sm btn-outline-secondary">
+      Exportar lista en PDF
+    </button>
+  </div>
+</div>
+
+{% include '../../messages.html' %} {% if thesis_list %}
+
+  <table class="table table-striped table-sm">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Alumno</th>
+        <th>Terminología</th>
+        <th>Título</th>
+        <th>Opción</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for p in thesis_list %}
+      <tr>
+        <td>{{p.id}}</td>
+        <td>
+          {{p.proposal.student_1.last_name_1}}
+          {{p.proposal.student_1.last_name_2|default_if_none:""}},
+          {{p.proposal.student_1.first_name_1}}
+          {{p.proposal.student_1.first_name_2|default_if_none:""}}
+        </td>
+        <td>{{p.term}}</td>
+        <td>
+          <a
+            data-toggle="collapse" href="#TgDetail_{{p.id}}" role="button" aria-expanded="false" aria-controls="TgDetail_{{p.id}}">
+            {{p.title}}</a
+          >
+        </td>
+        <td>
+          <button type="button" class="btn btn-sm btn-outline-secondary">
+            Exportar detalle en PDF
+          </button>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="5">
+              <div class="collapse multi-collapse" id="TgDetail_{{p.id}}">
+                <div class="row">
+                  <div class="col">
+                    <div class="card card-body">
+                      <br>
+                      <h4>Detalle del Trabajo de Grado</h4>
+                      
+                      <p>
+                          <br>
+                          <strong>ID:&nbsp;</strong> <i>{{ p.id }}</i><br>
+                          <strong>Título:&nbsp;</strong> <i>{{ p.title|default:"No posee (mismo que la propuesta)" }}</i><br>
+                          <strong>Fecha tope:&nbsp;</strong> <i>{{ p.top_date }}</i><br>
+                          <strong>Estatus:&nbsp;</strong> <i>{{ p.status }}</i><br>
+                          <strong>NRC:&nbsp;</strong> <i>{{ p.nrc }}</i><br>
+                          <strong>Descriptores:&nbsp;</strong> <i>{{ p.descriptors }}</i><br>
+                          <strong>Nombre de la compañía:&nbsp;</strong> <i>{{ p.company_name }}</i><br>
+                          <strong>Terminología:&nbsp;</strong> <i>{{ p.term }}</i><br>
+                          <strong>Propuesta:&nbsp;</strong> 
+                          <a data-toggle="collapse" href="#PropDetail_{{p.id}}_{{p.proposal.id}}" role="button" aria-expanded="false" aria-controls="PropDetail_{{p.id}}_{{p.proposal.id}}">
+                            <i>{{ p.proposal }}</i>
+                          </a><br>
+                      </p>
+             
+                    </div>
+                  </div>
+                  <div class="col">
+                      <div class="collapse multi-collapse" id="PropDetail_{{p.id}}_{{p.proposal.id}}">
+                        <div class="card card-body">
+                          <br>
+                          <h4>Detalle de la propuesta</h4>
+                          
+                          <p>
+                              <br>
+                              <strong>Título:&nbsp;</strong> <i>{{ p.proposal.title }}</i><br>
+                              <strong>Fecha que fue entregada:&nbsp;</strong> <i>{{ p.proposal.delivery_date }}</i><br>
+                              <strong>Estatus:&nbsp;</strong> <i>{{ p.proposal.status }}</i><br>
+                              {% if not p.proposal.student_2 %}
+                                  <strong>Estudiante:&nbsp;</strong> <i>{{ p.proposal.student_1 }}</i><br>
+                              {% else %}
+                                  <strong>Estudiantes:&nbsp;</strong> <i>{{ p.proposal.student_1 }}</i> y <i>{{ p.proposal.student_1 }}</i><br>
+                              {% endif %}
+                              <strong>Tutor académico:&nbsp;</strong> <i>{{ p.proposal.academic_tutor }}</i><br>
+                              <strong>Tutor empresarial:&nbsp;</strong> <i>{{ p.proposal.company_tutor }}</i><br>
+                              <strong>Terminología:&nbsp;</strong> <i>{{ p.proposal.term }}</i><br>
+                          </p>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+
+
+
+
+
+{% else %}
+<p>No propuetas are available.</p>
+{% endif %} {% if is_paginated %}
+<hr />
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center pagination-sm">
+    {% if page_obj.has_previous %} {% if not search %}
+    <li class="page-item">
+      <a
+        class="page-link"
+        href="{% url 'reporte:tgenejecucion' %}?page={{ page_obj.previous_page_number }}"
+        tabindex="-1"
+      >
+        Anterior
+      </a>
+    </li>
+    {% else %}
+    <li class="page-item">
+      <a
+        class="page-link"
+        href="{% url 'reporte:tgenejecucion' %}?{{search}}&page={{ page_obj.previous_page_number }}"
+        tabindex="-1"
+        >Anterior</a
+      >
+    </li>
+    {% endif %} {% else %}
+    <li class="page-item disabled">
+      <a class="page-link" href="#" tabindex="-1">Anterior</a>
+    </li>
+    {% endif %} {% for object in page_obj.paginator.page_range %}
+    <li
+      class="page-item {% if page_obj.number == forloop.counter %} active {% endif %}"
+    >
+      <a
+        class="page-link"
+        href="{% url 'reporte:tgenejecucion' %}?page={{ forloop.counter }}"
+        >{{ forloop.counter }}</a
+      >
+    </li>
+    {% endfor %} {% if page_obj.has_next %} {% if not search %}
+    <li class="page-item">
+      <a
+        class="page-link"
+        href="{% url 'reporte:tgenejecucion' %}?page={{ page_obj.next_page_number }}"
+        >Siguiente</a
+      >
+    </li>
+    {% else %}
+    <li class="page-item">
+      <a
+        class="page-link"
+        href="{% url 'reporte:tgenejecucion' %}?{{search}}&page={{ page_obj.next_page_number }}"
+        >Siguiente</a
+      >
+    </li>
+    {% endif %} {% else %}
+    <li class="page-item disabled">
+      <a class="page-link" href="#">Siguiente</a>
+    </li>
+    {% endif %}
+  </ul>
+</nav>
+{% endif %} {% endblock %}

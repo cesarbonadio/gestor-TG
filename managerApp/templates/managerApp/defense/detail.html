@@ -9,18 +9,49 @@
         <br>
         <strong>ID:&nbsp;</strong> <i>{{ defense.id }}</i><br>
         <strong>Fecha:&nbsp;</strong> <i>{{ defense.defense_date }}</i><br>
-        <strong>Jurado 1 asiste:&nbsp;</strong> <i>{{ defense.jury_1_assistance_confirmation }}</i><br>
-        <strong>Jurado 2 asiste:&nbsp;</strong> <i>{{ defense.jury_2_assistance_confirmation }}</i><br>
-        <strong>Jurado 3 asiste:&nbsp;</strong> <i>{{ defense.jury_3_assistance_confirmation }}</i><br>
+        <strong>Jurado 1:&nbsp;</strong> <i>{{ defense.jury_1 }}</i><br>
+        <strong><i>
+            Jurado 1 
+            {% if not defense.jury_1_assistance_confirmation %} 
+                no
+            {% endif %}
+            asiste
+        </i></strong><br>
+        <strong>Jurado 2:&nbsp;</strong> <i>{{ defense.jury_2 }}</i><br>
+        <strong><i>
+            Jurado 2
+            {% if not defense.jury_2_assistance_confirmation %} 
+                no
+            {% endif %}
+            asiste
+        </i></strong><br>
+        {% if defense.jury_suplente %}
+        <strong>Jurado Suplente:&nbsp;</strong> <i>{{ defense.jury_suplente }}</i><br>
+        <strong><i>
+            Jurado Suplente
+            {% if not defense.jury_suplente_assistance_confirmation %} 
+                no
+            {% endif %}
+            asiste
+        </i></strong><br>
+        {% endif %}
         <strong>Calificación:&nbsp;</strong> <i>{{ defense.grade }}</i><br>
-        <strong>Mención publicación:&nbsp;</strong> <i>{{ defense.publication_mention }}</i><br>
-        <strong>Mención honorífica:&nbsp;</strong> <i>{{ defense.honorific_mention }}</i><br>
-        <strong>Se entregaron correcciones:&nbsp;</strong> <i>{{ defense.corrections_delivered }}</i><br>
         <strong>Fecha tope de entrega de correcciones:&nbsp;</strong> <i>{{ defense.top_date_corrections }}</i><br>
-        <strong>Se subió la calificación:&nbsp;</strong> <i>{{ defense.grade_uploaded }}</i><br>
         <strong>Observaciones:&nbsp;</strong> <i>{{ defense.observations }}</i><br>
         <strong>Thesis:&nbsp;</strong> <i>{{ defense.thesis }}</i><br>
-
+        <strong>Detalles:</strong><br>
+        {% if defense.publication_mention %}
+        <i>Mención publicación&nbsp;</i><br>
+        {% endif %}
+        {% if defense.honorific_mention %}
+        <i>Mención honorífica&nbsp;</i><br>
+        {% endif %}
+        {% if defense.corrections_delivered %}
+        <i>Se entregaron correcciones&nbsp;</i><br>
+        {% endif %}
+        {% if defense.grade_uploaded %}
+        <i>Se subió la calificación&nbsp;</i><br>
+        {% endif %}
     </p>
 
     <a href="{% url 'defense:defense_list' %}" class="btn btn-outline-secondary" role="button">

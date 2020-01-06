@@ -44,3 +44,30 @@ class DeleteTermView(generic.DeleteView):
     def delete(self, request, *args, **kwargs):
         messages.success(request, "Terminología eliminada exitosamente")
         return super().delete(request, *args, **kwargs)
+
+@method_decorator([login_required, guest_permissions], name='dispatch')
+class SelectorTermView(generic.ListView):
+    template_name = 'managerApp/reporte/actporterminologia/index.html'
+    context_object_name = 'list_of_terms'
+    def get_queryset(self):
+        return Term.objects.all()
+
+@method_decorator([login_required, guest_permissions], name='dispatch')
+class TareasPorTermView(generic.ListView):
+    template_name = 'managerApp/reporte/actporterminologia/index.html'
+    context_object_name = 'list_of_terms'
+    model = Term
+
+    def get_context_data(self, **kwargs):
+        query = self.request.GET.get('terminologia')
+        context = super(TareasPorTermView, self).get_context_data(**kwargs)
+        context.update({
+            'terminologia': Term.objects.get(id=query),
+            'propuestas': Proposal.objects.all().filter(term=query),
+            'tesis': Thesis.objects.all().filter(term=query),
+            'defensas': Defense.objects.all(),
+        })
+        return context
+
+    def get_queryset(self):
+        return Term.objects.all()
