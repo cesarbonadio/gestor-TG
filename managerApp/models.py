@@ -39,6 +39,7 @@ class User(AbstractUser):
 class PersonType(models.Model):
 
     name = models.CharField(max_length=50, verbose_name="nombre")
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.name
@@ -81,6 +82,7 @@ class Term(models.Model):
     
     id = models.IntegerField(primary_key=True, verbose_name="código terminología (Ej:201915)")
     description = models.CharField(max_length=50, verbose_name="descripción")
+    history = HistoricalRecords()
 
     def __str__(self):
         return str(self.id) + " (" + self.description + ")"
@@ -95,6 +97,7 @@ class Term(models.Model):
 class ProposalStatus(models.Model):
     
     name = models.CharField(max_length=20, verbose_name="nombre")
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.name
@@ -109,6 +112,7 @@ class ProposalStatus(models.Model):
 class ThesisStatus(models.Model):
     
     name = models.CharField(max_length=20, verbose_name="nombre")
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.name
