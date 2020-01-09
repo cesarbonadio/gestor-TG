@@ -55,6 +55,196 @@ def create_persons_type(apps, schema_editor):
     PersonType.objects.create(name='Estudiante')
     PersonType.objects.create(name='Profesor')
     PersonType.objects.create(name='Externo')
+
+
+def create_students(apps,schema_editor):
+    Person = apps.get_model('managerApp','Person')
+    PersonType = apps.get_model('managerApp', 'PersonType')
+    Student_type = PersonType.objects.get(name="Estudiante")
+
+    Person.objects.create(
+        type=Student_type,
+        document_id=27187092,
+        first_name_1="César",
+        first_name_2="Augusto",
+        last_name_1="Bonadío",
+        last_name_2="Martínez",
+        ucab_mail="cabonadio.16@est.ucab.edu.ve",
+        personal_mail="cesarbonadio123@gmail.com",
+        phone_1="lolitwontbepublic"
+    )
+
+    Person.objects.create(
+        type=Student_type,
+        document_id=45232120,
+        first_name_1="Baltasar",
+        last_name_1="Akil",
+        last_name_2="Ganzarain",
+        ucab_mail="baganzarain.16@est.ucab.edu.ve",
+        personal_mail="baganzarain@gmail.com",
+        phone_1="+58(636)-9552133"
+    )
+
+    
+def create_teachers(apps, schema_editor):
+    Person = apps.get_model('managerApp','Person')
+    PersonType = apps.get_model('managerApp', 'PersonType')
+    Teacher_type = PersonType.objects.get(name="Profesor")
+
+    Person.objects.create(
+        type=Teacher_type,
+        document_id=47526125,
+        first_name_1="Gladis",
+        last_name_1="Cusme",
+        last_name_2="Querencia",
+        ucab_mail="gcquerencia@ucab.edu.ve",
+        personal_mail="gcquerencia@gmail.com",
+        phone_1="+58(636)-9462133"
+    )
+
+    Person.objects.create(
+        type=Teacher_type,
+        document_id=38592154,
+        first_name_1="Vicente",
+        last_name_1="Xamena",
+        last_name_2="Carbone",
+        ucab_mail="vxamera@ucab.edu.ve",
+        personal_mail="vxamera@gmail.com",
+        phone_1="+58(131)-8888137"
+    )
+
+    Person.objects.create(
+        type=Teacher_type,
+        document_id=39562120,
+        first_name_1="Susana",
+        first_name_2="Marina",
+        last_name_1="Rocco",
+        last_name_2="Paret",
+        ucab_mail="smparet@ucab.edu.ve",
+        personal_mail="smparet@gmail.com",
+        phone_1="+58(131)-1110708"
+    )
+
+
+def create_externals(apps, schema_editor):
+    Person = apps.get_model('managerApp','Person')
+    PersonType = apps.get_model('managerApp', 'PersonType')
+    External_type = PersonType.objects.get(name="Externo")
+
+    Person.objects.create(
+        type=External_type,
+        document_id=49562321,
+        first_name_1="Ángel",
+        last_name_1="Abubakar",
+        last_name_2="Senghor",
+        personal_mail="hpsenghor15@yopmail.com",
+        phone_1="+58(545)-8114748"
+    )
+
+
+def create_proposals(apps,schema_editor):
+    Proposal = apps.get_model('managerApp','Proposal')
+    Person = apps.get_model('managerApp','Person')
+    Term = apps.get_model('managerApp','Term')
+    ProposalStatus = apps.get_model('managerApp','ProposalStatus')
+
+    Proposal.objects.create(
+        delivery_date="2019-12-12 16:42:12",
+        title="propuesta de ejemplo python",
+        status=ProposalStatus.objects.get(name="Por evaluar"),
+        student_1=Person.objects.get(document_id=27187092),
+        academic_tutor=Person.objects.get(document_id=47526125),
+        company_tutor=Person.objects.get(document_id=49562321),
+        term=Term.objects.get(id="201915")
+    )
+
+    Proposal.objects.create(
+        delivery_date="2019-10-12 12:42:12",
+        title="otra propuesta de ejemplo python",
+        status=ProposalStatus.objects.get(name="Por evaluar"),
+        student_1=Person.objects.get(document_id=45232120),
+        academic_tutor=Person.objects.get(document_id=47526125),
+        company_tutor=Person.objects.get(document_id=49562321),
+        term=Term.objects.get(id="201915")
+    )
+
+
+def create_thesis(apps,schema_editor):
+    Thesis = apps.get_model('managerApp','Thesis')
+    Term = apps.get_model('managerApp','Term')
+    ThesisStatus = apps.get_model('managerApp','ThesisStatus')
+    Proposal = apps.get_model('managerApp','Proposal')
+
+    Thesis.objects.create(
+        id="TG-1",
+        title="tesis de ejemplo python",
+        status=ThesisStatus.objects.get(name="Por entregar"),
+        nrc=465464,
+        descriptors="descriptores tesis de ejemplo python",
+        thematic_category="categoría temática tesis ejemplo python",
+        top_date="2020-12-12 16:42:12",
+        company_name="compañia ejemplo tesis python",
+        term=Term.objects.get(id="201925"),
+        proposal=Proposal.objects.get(title="propuesta de ejemplo python")
+    )
+
+    Thesis.objects.create(
+        id="TG-2",
+        title=" otra tesis de ejemplo python",
+        status=ThesisStatus.objects.get(name="Aprobado"),
+        nrc=456978,
+        descriptors="descriptores otra tesis de ejemplo python",
+        thematic_category="categoría temática otra tesis ejemplo python",
+        top_date="2020-10-12 16:42:12",
+        company_name="otra compañia ejemplo tesis python",
+        term=Term.objects.get(id="201925"),
+        proposal=Proposal.objects.get(title="otra propuesta de ejemplo python")
+    )
+
+def create_defenses(apps,schema_editor):
+    Defense = apps.get_model('managerApp','Defense')
+    Person = apps.get_model('managerApp','Person')
+    Thesis = apps.get_model('managerApp','Thesis')
+
+    Defense.objects.create(
+       id="D1-TG-1",
+       defense_date="2020-06-12 11:00:00",
+       jury_1=Person.objects.get(document_id=47526125),
+       jury_2=Person.objects.get(document_id=38592154),
+       jury_suplente=Person.objects.get(document_id=39562120),
+       jury_1_assistance_confirmation=True,
+       jury_2_assistance_confirmation=True,
+       jury_suplente_assistance_confirmation=False,
+       tutor_assistance_confirmation=True,
+       publication_mention=False,
+       honorific_mention=False,
+       corrections_delivered=False,
+       top_date_corrections="2020-05-12 11:00:00",
+       grade_uploaded=False,
+       observations="observaciones de ejemplo defensas",
+       thesis=Thesis.objects.get(id="TG-1")
+    )
+
+    Defense.objects.create(
+       id="D1-TG-2",
+       defense_date="2020-08-12 11:00:00",
+       jury_1=Person.objects.get(document_id=47526125),
+       jury_2=Person.objects.get(document_id=38592154),
+       jury_suplente=Person.objects.get(document_id=39562120),
+       jury_1_assistance_confirmation=True,
+       jury_2_assistance_confirmation=True,
+       jury_suplente_assistance_confirmation=False,
+       tutor_assistance_confirmation=True,
+       grade=20,
+       publication_mention=True,
+       honorific_mention=True,
+       corrections_delivered=True,
+       top_date_corrections="2020-05-12 11:00:00",
+       grade_uploaded=True,
+       observations="observaciones de ejemplo defensa 2",
+       thesis=Thesis.objects.get(id="TG-2")
+    )
+
     
 
 
@@ -69,5 +259,11 @@ class Migration(migrations.Migration):
         migrations.RunPython(create_thesis_status),
         migrations.RunPython(create_terms),
         migrations.RunPython(create_example_users),
-        migrations.RunPython(create_persons_type)
+        migrations.RunPython(create_persons_type),
+        migrations.RunPython(create_students),
+        migrations.RunPython(create_teachers),
+        migrations.RunPython(create_externals),
+        migrations.RunPython(create_proposals),
+        migrations.RunPython(create_thesis),
+        migrations.RunPython(create_defenses)
     ]
