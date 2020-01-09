@@ -57,7 +57,7 @@ class TareasPorTermView(generic.ListView):
     template_name = 'managerApp/reporte/actporterminologia/index.html'
     context_object_name = 'list_of_terms'
     model = Term
-
+  
     def get_context_data(self, **kwargs):
         query = self.request.GET.get('terminologia')
         context = super(TareasPorTermView, self).get_context_data(**kwargs)
@@ -65,7 +65,7 @@ class TareasPorTermView(generic.ListView):
             'terminologia': Term.objects.get(id=query),
             'propuestas': Proposal.objects.all().filter(term=query),
             'tesis': Thesis.objects.all().filter(term=query),
-            'defensas': Defense.objects.all(),
+            'defensas': Defense.objects.all().filter(thesis__term=query),
         })
         return context
 

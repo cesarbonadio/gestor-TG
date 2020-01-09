@@ -1,20 +1,27 @@
-{% extends 'base.html' %} {% block content %}
-
-<div
-  class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
->
-  <h1 class="h2">TG en ejecución</h1>
-  <div class="btn-toolbar mb-2 mb-md-0">
-    <a href="/pdf/tgenejecucion" type="button" class="btn btn-sm btn-outline-secondary mr-2">
-      Exportar lista en PDF
-    </a>
-    <a href="/pdf/tgenejecucion_detalle" type="button" class="btn btn-sm btn-outline-secondary">
-      Exportar lista con detalle en PDF
-    </a>
-  </div>
-</div>
-
-{% include '../../messages.html' %} {% if thesis_list %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>TG en ejecución</title>
+    <style>
+        tr{
+            border:1px solid black;
+            padding: 3px;
+            background-color: black;
+        }
+        tr:nth-child(2n){
+            font-weight: bold;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <div class="card-header">
+          <h3>TG en ejecución</h3>
+        </div>
+        {{ today }} 
+        {% if thesis %}
 
   <table class="table table-striped table-sm">
     <thead>
@@ -26,7 +33,7 @@
       </tr>
     </thead>
     <tbody>
-      {% for p in thesis_list %}
+      {% for p in thesis %}
       <tr>
         <td>{{p.id}}</td>
         <td>
@@ -37,10 +44,7 @@
         </td>
         <td>{{p.term}}</td>
         <td>
-          <a
-            data-toggle="collapse" href="#TgDetail_{{p.id}}" role="button" aria-expanded="false" aria-controls="TgDetail_{{p.id}}">
-            {{p.title}}</a
-          >
+            {{p.title}}
         </td>
       </tr>
       <tr>
@@ -101,72 +105,8 @@
     </tbody>
   </table>
 </div>
-
-
-
-
-
-
-{% else %}
-<p>No propuetas are available.</p>
-{% endif %} {% if is_paginated %}
-<hr />
-<nav aria-label="Page navigation example">
-  <ul class="pagination justify-content-center pagination-sm">
-    {% if page_obj.has_previous %} {% if not search %}
-    <li class="page-item">
-      <a
-        class="page-link"
-        href="{% url 'reporte:tgenejecucion' %}?page={{ page_obj.previous_page_number }}"
-        tabindex="-1"
-      >
-        Anterior
-      </a>
-    </li>
-    {% else %}
-    <li class="page-item">
-      <a
-        class="page-link"
-        href="{% url 'reporte:tgenejecucion' %}?{{search}}&page={{ page_obj.previous_page_number }}"
-        tabindex="-1"
-        >Anterior</a
-      >
-    </li>
-    {% endif %} {% else %}
-    <li class="page-item disabled">
-      <a class="page-link" href="#" tabindex="-1">Anterior</a>
-    </li>
-    {% endif %} {% for object in page_obj.paginator.page_range %}
-    <li
-      class="page-item {% if page_obj.number == forloop.counter %} active {% endif %}"
-    >
-      <a
-        class="page-link"
-        href="{% url 'reporte:tgenejecucion' %}?page={{ forloop.counter }}"
-        >{{ forloop.counter }}</a
-      >
-    </li>
-    {% endfor %} {% if page_obj.has_next %} {% if not search %}
-    <li class="page-item">
-      <a
-        class="page-link"
-        href="{% url 'reporte:tgenejecucion' %}?page={{ page_obj.next_page_number }}"
-        >Siguiente</a
-      >
-    </li>
-    {% else %}
-    <li class="page-item">
-      <a
-        class="page-link"
-        href="{% url 'reporte:tgenejecucion' %}?{{search}}&page={{ page_obj.next_page_number }}"
-        >Siguiente</a
-      >
-    </li>
-    {% endif %} {% else %}
-    <li class="page-item disabled">
-      <a class="page-link" href="#">Siguiente</a>
-    </li>
-    {% endif %}
-  </ul>
-</nav>
-{% endif %} {% endblock %}
+{% endif %}
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Propuestas sin aprobar</title>
+    <style>
+      tr {
+        border: 1px solid black;
+        padding: 3px;
+        background-color: black;
+      }
+      tr:nth-child(2n) {
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <div class="card-header">
+          <h3>Propuestas sin aprobar</h3>
+        </div>
+        {{ today }} {% if propuestas %}
+
+        <div class="table-responsive">
+          <table class="table table-striped table-sm">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Alumno</th>
+                <th>Terminología</th>
+                <th>Propuesta</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for p in propuestas %}
+              <tr>
+                <td>{{p.id}}</td>
+                <td>
+                  {{p.student_1.last_name_1}}
+                  {{p.student_1.last_name_2|default_if_none:""}},
+                  {{p.student_1.first_name_1}}
+                  {{p.student_1.first_name_2|default_if_none:""}}
+                </td>
+                <td>{{p.term}}</td>
+                <td>
+                  {{ p.title }}
+                </td>
+              </tr>
+              <tr>
+                <td colspan="4">
+                  <div
+                    class="collapse multi-collapse"
+                    id="TgDetail_{{p.id}}_{{p.thesis.id}}"
+                  >
+                    <div class="row">
+                      <div class="col-6">
+                        <div
+                          class="collapse multi-collapse"
+                          id="PropDetail_{{p.id}}_{{p.thesis.id}}_{{p.id}}"
+                        >
+                          <div class="card card-body">
+                            <h4>Detalle de la propuesta</h4>
+                            <p>
+                              <strong>Título:&nbsp;</strong>
+                              <i>{{ p.title }}</i><br />
+                              <strong>Fecha que fue entregada:&nbsp;</strong>
+                              <i>{{ p.delivery_date }}</i><br />
+                              <strong>Estatus:&nbsp;</strong>
+                              <i>{{ p.status }}</i><br />
+                              {% if not p.student_2 %}
+                              <strong>Estudiante:&nbsp;</strong>
+                              <i>{{ p.student_1 }}</i><br />
+                              {% else %}
+                              <strong>Estudiantes:&nbsp;</strong>
+                              <i>{{ p.student_1 }}</i> y
+                              <i>{{ p.student_1 }}</i><br />
+                              {% endif %}
+                              <strong>Tutor académico:&nbsp;</strong>
+                              <i>{{ p.academic_tutor }}</i
+                              ><br />
+                              <strong>Tutor empresarial:&nbsp;</strong>
+                              <i>{{ p.company_tutor }}</i><br />
+                              <strong>Terminología:&nbsp;</strong>
+                              <i>{{ p.term }}</i><br />
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+        {% endif %}
+      </div>
+    </div>
+  </body>
+</html>

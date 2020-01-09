@@ -8,9 +8,14 @@
     {{profesor.last_name_1}} {{profesor.last_name_2|default_if_none:""}}
   </h1>
   <div class="btn-toolbar mb-2 mb-md-0">
-    <button type="button" class="btn btn-sm btn-outline-secondary">
+    {% if profesor %}
+    <a href="/pdf/tareasdeprofesor?profesor={{profesor.id}}" type="button" class="btn btn-sm btn-outline-secondary mr-2">
       Exportar lista en PDF
-    </button>
+    </a>
+    <a href="/pdf/tareasdeprofesor_detalle?profesor={{profesor.id}}" type="button" class="btn btn-sm btn-outline-secondary">
+      Exportar lista con detalle en PDF
+    </a>
+    {% endif %}
   </div>
 </div>
 
@@ -43,7 +48,6 @@
       <th>Tipo de tarea</th>
       <th>Asignado como</th>
       <th>Título</th>
-      <th>Opción</th>
     </tr>
   </thead>
   <tbody>
@@ -64,11 +68,6 @@
         >
           {{p.title}}</a
         >
-      </td>
-      <td>
-        <button type="button" class="btn btn-sm btn-outline-secondary">
-          Exportar detalle en PDF
-        </button>
       </td>
     </tr>
     <tr>
@@ -123,11 +122,7 @@
           {{p.title}}</a
         >
       </td>
-      <td>
-        <button type="button" class="btn btn-sm btn-outline-secondary">
-          Exportar detalle en PDF
-        </button>
-      </td>
+
     </tr>
     <tr>
       <td colspan="5">
@@ -185,11 +180,7 @@
           Defensa {{p.thesis.title}}</a
         >
       </td>
-      <td>
-        <button type="button" class="btn btn-sm btn-outline-secondary">
-          Exportar detalle en PDF
-        </button>
-      </td>
+
     </tr>
     <tr>
       <td colspan="5">

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Notas por terminología</title>
+    <style>
+        tr{
+            border:1px solid black;
+            padding: 3px;
+            background-color: black;
+        }
+        tr:nth-child(2n){
+            font-weight: bold;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <div class="card-header">
+          <h3>Notas por terminología</h3>
+        </div>
+        {{ today }}
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th>Terminología</th>
+              <th style="text-align: center;">Notas</th>
+            </tr>
+          </thead>
+          <tbody id="data_notas">
+            {% for p in terms %}
+            <tr>
+              <td>{{p.name}}</td>
+              <td>
+                <ul>
+                    {% for n in p.notas %}
+                        <li>{{n}}</li>
+                    {% endfor %}
+                </ul>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,5 +1,5 @@
 from django.urls import include,path
-from .views import managerApp,proposal,person,term,proposalstatus,thesisstatus,thesis,defense,persontype,user
+from .views import managerApp,proposal,person,term,proposalstatus,thesisstatus,thesis,defense,persontype,user,pdf
 
 
 urlpatterns = [
@@ -84,9 +84,23 @@ urlpatterns = [
         path('actporterminologia', term.SelectorTermView.as_view(), name='actporterminologia'), 
         path('tareasporterm', term.TareasPorTermView.as_view(), name='tareasporterm'), 
         path('estadisticas', defense.TermSelectorView.as_view(), name='estadisticas'),
-        path('data/estadisticas', defense.TermSelectorView.get_data, name='data_estadisticas')
-
+        path('data/estadisticas', defense.TermSelectorView.get_data, name='data_estadisticas'),
     ], 'managerApp'), namespace='reporte')),
-    
+
+    path('pdf/', include(([
+        path('actporterminologia',pdf.ActPorTerm.as_view(),name='pdf_actporterminologia'),
+        path('actporterminologia_detalle',pdf.ActPorTermDet.as_view(),name='pdf_actporterminologiadet'),
+        path('estadisticas_notas',pdf.StatsNotas.as_view(),name='pdf_estadisticas_notas'),
+        path('tareasdeprofesor',pdf.TareasProfesor.as_view(),name='pdf_tareasdeprofesor'),
+        path('tareasdeprofesor_detalle',pdf.TareasProfesorDetalle.as_view(),name='pdf_tareasdeprofesordet'),
+        path('defensapendiente',pdf.DefensasPendientes.as_view(),name='pdf_defensapendiente'),
+        path('defensapendiente_detalle',pdf.DefensasPendientesDetalle.as_view(),name='pdf_defensapendientedet'),
+        path('tgenejecucion',pdf.TgEjecucion.as_view(),name='pdf_tgenejecucion'),
+        path('tgenejecucion_detalle',pdf.TgEjecucionDetalle.as_view(),name='pdf_tgenejecuciondet'),
+        path('propsinaprobar',pdf.PropuestasSinAprobar.as_view(),name='pdf_propsinaprobar'),
+        path('propsinaprobar_detalle',pdf.PropuestasSinAprobarDetalle.as_view(),name='pdf_propsinaprobardet'),
+
+    ], 'managerApp'), namespace='pdf'))
+
 ]
  

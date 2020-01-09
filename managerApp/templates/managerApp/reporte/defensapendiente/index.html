@@ -5,9 +5,12 @@
 >
   <h1 class="h2">Defensas sin realizar</h1>
   <div class="btn-toolbar mb-2 mb-md-0">
-    <button type="button" class="btn btn-sm btn-outline-secondary">
+    <a href="/pdf/defensapendiente" type="button" class="btn btn-sm btn-outline-secondary mr-2">
       Exportar lista en PDF
-    </button>
+    </a>
+    <a href="/pdf/defensapendiente_detalle" type="button" class="btn btn-sm btn-outline-secondary">
+      Exportar lista con detalle en PDF
+    </a>
   </div>
 </div>
 
@@ -20,7 +23,6 @@
         <th>Alumno</th>
         <th>Terminología</th>
         <th>Título</th>
-        <th>Opción</th>
       </tr>
     </thead>
     <tbody>
@@ -39,11 +41,6 @@
             data-toggle="collapse" href="#TgDetail_{{p.id}}_{{p.thesis.id}}" role="button" aria-expanded="false" aria-controls="TgDetail_{{p.id}}_{{p.thesis.id}}">
             {{p.thesis.title}}</a
           >
-        </td>
-        <td>
-          <button type="button" class="btn btn-sm btn-outline-secondary">
-            Exportar detalle en PDF
-          </button>
         </td>
       </tr>
       <tr>

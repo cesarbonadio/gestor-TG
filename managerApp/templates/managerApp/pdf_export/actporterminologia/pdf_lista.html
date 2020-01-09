@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Tareas por terminología</title>
+    <style>
+        tr{
+            border:1px solid black;
+            padding: 3px;
+            background-color: black;
+        }
+        tr:nth-child(2n){
+            font-weight: bold;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <div class="card-header">
+          <h3>Tareas por terminología {{term.description}}</h3>
+        </div>
+        {{ today }}
+        {% if propuestas or defensas or tesis %}
+        <br />
+        <br>
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Tipo de tarea</th>
+              <th>Título</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for p in propuestas %}
+            <tr>
+              <td>{{p.id}}</td>
+              <td>
+                Propuesta
+              </td>
+              <td>
+                  {{p.title}}
+              </td>
+            </tr>
+            {% endfor %} {% for p in tesis %}
+            <tr>
+              <td>{{p.id}}</td>
+              <td>
+                Tesis
+              </td>
+              <td>
+                  {{p.title}}
+              </td>
+            </tr>
+            {% endfor %} {% for p in defensas %}
+            <tr>
+              <td>{{p.id}}</td>
+              <td>
+                Defensa
+              </td>
+              <td>
+                  {{p.thesis.title}}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        {% endif %}
+      </div>
+    </div>
+  </body>
+</html>
