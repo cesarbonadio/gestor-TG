@@ -1,5 +1,4 @@
 cycler==0.10.0
-Django==2.2.7
 django-crispy-forms==1.8.1
 html5lib==1.0.1
 joblib==0.14.0
