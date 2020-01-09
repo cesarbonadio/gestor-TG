@@ -123,16 +123,22 @@ class TermSelectorView(generic.ListView):
             defensas = Defense.objects.filter(thesis__term=t)
             for d in defensas:
                 data["notas"][-1].append(d.grade)
-            data["media"].append(statistics.mean(data["notas"][-1]))
-            data["mediana"].append(statistics.median(data["notas"][-1]))
-            try:
-                data["moda"].append(statistics.mode(data["notas"][-1]))
-            except statistics.StatisticsError as e:
-                data["moda"].append(sorted(data["notas"][-1])[len(data["notas"][-1])//2 - 1])
-            try:
-                data["desviacion"].append(statistics.stdev(data["notas"][-1]))
-            except statistics.StatisticsError as e:
-                data["desviacion"].append([])
+            if(len(data["notas"][-1]) >= 1):            
+                data["media"].append(statistics.mean(data["notas"][-1])) 
+                data["mediana"].append(statistics.median(data["notas"][len(data["notas"])-1]))
+                try:
+                    data["moda"].append(statistics.mode(data["notas"][len(data["notas"])-1]))
+                except statistics.StatisticsError as e:
+                    data["moda"].append(sorted(data["notas"][len(data["notas"])-1])[len(data["notas"][len(data["notas"])-1])//2 - 1])
+                try:
+                    data["desviacion"].append(statistics.stdev(data["notas"][len(data["notas"])-1]))
+                except statistics.StatisticsError as e:
+                    data["desviacion"].append([])
+            else:
+                data["media"].append(0)
+                data["mediana"].append(0)
+                data["moda"].append(0)
+                data["desviacion"].append(0)
         
         return JsonResponse(data)
 
