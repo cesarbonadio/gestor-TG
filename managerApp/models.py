@@ -185,7 +185,7 @@ class Defense(models.Model):
     jury_2_assistance_confirmation = models.BooleanField(default=False,verbose_name="jurado 2 asiste")
     jury_suplente_assistance_confirmation = models.BooleanField(default=False,verbose_name="jurado suplente asiste")
     tutor_assistance_confirmation = models.BooleanField(default=False,verbose_name="tutor asiste")
-    grade = models.IntegerField(verbose_name="calificación") #AGregar validacion de la calificacion
+    grade = models.IntegerField(verbose_name="calificación", null=True, blank=True) #AGregar validacion de la calificacion
     publication_mention = models.BooleanField(default=False,verbose_name="mención publicación")
     honorific_mention = models.BooleanField(default=False,verbose_name="mención honorífica")
     corrections_delivered = models.BooleanField(default=False,verbose_name="se entregaron correcciones")

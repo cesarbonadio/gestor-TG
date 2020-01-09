@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Terminologías</title>
+    <style>
+      tr {
+        border: 1px solid black;
+        padding: 3px;
+        background-color: black;
+      }
+      tr:nth-child(2n) {
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <div class="card-header">
+          <h3>Terminologías</h3>
+        </div>
+        {{ today }} {% if terms %}
+
+        <div class="table-responsive">
+          <table class="table table-striped table-sm">
+            <thead>
+              <tr>
+                <th>Código</th>
+                <th>Descripción</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for t in terms %}
+              <tr>
+                <td>{{ t.id }}</td>
+                <td>{{ t.description }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+        {% endif %}
+      </div>
+    </div>
+  </body>
+</html>

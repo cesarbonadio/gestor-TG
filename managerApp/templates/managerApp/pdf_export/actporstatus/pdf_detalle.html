@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Actividades por Estatus</title>
+    <style>
+        tr{
+            border:1px solid black;
+            padding: 3px;
+            background-color: black;
+        }
+        tr:nth-child(2n){
+            font-weight: bold;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <div class="card-header">
+          <h3>Actividades por Estatus</h3>
+          <h3>Terminología: {{term.description}}</h3>
+        </div>
+        {{ today }} 
+        {% if propuestas or tesis or defensas %}
+        <br>
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Tipo de tarea</th>
+              <th>Asignado como</th>
+              <th>Título</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% if tipo == '1' %}
+            {% for p in propuestas %}
+            <tr>
+              <td>{{p.id}}</td>
+              <td>
+                Propuesta
+              </td>
+              <td>Tutor</td>
+              <td>
+                  {{p.title}}
+              </td>
+            </tr>
+            <tr>
+              <td colspan="4">
+                <div class="collapse multi-collapse" id="ProposaslDetail_{{p.id}}">
+                  <div class="row">
+                    <div class="col">
+                      <div class="card card-body">
+                        <br />
+                        <h4>Detalle de la propuesta</h4>
+                        <p>
+                          <br />
+                          <strong>Título:&nbsp;</strong> <i>{{ p.title }}</i><br />
+                          <strong>Fecha que fue entregada:&nbsp;</strong>
+                          <i>{{ p.delivery_date }}</i><br />
+                          <strong>Estatus:&nbsp;</strong> <i>{{ p.status }}</i><br />
+                          {% if not p.student_2 %}
+                          <strong>Estudiante:&nbsp;</strong> <i>{{ p.student_1 }}</i
+                          ><br />
+                          {% else %}
+                          <strong>Estudiantes:&nbsp;</strong> <i>{{ p.student_1 }}</i> y
+                          <i>{{ p.student_1 }}</i><br />
+                          {% endif %}
+                          <strong>Tutor académico:&nbsp;</strong>
+                          <i>{{ p.academic_tutor }}</i><br />
+                          <strong>Tutor empresarial:&nbsp;</strong>
+                          <i>{{ p.company_tutor }}</i><br />
+                          <strong>Terminología:&nbsp;</strong> <i>{{ p.term }}</i><br />
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+            {% if tipo == '2' %}
+            {% for p in tesis %}
+            <tr>
+              <td>{{p.id}}</td>
+              <td>
+                Tesis
+              </td>
+              <td>Tutor</td>
+              <td>
+                  {{p.title}}
+              </td>
+        
+            </tr>
+            <tr>
+              <td colspan="4">
+                <div class="collapse multi-collapse" id="ProposaslDetail_{{p.id}}">
+                  <div class="row">
+                    <div class="col">
+                      <div class="card card-body">
+                        <br>
+                        <h4>Detalle del Trabajo de Grado</h4>
+                        <p>
+                            <br>
+                            <strong>ID:&nbsp;</strong> <i>{{ p.id }}</i><br>
+                            <strong>Título:&nbsp;</strong> <i>{{ p.title|default:"No posee (mismo que la propuesta)" }}</i><br>
+                            <strong>Fecha tope:&nbsp;</strong> <i>{{ p.top_date }}</i><br>
+                            <strong>Estatus:&nbsp;</strong> <i>{{ p.status }}</i><br>
+                            <strong>NRC:&nbsp;</strong> <i>{{ p.nrc }}</i><br>
+                            <strong>Descriptores:&nbsp;</strong> <i>{{ p.descriptors }}</i><br>
+                            <strong>Nombre de la compañía:&nbsp;</strong> <i>{{ p.company_name }}</i><br>
+                            <strong>Terminología:&nbsp;</strong> <i>{{ p.term }}</i><br>
+                            <strong>Propuesta:&nbsp;</strong> 
+                            <i>{{ p.proposal }}</i>
+                            <br>
+                        </p>
+            
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+            {% if tipo == '3' %}
+            {% for p in defensas %}
+            <tr>
+              <td>{{p.id}}</td>
+              <td>
+                Defensa
+              </td>
+              <td>
+                {% if p.jury_1 == profesor or p.jury_2 == profesor %}
+                  Jurado
+                {% elif p.jury_suplente == profesor %}
+                  Jurado Suplente
+                {% else %}
+                  Jurado Tutor
+                {% endif %}
+              </td>
+              <td>
+                  Defensa {{p.thesis.title}}
+              </td>
+        
+            </tr>
+            <tr>
+              <td colspan="4">
+                <div class="collapse multi-collapse" id="ProposaslDetail_{{p.id}}">
+                  <div class="row">
+                    <div class="col">
+                      <div class="card card-body">
+                        <br>
+                        <h4>Detalle de defensa</h4>
+                        
+                        <p>
+                            <br>
+                            <strong>ID:&nbsp;</strong> <i>{{ p.id }}</i><br>
+                            <strong>Fecha:&nbsp;</strong> <i>{{ p.defense_date }}</i><br>
+                            <strong>Jurado 1:&nbsp;</strong> <i>{{ p.jury_1 }}</i><br>
+                            <strong><i>
+                                Jurado 1 
+                                {% if not p.jury_1_assistance_confirmation %} 
+                                    no
+                                {% endif %}
+                                asiste
+                            </i></strong><br>
+                            <strong>Jurado 2:&nbsp;</strong> <i>{{ p.jury_2 }}</i><br>
+                            <strong><i>
+                                Jurado 2
+                                {% if not p.jury_2_assistance_confirmation %} 
+                                    no
+                                {% endif %}
+                                asiste
+                            </i></strong><br>
+                            {% if p.jury_suplente %}
+                            <strong>Jurado Suplente:&nbsp;</strong> <i>{{ p.jury_suplente }}</i><br>
+                            <strong><i>
+                                Jurado Suplente
+                                {% if not p.jury_suplente_assistance_confirmation %} 
+                                    no
+                                {% endif %}
+                                asiste
+                            </i></strong><br>
+                            {% endif %}
+                            <strong>Calificación:&nbsp;</strong> <i>{{ p.grade }}</i><br>
+                            <strong>Fecha tope de entrega de correcciones:&nbsp;</strong> <i>{{ p.top_date_corrections }}</i><br>
+                            <strong>Observaciones:&nbsp;</strong> <i>{{ p.observations }}</i><br>
+                            <strong>Thesis:&nbsp;</strong> <i>{{ p.thesis }}</i><br>
+                            <strong>Detalles:</strong><br>
+                            {% if p.publication_mention %}
+                            <i>Mención publicación&nbsp;</i><br>
+                            {% endif %}
+                            {% if p.honorific_mention %}
+                            <i>Mención honorífica&nbsp;</i><br>
+                            {% endif %}
+                            {% if p.corrections_delivered %}
+                            <i>Se entregaron correcciones&nbsp;</i><br>
+                            {% endif %}
+                            {% if p.grade_uploaded %}
+                            <i>Se subió la calificación&nbsp;</i><br>
+                            {% endif %}
+        
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            {% endfor %}
+           
+            {% endif %}
+        
+          </tbody>
+        </table>
+        {% else %}
+        <br>
+        No se encontraron resultados
+        {% endif %}
+      </div>
+    </div>
+  </body>
+</html>

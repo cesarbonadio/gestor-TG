@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Tesis</title>
+    <style>
+      tr {
+        border: 1px solid black;
+        padding: 3px;
+        background-color: black;
+      }
+      tr:nth-child(2n) {
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <div class="card-header">
+          <h3>Tesis</h3>
+        </div>
+        {{ today }} {% if thesis %}
+
+        <div class="table-responsive">
+          <table class="table table-striped table-sm">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Estatus</th>
+                <th>NRC</th>
+                <th>Propuesta</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for t in thesis %}
+              <tr>
+                <td>
+                  {{ t.id }}
+                </td>
+                <td>{{ t.title|default:"--" }}</td>
+                <td>{{t.status}}</td>
+                <td>{{t.nrc}}</td>
+                <td>{{t.proposal}}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+        {% endif %}
+      </div>
+    </div>
+  </body>
+</html>

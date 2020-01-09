@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Propuestas</title>
+    <style>
+      tr {
+        border: 1px solid black;
+        padding: 3px;
+        background-color: black;
+      }
+      tr:nth-child(2n) {
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <div class="card-header">
+          <h3>Propuestas</h3>
+        </div>
+        {{ today }} {% if propuestas %}
+
+        <div class="table-responsive">
+          <table class="table table-striped table-sm">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Título</th>
+                <th>Estatus</th>
+                <th>Fecha de entrega</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for p in propuestas %}
+              <tr>
+                <td>{{p.id}}</td>
+                <td>
+                  {{ p.title }}
+                </td>
+                <td>{{p.status}}</td>
+                <td>{{p.delivery_date}}</td>
+
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+        {% endif %}
+      </div>
+    </div>
+  </body>
+</html>

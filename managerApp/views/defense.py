@@ -129,7 +129,10 @@ class TermSelectorView(generic.ListView):
                 data["moda"].append(statistics.mode(data["notas"][-1]))
             except statistics.StatisticsError as e:
                 data["moda"].append(sorted(data["notas"][-1])[len(data["notas"][-1])//2 - 1])
-            data["desviacion"].append(statistics.stdev(data["notas"][-1]))
+            try:
+                data["desviacion"].append(statistics.stdev(data["notas"][-1]))
+            except statistics.StatisticsError as e:
+                data["desviacion"].append([])
         
         return JsonResponse(data)
 

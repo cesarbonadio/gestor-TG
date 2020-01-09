@@ -71,3 +71,48 @@ class TareasPorTermView(generic.ListView):
 
     def get_queryset(self):
         return Term.objects.all()
+
+@method_decorator([login_required, guest_permissions], name='dispatch')
+class ActPorStatusView(generic.ListView):
+    template_name = 'managerApp/reporte/actporstatus/index.html'
+    context_object_name = 'list_of_terms'
+    model = Term
+  
+    def get_context_data(self, **kwargs):
+        status = self.request.GET.get('estatus')
+        tipo = self.request.GET.get('tipo')
+        term = self.request.GET.get('term')
+
+        context = super(ActPorStatusView, self).get_context_data(**kwargs)
+        context.update({
+            'terminologia': term,
+            'tipo': tipo,
+            'status':status,
+            'proposal_status':ProposalStatus.objects.all(),
+            'thesis_status':ThesisStatus.objects.all()
+        })
+        if(tipo == '1'):
+            context.update({
+                'propuestas': Proposal.objects.all().filter(status=status).filter(term=term),
+            })
+        elif(tipo == '2'):
+            context.update({
+                'tesis': Thesis.objects.all().filter(status=status).filter(term=term),
+            })
+        elif(tipo == '3'):
+            if(status == 1):
+                context.update({
+                    'defensas': Defense.objects.all().filter(grade__isnull=True).filter(term=term),
+                })
+            else:
+                context.update({
+                    'defensas': Defense.objects.all().filter(grade__isnull=False).filter(term=term),
+                })
+          
+        return context
+
+    def get_queryset(self):
+        return Term.objects.all()
+
+
+        
