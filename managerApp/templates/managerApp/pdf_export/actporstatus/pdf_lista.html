@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Actividades por Estatus</title>
+    <style>
+        tr{
+            border:1px solid black;
+            padding: 3px;
+            background-color: black;
+        }
+        tr:nth-child(2n){
+            font-weight: bold;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <div class="card-header">
+          <h3>Actividades por Estatus</h3>
+          <h3>Terminología: {{term.description}}</h3>
+        </div>
+        {{ today }} 
+        {% if propuestas or tesis or defensas %}
+        <br>
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Tipo de tarea</th>
+              <th>Asignado como</th>
+              <th>Título</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% if tipo == '1' %}
+            {% for p in propuestas %}
+            <tr>
+              <td>{{p.id}}</td>
+              <td>
+                Propuesta
+              </td>
+              <td>Tutor</td>
+              <td>
+                  {{p.title}}
+              </td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+            {% if tipo == '2' %}
+            {% for p in tesis %}
+            <tr>
+              <td>{{p.id}}</td>
+              <td>
+                Tesis
+              </td>
+              <td>Tutor</td>
+              <td>
+                  {{p.title}}
+              </td>
+        
+            </tr>
+            {% endfor %}
+            {% endif %}
+            {% if tipo == '3' %}
+            {% for p in defensas %}
+            <tr>
+              <td>{{p.id}}</td>
+              <td>
+                Defensa
+              </td>
+              <td>
+                {% if p.jury_1 == profesor or p.jury_2 == profesor %}
+                  Jurado
+                {% elif p.jury_suplente == profesor %}
+                  Jurado Suplente
+                {% else %}
+                  Jurado Tutor
+                {% endif %}
+              </td>
+              <td>
+                  Defensa {{p.thesis.title}}
+              </td>
+        
+            </tr>
+
+            {% endfor %}
+           
+            {% endif %}
+        
+          </tbody>
+        </table>
+        {% else %}
+        <br>
+        No se encontraron resultados
+        {% endif %}
+      </div>
+    </div>
+  </body>
+</html>

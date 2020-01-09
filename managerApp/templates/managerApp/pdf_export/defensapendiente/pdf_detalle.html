@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Defensas sin realizar</title>
+    <style>
+        tr{
+            border:1px solid black;
+            padding: 3px;
+            background-color: black;
+        }
+        tr:nth-child(2n){
+            font-weight: bold;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <div class="card-header">
+          <h3>Defensas sin realizar</h3>
+        </div>
+        {{ today }} 
+        {% if defensas %}
+
+  <table class="table table-striped table-sm">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Alumno</th>
+        <th>Terminología</th>
+        <th>Título</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for p in defensas %}
+      <tr>
+        <td>{{p.id}}</td>
+        <td>
+          {{p.thesis.proposal.student_1.last_name_1}}
+          {{p.thesis.proposal.student_1.last_name_2|default_if_none:""}},
+          {{p.thesis.proposal.student_1.first_name_1}}
+          {{p.thesis.proposal.student_1.first_name_2|default_if_none:""}}
+        </td>
+        <td>{{p.thesis.term}}</td>
+        <td>
+            {{p.thesis.title}}
+        </td>
+      </tr>
+      <tr>
+        <td colspan="4">
+              <div class="collapse multi-collapse" id="TgDetail_{{p.id}}_{{p.thesis.id}}">
+                <div class="row">
+                  <div class="col-6">
+                    <div class="card card-body">
+                      <h4>Detalle del Trabajo de Grado</h4>
+                      <p>
+                          <strong>ID:&nbsp;</strong> <i>{{ p.thesis.id }}</i><br>
+                          <strong>Título:&nbsp;</strong> <i>{{ p.thesis.title|default:"No posee (mismo que la propuesta)" }}</i><br>
+                          <strong>Fecha tope:&nbsp;</strong> <i>{{ p.thesis.top_date }}</i><br>
+                          <strong>Estatus:&nbsp;</strong> <i>{{ p.thesis.status }}</i><br>
+                          <strong>NRC:&nbsp;</strong> <i>{{ p.thesis.nrc }}</i><br>
+                          <strong>Descriptores:&nbsp;</strong> <i>{{ p.thesis.descriptors }}</i><br>
+                          <strong>Nombre de la compañía:&nbsp;</strong> <i>{{ p.thesis.company_name }}</i><br>
+                          <strong>Terminología:&nbsp;</strong> <i>{{ p.thesis.term }}</i><br>
+                          <strong>Propuesta:&nbsp;</strong> 
+                          <i>{{ p.thesis.proposal }}</i>
+                          <br>
+                      </p>
+                    </div>
+                  </div>
+                  
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="4">
+                    <div class="collapse multi-collapse" id="TgDetail_{{p.id}}_{{p.thesis.id}}">
+                      <div class="row">
+
+                        <div class="col-6">
+                            <div class="collapse multi-collapse" id="PropDetail_{{p.id}}_{{p.thesis.id}}_{{p.thesis.proposal.id}}">
+                              <div class="card card-body">
+                                <h4>Detalle de la propuesta</h4>
+                                <p>
+                                    <strong>Título:&nbsp;</strong> <i>{{ p.thesis.proposal.title }}</i><br>
+                                    <strong>Fecha que fue entregada:&nbsp;</strong> <i>{{ p.thesis.proposal.delivery_date }}</i><br>
+                                    <strong>Estatus:&nbsp;</strong> <i>{{ p.thesis.proposal.status }}</i><br>
+                                    {% if not p.thesis.proposal.student_2 %}
+                                        <strong>Estudiante:&nbsp;</strong> <i>{{ p.thesis.proposal.student_1 }}</i><br>
+                                    {% else %}
+                                        <strong>Estudiantes:&nbsp;</strong> <i>{{ p.thesis.proposal.student_1 }}</i> y <i>{{ p.thesis.proposal.student_1 }}</i><br>
+                                    {% endif %}
+                                    <strong>Tutor académico:&nbsp;</strong> <i>{{ p.thesis.proposal.academic_tutor }}</i><br>
+                                    <strong>Tutor empresarial:&nbsp;</strong> <i>{{ p.thesis.proposal.company_tutor }}</i><br>
+                                    <strong>Terminología:&nbsp;</strong> <i>{{ p.thesis.proposal.term }}</i><br>
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% endif %}
+      </div>
+    </div>
+  </body>
+</html>

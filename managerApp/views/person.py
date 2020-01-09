@@ -5,8 +5,19 @@ from . import *
 class IndexView(generic.ListView):
     template_name = 'managerApp/person/index.html'
     context_object_name = 'list_of_persons'
-    
+
+    def get_context_data(self, **kwargs):
+        context = super(IndexView, self).get_context_data(**kwargs)
+        context.update({
+            'filtro_personas': Person.objects.order_by('first_name_1'),
+            'id_filtrado': self.request.GET.get('id')
+        })
+        return context
+
     def get_queryset(self):
+        query = self.request.GET.get('id')
+        if(query):
+            return Person.objects.filter(id=query).order_by('first_name_1')
         return Person.objects.order_by('first_name_1')
 
 @method_decorator([login_required, guest_permissions], name='dispatch')

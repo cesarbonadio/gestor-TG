@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Defensas sin realizar</title>
+    <style>
+      tr {
+        border: 1px solid black;
+        padding: 3px;
+        background-color: black;
+      }
+      tr:nth-child(2n) {
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <div class="card-header">
+          <h3>Defensas sin realizar</h3>
+        </div>
+        {{ today }} {% if propuestas %}
+
+        <div class="table-responsive">
+          <table class="table table-striped table-sm">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Alumno</th>
+                <th>Terminología</th>
+                <th>Propuesta</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for p in propuestas %}
+              <tr>
+                <td>{{p.id}}</td>
+                <td>
+                  {{p.student_1.last_name_1}}
+                  {{p.student_1.last_name_2|default_if_none:""}},
+                  {{p.student_1.first_name_1}}
+                  {{p.student_1.first_name_2|default_if_none:""}}
+                </td>
+                <td>{{p.term}}</td>
+                <td>
+                    {{ p.title }}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+        {% endif %}
+      </div>
+    </div>
+  </body>
+</html>

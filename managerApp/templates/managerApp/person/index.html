@@ -15,16 +15,53 @@
             {% endif %}
                 {% endif %}
         </div>
-        <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-          Exportar
-        </button>
+        <a href="/pdf/person?id={{id_filtrado}}" class="btn btn-outline-secondary">
+          Exportar en pdf
+        </a>
       </div>
     </div>
 
     {% include '../messages.html' %}
 
-    <h5>Aquí deberían ir los filtros de búsqueda</h5>
+    <div class="form-inline">
+        <div class="form-group mr-2">
+          <label for="cedula" class="mr-2">Cédula</label>
+          <select class="form-control" name="cedula" id="cedula" onchange="borrarnombre()">
+            <option value="">- Selecciona una cédula -</option>
+            <option value="">Mostrar Todos</option>
+            {% for p in filtro_personas %}
+            <option value="{{p.id}}">{{p.document_id}}</option>
+            {% endfor %}
+          </select>
+        </div>
+        ó
+        <div class="form-group ml-2 mr-2">
+            <label for="nombre" class="mr-2">Nombre</label>
+            <select class="form-control" name="nombre" id="nombre" onchange="borrarcedula()">
+              <option value="">- Selecciona un nombre -</option>
+              <option value="">Mostrar Todos</option>
+              {% for p in filtro_personas %}
+              <option value="{{p.id}}">{{p.first_name_1}} {{p.last_name_1}}</option>
+              {% endfor %}
+            </select>
+        </div>
+        <button type="submit" onclick="filtrarpersonas()" class="btn btn-outline-primary">Buscar</button>
+    </div>
+    <script>
+        function borrarcedula () { 
+            $("#cedula").val("");
+        }
 
+        function borrarnombre () { 
+            $("#nombre").val("");
+        }
+
+        function filtrarpersonas() {
+            window.location.href = "/persons/?id="+$("#cedula option:selected").val()+$("#nombre option:selected").val();
+        }
+
+    </script>
+    <br>
     {% if list_of_persons %}
     
         <div class="table-responsive">

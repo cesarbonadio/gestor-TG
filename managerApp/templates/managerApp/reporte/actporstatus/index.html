@@ -4,41 +4,101 @@
   class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
 >
   <h1 class="h2">
-    Tareas asignadas {{profesor.first_name_1}} {{profesor.first_name_2|default_if_none:""}}
-    {{profesor.last_name_1}} {{profesor.last_name_2|default_if_none:""}}
+    Actividades Por Estatus
   </h1>
   <div class="btn-toolbar mb-2 mb-md-0">
-    {% if profesor %}
-    <a href="/pdf/tareasdeprofesor?profesor={{profesor.id}}" type="button" class="btn btn-sm btn-outline-secondary mr-2">
+    {% if terminologia %}
+    <a href="/pdf/actporstatus?term={{terminologia}}&tipo={{tipo}}&estatus={{status}}" type="button" class="btn btn-sm btn-outline-secondary mr-2">
       Exportar lista en PDF
     </a>
-    <a href="/pdf/tareasdeprofesor_detalle?profesor={{profesor.id}}" type="button" class="btn btn-sm btn-outline-secondary">
+    <a href="/pdf/actporstatus_detalle?term={{terminologia}}&tipo={{tipo}}&estatus={{status}}" type="button" class="btn btn-sm btn-outline-secondary">
       Exportar lista con detalle en PDF
     </a>
     {% endif %}
   </div>
 </div>
 
-{% include '../../messages.html' %} {% if list_of_persons %}
+{% include '../../messages.html' %} {% if list_of_terms %}
 <form
   class="form-inline"
-  action="{% url 'reporte:tareasdeprofesor' %}"
+  action="{% url 'reporte:actporstatus' %}"
   method="GET"
 >
-  <div class="form-group">
-    <label for="profesor" class="mr-2">Profesor</label>
-    <select class="form-control mr-2" name="profesor" id="profesor" required>
-      <option value="">-Selecciona un profesor-</option>
-      {% for p in list_of_persons %}
+  <div class="form-group mr">
+    <label for="term" class="mr-2">Terminología</label>
+    <select class="form-control mr-2" name="term" id="term" required>
+      <option value="">-Selecciona una terminología-</option>
+      {% for p in list_of_terms %}
+
       <option value="{{p.id}}">
-        {{p.last_name_1}} {{p.last_name_2|default_if_none:""}},
-        {{p.first_name_1}} {{p.first_name_2|default_if_none:""}}
+        {{p.description}} 
       </option>
+
       {% endfor %}
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="tipo" class="mr-2">Tipo de actividad</label>
+    <select class="form-control mr-2" name="tipo" id="tipo" required>
+      <option value="">-Selecciona un tipo de actividad-</option>
+      <option value="1">
+        Propuesta
+      </option>
+      <option value="2">
+        Tesis
+      </option>
+      <option value="3">
+        Defensa
+      </option>
+    </select>
+  </div>
+  <div class="form-group" id="status_container" style="display: none;">
+    <label for="estatus" class="mr-2">Estatus</label>
+    <select class="form-control mr-2" name="estatus" id="estatus" required>
+        <option value="">-Selecciona un estatus-</option>
+        {% for p in proposal_status %}
+        <option value="{{p.id}}" class="propuesta">{{p.name}}</option>
+        {% endfor %}
+        {% for p in thesis_status %}
+        <option value="{{p.id}}" class="tesis">{{p.name}}</option>
+        {% endfor %}
+        <option value="1" class="defensa">Por defender</option>
+        <option value="2" class="defensa">Defendido</option>
     </select>
   </div>
   <button class="btn btn-outline-primary" type="submit">Buscar</button>
 </form>
+<script>
+    $("#tipo").on('change',function(){
+        var ref = $("#tipo").val()
+        if(ref != ""){
+            if(ref == "1"){
+                $(".tesis").hide();
+                $(".defensa").hide();
+                $(".propuesta").show();
+                $("#status_container").show();
+            }
+            else if(ref == "2"){
+                $(".tesis").show();
+                $(".defensa").hide();
+                $(".propuesta").hide();
+                $("#status_container").show();
+            }
+            else if(ref == "3"){
+                $(".tesis").hide();
+                $(".defensa").show();
+                $(".propuesta").hide();
+                $("#status_container").show();
+            }
+            else{
+                $("#status_container").hide();
+            }
+        }
+        else{
+            $("#status_container").hide();
+        }
+    });
+</script>
 {% endif %} {% if propuestas or tesis or defensas %}
 <br>
 <table class="table table-striped table-sm">
@@ -51,6 +111,7 @@
     </tr>
   </thead>
   <tbody>
+    {% if tipo == '1' %}
     {% for p in propuestas %}
     <tr>
       <td>{{p.id}}</td>
@@ -104,6 +165,8 @@
       </td>
     </tr>
     {% endfor %}
+    {% endif %}
+    {% if tipo == '2' %}
     {% for p in tesis %}
     <tr>
       <td>{{p.id}}</td>
@@ -154,6 +217,8 @@
       </td>
     </tr>
     {% endfor %}
+    {% endif %}
+    {% if tipo == '3' %}
     {% for p in defensas %}
     <tr>
       <td>{{p.id}}</td>
@@ -247,7 +312,12 @@
       </td>
     </tr>
     {% endfor %}
+   
+    {% endif %}
+
   </tbody>
 </table>
-
+{% else %}
+<br>
+No se encontraron resultados
 {% endif %} {% endblock %}
