@@ -9,10 +9,10 @@
   </h1>
   <div class="btn-toolbar mb-2 mb-md-0">
     {% if profesor %}
-    <a href="/pdf/tareasdeprofesor?profesor={{profesor.id}}" type="button" class="btn btn-sm btn-outline-secondary mr-2">
+    <a href="/pdf/tareasdeprofesor?profesor={{profesor.id}}" type="button" class="btn btn-sm btn-outline-secondary mr-2" target="_blank">
       Exportar lista en PDF
     </a>
-    <a href="/pdf/tareasdeprofesor_detalle?profesor={{profesor.id}}" type="button" class="btn btn-sm btn-outline-secondary">
+    <a href="/pdf/tareasdeprofesor_detalle?profesor={{profesor.id}}" type="button" class="btn btn-sm btn-outline-secondary" target="_blank">
       Exportar lista con detalle en PDF
     </a>
     {% endif %}
