@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.hashers import make_password
 from django.db.models import Q, Count
+from simple_history.models import HistoricalRecords
 
 
 
@@ -13,6 +14,7 @@ class User(AbstractUser):
     is_admin = models.BooleanField(default=False, verbose_name="Es administrador")
     is_manager = models.BooleanField(default=False, verbose_name="Es gestor")
     is_guest = models.BooleanField(default=False, verbose_name="Es invitado")
+    history = HistoricalRecords()
 
     def __init__(self, *args, **kwargs):
         super(User, self).__init__(*args, **kwargs)
@@ -37,6 +39,7 @@ class User(AbstractUser):
 class PersonType(models.Model):
 
     name = models.CharField(max_length=50, verbose_name="nombre")
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.name
@@ -62,6 +65,7 @@ class Person(models.Model):
     phone_1 = models.CharField(max_length=15, verbose_name="teléfono 1")
     phone_2 = models.CharField(max_length=15, verbose_name="teléfono 2", null=True, blank=True)
     observations = models.CharField(max_length=500, verbose_name="observaciones", null=True, blank=True)
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.first_name_1 + " " + self.last_name_1
@@ -78,6 +82,7 @@ class Term(models.Model):
     
     id = models.IntegerField(primary_key=True, verbose_name="código terminología (Ej:201915)")
     description = models.CharField(max_length=50, verbose_name="descripción")
+    history = HistoricalRecords()
 
     def __str__(self):
         return str(self.id) + " (" + self.description + ")"
@@ -92,6 +97,7 @@ class Term(models.Model):
 class ProposalStatus(models.Model):
     
     name = models.CharField(max_length=20, verbose_name="nombre")
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.name
@@ -106,6 +112,7 @@ class ProposalStatus(models.Model):
 class ThesisStatus(models.Model):
     
     name = models.CharField(max_length=20, verbose_name="nombre")
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.name
@@ -127,6 +134,7 @@ class Proposal(models.Model):
     academic_tutor = models.ForeignKey(Person, on_delete=models.CASCADE, related_name="academic_tutor_proposal", verbose_name="tutor académico")
     company_tutor = models.ForeignKey(Person, on_delete=models.CASCADE, related_name="company_tutor_proposal", verbose_name="tutor_empresarial")
     term = models.ForeignKey(Term, on_delete=models.CASCADE, related_name="term_proposal", verbose_name="terminología en la que fue entregada")
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.title
@@ -153,6 +161,7 @@ class Thesis(models.Model):
     company_name = models.CharField(max_length=100, verbose_name="nombre de la empresa")
     term = models.ForeignKey(Term, on_delete=models.CASCADE, related_name="term_thesis", verbose_name="terminología")
     proposal = models.ForeignKey(Proposal, on_delete=models.CASCADE, related_name="thesis_proposal", verbose_name="propuesta asociada")
+    history = HistoricalRecords()
 
 
     def __str__(self):
@@ -193,6 +202,7 @@ class Defense(models.Model):
     grade_uploaded = models.BooleanField(default=False,verbose_name="se subió la calificación")
     observations = models.CharField(max_length=500,verbose_name="observaciones", null=True, blank=True)
     thesis = models.ForeignKey(Thesis, on_delete=models.CASCADE, related_name="thesis_defense",verbose_name="tesis asociada")
+    history = HistoricalRecords()
 
     def __str__(self):
         return str(self.id) + "-" +  str(self.thesis) +  "-" + str(self.grade) 
