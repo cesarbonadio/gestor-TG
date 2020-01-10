@@ -4,5 +4,5 @@ Integrantes:
 
 - César Bonadio -> cesarbonadio
 - Alberto Gil -> alchu33
-- Manuel Figueira -> leunavramir
+- Manuel Figueira -> leunavramir y leuna1
 - Angel Altuve -> uhnjel
