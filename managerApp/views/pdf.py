@@ -49,7 +49,7 @@ class StatsNotas(View):
         for t in terms:
             data["terms"].append({"name":t.description})
             data["terms"][-1]["notas"] = []
-            defensas = Defense.objects.filter(thesis__term=t)
+            defensas = Defense.objects.filter(thesis__term=t).filter(grade__isnull=False)
             for d in defensas:
                  data["terms"][-1]["notas"].append(d.grade)
         today = timezone.now()
@@ -102,7 +102,7 @@ class DefensasPendientes(View):
         today = timezone.now()
         params = {
             'today': today,
-            'defensas': Defense.objects.all().order_by('thesis__proposal__student_1__document_id'),
+            'defensas': Defense.objects.filter(grade__isnull=True).order_by('thesis__proposal__student_1__document_id'),
             'request': request
         }
         return Render.render('managerApp/pdf_export/defensapendiente/pdf_lista.html', params) 
@@ -113,7 +113,7 @@ class DefensasPendientesDetalle(View):
         today = timezone.now()
         params = {
             'today': today,
-            'defensas': Defense.objects.all().order_by('thesis__proposal__student_1__document_id'),
+            'defensas': Defense.objects.filter(grade__isnull=True).order_by('thesis__proposal__student_1__document_id'),
             'request': request
         }
         return Render.render('managerApp/pdf_export/defensapendiente/pdf_detalle.html', params) 

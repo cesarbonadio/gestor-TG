@@ -65,7 +65,7 @@
         <br><br>
     </div>
 </div>
-<div class="row" id="chart_div">
+<div class="row p-5" id="chart_div">
   <div class="col-6">
     <canvas id="mediaChart"></canvas>
   </div>
@@ -81,6 +81,10 @@
   <div class="col-6">
     <canvas id="desvChart"></canvas>
   </div>
+  <div class="col-12">
+    <div style="height: 100px;"></div>
+  </div>
+
 </div>
 <script>
 
@@ -279,4 +283,4 @@ $('#downloadPdf').click(function(event) {
   pdf.save('filename.pdf');
 });
 </script>
-{% if defensas %} {{defensas.count}} {% endif %} {% endblock %}
+{% if defensas %} {% endif %} {% endblock %}
