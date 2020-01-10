@@ -86,6 +86,7 @@ urlpatterns = [
         path('tareasporterm', term.TareasPorTermView.as_view(), name='tareasporterm'), 
         path('estadisticas', defense.TermSelectorView.as_view(), name='estadisticas'),
         path('data/estadisticas', defense.TermSelectorView.get_data, name='data_estadisticas'),
+        path('logstransacciones', user.LogsTransacciones, name="log_transacciones")
     ], 'managerApp'), namespace='reporte')),
 
     path('pdf/', include(([
