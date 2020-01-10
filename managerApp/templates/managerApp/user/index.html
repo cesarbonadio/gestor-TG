@@ -27,7 +27,6 @@
                         <th>Nombre de usuario</th>
                         <th>Última conexión</th>
                         <th>Email</th>
-                        <th>Última transacción</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -38,9 +37,6 @@
                 <td>{{u.username}}</td>
                 <td>{{u.last_login|default:"--"}}</td>
                 <td>{{u.email|default:"--"}}</td>
-                <!--TODO: IMPLEMENTAR LA TRAZABILIDAD DE TRANSACCIONES DE CADA USUARIO-->
-                <td><i>Por implementar</i></td>
-                
                 <td>
                     <a href="{% url 'user:user_update' u.id %}">Actualizar</a>
                     <a href="{% url 'user:user_delete' u.id %}">Eliminar</a>

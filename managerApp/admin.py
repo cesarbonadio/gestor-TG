@@ -1,7 +1,6 @@
 from django.contrib import admin
 from .models import *
 
-'''TODO-> ver si realmente es necesario el sitio de administrador'''
 
 # Para el site de administrador.
 admin.site.register(Person)
