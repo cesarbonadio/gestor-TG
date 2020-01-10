@@ -104,6 +104,7 @@ urlpatterns = [
         path('propsinaprobar_detalle',pdf.PropuestasSinAprobarDetalle.as_view(),name='pdf_propsinaprobardet'),
         path('actporstatus', pdf.ActPorStatus.as_view(), name='pdf_actporstatus'), 
         path('actporstatus_detalle', pdf.ActPorStatusDetalle.as_view(), name='pdf_actporstatus_detalle'), 
+        path('logstransacciones', pdf.LogsTransacciones.as_view(), name="pdf_log_transacciones"),
 
         #PDF de consultas
         path('proposal',pdf.ProposalIndex.as_view(),name='pdf_proposal'),

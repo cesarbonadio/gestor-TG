@@ -82,7 +82,7 @@ class DefensaPendienteView(generic.ListView):
     paginate_by = 15
     
     def get_queryset(self):
-        return Defense.objects.all().order_by('thesis__proposal__student_1__document_id')
+        return Defense.objects.filter(grade__isnull=True).order_by('thesis__proposal__student_1__document_id')
 
 @method_decorator([login_required, guest_permissions], name='dispatch')
 class TermSelectorView(generic.ListView):
@@ -120,7 +120,7 @@ class TermSelectorView(generic.ListView):
         for t in terms:
             data["terms"].append(t.description)
             data["notas"].append([])
-            defensas = Defense.objects.filter(thesis__term=t)
+            defensas = Defense.objects.filter(thesis__term=t).filter(grade__isnull=False)
             for d in defensas:
                 data["notas"][-1].append(d.grade)
             if(len(data["notas"][-1]) >= 1):            
@@ -136,7 +136,7 @@ class TermSelectorView(generic.ListView):
                     data["desviacion"].append([])
             else:
                 data["media"].append(0)
-                data["mediana"].append(0)
+                data["mediana"].append(0) 
                 data["moda"].append(0)
                 data["desviacion"].append(0)
         

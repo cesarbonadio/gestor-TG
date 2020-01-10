@@ -7,11 +7,8 @@
 >
   <h1 class="h2">Acciones ejecutadas por ususario</h1>
   <div class="btn-toolbar mb-2 mb-md-0">
-    <a href="" type="button" class="btn btn-sm btn-outline-secondary mr-2" target="_blank">
+    <a href="/pdf/logstransacciones" type="button" class="btn btn-sm btn-outline-secondary mr-2" target="_blank">
       Exportar lista en PDF
-    </a>
-    <a href="" type="button" class="btn btn-sm btn-outline-secondary" target="_blank">
-      Exportar lista con detalle en PDF
     </a>
   </div>
 </div>
@@ -39,7 +36,7 @@
         
         <td>{{ a.instance_type|get_type }}</td>
         
-        <td><a href="{% url 'user:user_details' a.history_user_id %}">{{a.history_user_id}}</a></td>
+        <td><a href="{% url 'user:user_details' a.history_user_id %}">{{a.history_user_id}} - {{a.history_user}}</a></td>
         <td>{{a.history_date}}</td>
             {% ifequal a.history_type|stringformat:"s" "~" %}
                 <td>Actualización</td>
