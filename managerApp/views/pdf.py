@@ -3,6 +3,8 @@ from django.utils import timezone
 from . import *
 from managerApp.render import Render
 import statistics
+import itertools
+       
 
 
 class ActPorTerm(View):
@@ -227,6 +229,40 @@ class ActPorStatusDetalle(View):
             else:
                 params['defensas'] = Defense.objects.all().filter(grade__isnull=False).filter(term=term)
         return Render.render('managerApp/pdf_export/actporstatus/pdf_detalle.html', params) 
+
+
+class LogsTransacciones(View):
+
+    def get(self, request):
+       
+        actions_executed_persons = Person.history.all()
+        actions_executed_defense = Defense.history.all()
+        actions_executed_persontype = PersonType.history.all()
+        actions_executed_proposals = Proposal.history.all()
+        actions_executed_proposalsstatus = ProposalStatus.history.all()
+        actions_executed_term = Term.history.all()
+        actions_executed_thesisstatus = ThesisStatus.history.all()
+        actions_executed_thesis = Thesis.history.all()
+
+        actions_executed = list(itertools.chain(
+            actions_executed_persons, 
+            actions_executed_defense, 
+            actions_executed_persontype,
+            actions_executed_proposals,
+            actions_executed_proposalsstatus,
+            actions_executed_term,
+            actions_executed_thesisstatus,
+            actions_executed_thesis
+        ))
+
+        today = timezone.now()
+        params = {
+            'today': today,
+            'actions_executed': actions_executed,
+            'request': request
+        }
+
+        return Render.render('managerApp/pdf_export/logporusuario/pdf_lista.html', params) 
 
 # ---------------------------------------
 #   Pdf de consultas

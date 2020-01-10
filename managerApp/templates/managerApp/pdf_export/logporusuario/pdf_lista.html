@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Acciones ejecutadas por ususario</title>
+    <style>
+      tr {
+        border: 1px solid black;
+        padding: 3px;
+        background-color: black;
+      }
+      tr:nth-child(2n) {
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <div class="card-header">
+          <h3>Acciones ejecutadas por ususario</h3>
+        </div>
+        {{ today }} 
+        {% if actions_executed %}
+        {% load extra_tags %}
+        
+        <div class="table-responsive">
+          <table class="table table-striped table-sm">
+            <thead>
+              <tr>
+                <th>Nombre objeto</th>
+                <th>Tipo objeto</th>
+                <th>Usuario Modificador</th>
+                <th>Fecha</th>
+                <th>Tipo de transacción</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for a in actions_executed %}
+              <tr>
+                <td>{{a.instance}}</td>
+                
+                <td>{{ a.instance_type|get_type }}</td>
+                
+                <td>{{a.history_user_id}} - {{a.history_user}}</td>
+                <td>{{a.history_date}}</td>
+                    {% ifequal a.history_type|stringformat:"s" "~" %}
+                        <td>Actualización</td>
+                    {% endifequal  %}
+                    {% ifequal a.history_type|stringformat:"s" "+" %}
+                        <td>Creación</td>
+                    {% endifequal  %}
+                    {% ifequal a.history_type|stringformat:"s" "-" %}
+                        <td>Eliminación</td>
+                    {% endifequal  %}
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        
+        {% else %}
+            <p>No hay acciones registradas.</p>
+        {% endif %}
+      </div>
+    </div>
+  </body>
+</html>
