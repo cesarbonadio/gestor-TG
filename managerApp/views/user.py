@@ -1,7 +1,5 @@
 from . import *
-
-
-'''TODO-> VER COMO RESTRINGIR ENTRE SÍ LA ELECCIÓN DEL TIPO DE USUARIO EN LOS FORMULARIOS'''
+import itertools
 
 
 #sin contraseña para agregarla solo en la creación
@@ -77,3 +75,31 @@ class DeleteUserView(generic.DeleteView):
     def delete(self, request, *args, **kwargs):
         messages.success(request, "Usuario eliminado exitosamente")
         return super().delete(request, *args, **kwargs)
+
+
+
+@login_required
+@admin_permissions
+def LogsTransacciones(request):
+    
+    actions_executed_persons = Person.history.all()
+    actions_executed_defense = Defense.history.all()
+    actions_executed_persontype = PersonType.history.all()
+    actions_executed_proposals = Proposal.history.all()
+    actions_executed_proposalsstatus = ProposalStatus.history.all()
+    actions_executed_term = Term.history.all()
+    actions_executed_thesisstatus = ThesisStatus.history.all()
+    actions_executed_thesis = Thesis.history.all()
+
+    actions_executed = list(itertools.chain(
+        actions_executed_persons, 
+        actions_executed_defense, 
+        actions_executed_persontype,
+        actions_executed_proposals,
+        actions_executed_proposalsstatus,
+        actions_executed_term,
+        actions_executed_thesisstatus,
+        actions_executed_thesis
+    ))
+
+    return render(request, 'managerApp/reporte/logporusuario/index.html', {'actions_executed':actions_executed})
