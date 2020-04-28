@@ -1,0 +1,45 @@
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+<form method="post" novalidate>
+    {% csrf_token %}
+
+    <div class="row">
+ 
+      <div class="col-md-6 col-sm-8 col-12">
+        {{ form.delivery_date|as_crispy_field }}
+      </div>
+      <div class="col-md-6 col-sm-8 col-12">
+        {{ form.title|as_crispy_field }}
+      </div>
+      <div class="col-md-6 col-sm-8 col-12">
+        {{ form.status|as_crispy_field }}
+      </div>
+      <div class="col-md-6 col-sm-8 col-12">
+        {{ form.student_1|as_crispy_field }}
+      </div>
+      <div class="col-md-6 col-sm-8 col-12">
+        {{ form.student_2|as_crispy_field }}
+      </div>
+      <div class="col-md-6 col-sm-8 col-12">
+        {{ form.academic_tutor|as_crispy_field }}
+      </div>
+      <div class="col-md-6 col-sm-8 col-12">
+        {{ form.company_tutor|as_crispy_field }}
+      </div>
+      <div class="col-md-6 col-sm-8 col-12">
+        {{ form.term|as_crispy_field }}
+      </div>
+
+      <div class="col-md-6 col-sm-8 col-12">
+      <div style="margin-bottom: 50px;">
+        <button type="submit" class="btn btn-success">guardar</button>
+        <a href="{% url 'proposals:proposals_list' %}" class="btn btn-outline-secondary" role="button">
+          volver
+        </a>
+      </div>
+      </div>
+    </div>
+
+  </form>
