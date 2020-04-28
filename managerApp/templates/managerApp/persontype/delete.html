@@ -1,14 +1,12 @@
 {% extends 'base.html' %}
-
-
 {% block content %}
-
+{% load extra_tags %}
 <form method="post">
     {% csrf_token %}
     <p>
-        <br>
-        <h4 class="mb-3">Eliminando Tipo de persona</h4>
-        ¿Estas seguro de que quieres eliminar este tipo de persona? "{{ persontype }}"?
+        <br><h4 class="mb-3">Eliminando Tipo de persona</h4>
+        ¿Estas seguro de que quieres eliminar este tipo de persona? "{{ persontype }}"?<br>
+        Se eliminarán los elementos asociados ({{ persontype|get_related_objects }})
         <div style="margin-bottom: 50px; margin-top:10px">
             <button type="submit" class="btn btn-success">guardar</button>
             <a href="{% url 'person_type:person_type_list' %}" class="btn btn-outline-secondary" role="button">
@@ -17,5 +15,4 @@
         </div>
     </p>
 </form>
-
 {% endblock %}

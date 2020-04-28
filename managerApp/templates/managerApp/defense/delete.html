@@ -1,14 +1,11 @@
 {% extends 'base.html' %}
-
-
 {% block content %}
-
 <form method="post">
     {% csrf_token %}
     <p>
         <br>
         <h4 class="mb-3">Eliminando Defensa</h4>
-        ¿Estas seguro de que quieres eliminar esta defensa? "{{ defense }}"?
+        ¿Estas seguro de que quieres eliminar esta defensa? "{{ defense }}"?<br>
         <div style="margin-bottom: 50px; margin-top:10px">
             <button type="submit" class="btn btn-success">guardar</button>
             <a href="{% url 'defense:defense_list' %}" class="btn btn-outline-secondary" role="button">
@@ -17,5 +14,4 @@
         </div>
     </p>
 </form>
-
 {% endblock %}

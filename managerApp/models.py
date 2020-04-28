@@ -55,7 +55,7 @@ class PersonType(models.Model):
 class Person(models.Model):
 
     type = models.ForeignKey(PersonType, on_delete=models.CASCADE, related_name="type_person",verbose_name="tipo de persona")
-    document_id = models.IntegerField(unique=True, verbose_name="cédula") #cedula
+    document_id = models.IntegerField(unique=True, verbose_name="cédula")
     first_name_1 = models.CharField(max_length=100, verbose_name="primer nombre")
     first_name_2 = models.CharField(max_length=100, null=True, blank=True, verbose_name="segundo nombre")
     last_name_1 = models.CharField(max_length=100, verbose_name="primer apellido")
@@ -160,7 +160,7 @@ class Thesis(models.Model):
     top_date = models.DateTimeField(verbose_name="fecha tope de entrega")
     company_name = models.CharField(max_length=100, verbose_name="nombre de la empresa")
     term = models.ForeignKey(Term, on_delete=models.CASCADE, related_name="term_thesis", verbose_name="terminología")
-    proposal = models.ForeignKey(Proposal, on_delete=models.CASCADE, related_name="thesis_proposal", verbose_name="propuesta asociada")
+    proposal = models.ForeignKey(Proposal, on_delete=models.CASCADE, related_name="proposal_thesis", verbose_name="propuesta asociada")
     history = HistoricalRecords()
 
 

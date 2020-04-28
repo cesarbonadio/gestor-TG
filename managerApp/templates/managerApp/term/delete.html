@@ -1,14 +1,12 @@
 {% extends 'base.html' %}
-
-
 {% block content %}
-
+{% load extra_tags %}
 <form method="post">
     {% csrf_token %}
     <p>
-        <br>
-        <h4 class="mb-3">Eliminando terminología</h4>
-        ¿Estas seguro de que quieres eliminar esta terminología? "{{ term }}"?
+        <br><h4 class="mb-3">Eliminando terminología</h4>
+        ¿Estas seguro de que quieres eliminar esta terminología? "{{ term }}"?<br>
+        Se eliminarán los elementos asociados ({{ term|get_related_objects }})
         <div style="margin-bottom: 50px; margin-top:10px">
             <button type="submit" class="btn btn-success">guardar</button>
             <a href="{% url 'proposals:proposals_list' %}" class="btn btn-outline-secondary" role="button">
@@ -17,5 +15,4 @@
         </div>
     </p>
 </form>
-
 {% endblock %}
