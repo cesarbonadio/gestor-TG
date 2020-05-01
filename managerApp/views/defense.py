@@ -11,6 +11,7 @@ DEFENSE_CRUD_FIELDS = (
     "jury_1_assistance_confirmation",
     "jury_2_assistance_confirmation",
     "jury_suplente_assistance_confirmation",
+    "tutor_assistance_confirmation",
     "grade",
     "publication_mention",
     "honorific_mention",

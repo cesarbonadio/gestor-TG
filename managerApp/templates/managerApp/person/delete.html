@@ -6,7 +6,7 @@
     <p>
         <br><h4 class="mb-3">Eliminando persona</h4>
         ¿Estas seguro de que quieres eliminar esta persona? "{{ person }}"?
-        Se eliminarán los elementos asociados ({{ person|get_related_objects }})
+        <!--falta objetos asociados-->
         <div style="margin-bottom: 50px; margin-top:10px">
             <button type="submit" class="btn btn-success">guardar</button>
             <a href="{% url 'persons:persons_list' %}" class="btn btn-outline-secondary" role="button">

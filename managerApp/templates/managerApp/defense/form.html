@@ -1,0 +1,74 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+<form method="post" novalidate>
+    {% csrf_token %}
+    <div class="row">
+      <div class="col-md-6 col-sm-8 col-12">
+        {{ form.defense_date|as_crispy_field }}
+      </div>
+      <div class="col-md-6 col-sm-8 col-12">
+        {{ form.jury_1|as_crispy_field }}
+      </div>
+      <div class="col-md-6 col-sm-8 col-12">
+        {{ form.jury_2|as_crispy_field }}
+      </div>
+      <div class="col-md-6 col-sm-8 col-12">
+        {{ form.jury_suplente|as_crispy_field }}
+      </div>
+      <div class="col-md-6 col-sm-8 col-12">
+        <div class="col-sm-2" style="padding:0; padding-bottom: 0.5em;">Asistencias</div>
+        <div class="row">
+          <div class="col">
+            {{ form.jury_1_assistance_confirmation|as_crispy_field }}
+          </div>
+          <div class="col">
+            {{ form.jury_2_assistance_confirmation|as_crispy_field }}
+          </div>
+          <div class="col">
+            {{ form.jury_suplente_assistance_confirmation|as_crispy_field }}
+          </div>
+          <div class="col">
+            {{ form.tutor_assistance_confirmation|as_crispy_field }}
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-8 col-12">
+        {{ form.grade|as_crispy_field }}
+      </div>
+      <div class="col-md-6 col-sm-8 col-12">
+        {{ form.top_date_corrections|as_crispy_field }}
+      </div>
+      <div class="col-md-6 col-sm-8 col-12">
+        {{ form.observations|as_crispy_field }}
+      </div>
+      <div class="col-md-6 col-sm-8 col-12">
+        {{ form.thesis|as_crispy_field }}
+      </div>
+      <div class="col-md-6 col-sm-8 col-12">
+        <div class="col-sm-4" style="padding:0; padding-bottom: 0.5em;">Relacionado con calificaciones</div>
+        <div class="row">
+          <div class="col">
+            {{ form.publication_mention|as_crispy_field }}
+          </div>
+          <div class="col">
+            {{ form.honorific_mention|as_crispy_field }}
+          </div>
+          <div class="col">
+            {{ form.corrections_delivered|as_crispy_field }}
+          </div>
+          <div class="col">
+            {{ form.grade_uploaded|as_crispy_field }}
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-8 col-12">
+      <div style="margin-bottom: 50px;">
+        <button type="submit" class="btn btn-success">guardar</button>
+        <a href="{% url 'defense:defense_list' %}" class="btn btn-outline-secondary" role="button">
+          volver
+        </a>
+      </div>
+      </div>
+    </div>
+  </form>
