@@ -1,0 +1,53 @@
+{% load crispy_forms_tags %}
+<form method="post" novalidate>
+    {% csrf_token %}
+    <div class="row">
+      <div class="col-md-6 col-sm-8 col-12">
+        {{ form.username|as_crispy_field }}
+      </div>
+      {% if create %}
+        <div class="col-md-6 col-sm-8 col-12">
+        {{ form.password|as_crispy_field }}
+        </div>
+      {% endif %}
+      <div class="col-md-6 col-sm-8 col-12">
+        {{ form.first_name|as_crispy_field }}
+      </div>
+      <div class="col-md-6 col-sm-8 col-12">
+        {{ form.last_name|as_crispy_field }}
+      </div>
+      <div class="col-md-6 col-sm-8 col-12">
+        {{ form.email|as_crispy_field }}
+      </div>
+      <div class="col-md-6 col-sm-8 col-12">
+        {{ form.is_active|as_crispy_field }}
+      </div>
+      <div class="col-md-6 col-sm-8 col-12">
+        <div class="col-sm-2" style="padding:0; padding-bottom: 0.5em;">Permisologías</div>
+        <div class="row">
+          <div class="col">
+            {{ form.is_admin|as_crispy_field }}
+          </div>
+          <div class="col">
+            {{ form.is_manager|as_crispy_field }}
+          </div>
+          <div class="col">
+            {{ form.is_guest|as_crispy_field }}
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-8 col-12">
+        {{ form.date_joined|as_crispy_field }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-sm-8 col-12">
+        <div style="margin-bottom: 50px;">
+          <button type="submit" class="btn btn-success">guardar</button>
+          <a href="{% url 'user:user_list' %}" class="btn btn-outline-secondary" role="button">
+            volver
+          </a>
+        </div>
+      </div>
+    </div>
+</form>
