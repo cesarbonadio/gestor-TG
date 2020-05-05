@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     #terceras
     'crispy_forms',
     'simple_history',
+    'bootstrap_datepicker_plus',
 
     #propias
     'managerApp.apps.ManagerAppConfig'

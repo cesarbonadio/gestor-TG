@@ -10,3 +10,4 @@ from django.utils.decorators import method_decorator
 from ..decorators import *
 from django.contrib.auth.decorators import login_required
 from ..models import *
+from bootstrap_datepicker_plus import DateTimePickerInput
