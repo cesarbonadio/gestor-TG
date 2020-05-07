@@ -1,7 +1,6 @@
 {% load static %}
 
 <!DOCTYPE html>
-<!-- saved from url=(0053)https://getbootstrap.com/docs/4.4/examples/dashboard/ -->
 <html lang="en">
   
 <head>
@@ -11,18 +10,15 @@
   <meta name="generator" content="Jekyll v3.8.6">
   <title>{% block title %} Administrador de tesis {% endblock %}</title>
 
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
-    <script src="{% static 'jquery-3.4.1.slim.min.js' %}"></script>
-    <script src="{% static 'popper.min.js' %}"></script>
-    <script src="{% static 'bootstrap.bundle.min.js' %}"></script>
-    <!-- Favicons -->
-  <link rel="apple-touch-icon" href="https://getbootstrap.com/docs/4.4/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
-  <link rel="icon" href="https://getbootstrap.com/docs/4.4/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
-  <link rel="icon" href="https://getbootstrap.com/docs/4.4/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
-  <link rel="manifest" href="https://getbootstrap.com/docs/4.4/assets/img/favicons/manifest.json">
-  <link rel="mask-icon" href="https://getbootstrap.com/docs/4.4/assets/img/favicons/safari-pinned-tab.svg" color="#563d7c">
-  <link rel="icon" href="https://getbootstrap.com/docs/4.4/assets/img/favicons/favicon.ico">
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+  <script src="{% static 'jquery-3.4.1.slim.min.js' %}"></script>
+  <script src="{% static 'popper.min.js' %}"></script>
+  <script src="{% static 'bootstrap.bundle.min.js' %}"></script>
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" href="{% static 'favicon100.png' %}" sizes="180x180">
+  <link rel="icon" href="{% static 'favicon32.png' %}" sizes="32x32" type="image/png">
+  <link rel="icon" href="{% static 'favicon16.png' %}" sizes="16x16" type="image/png">
 
   <!-- Custom styles for this template -->
   <link href="{% static 'dashboard.css' %}" rel="stylesheet">
@@ -259,7 +255,6 @@
 
     {% block extrahead %}
     {% endblock %}
-
 
     {% block content %}
     {% endblock %}

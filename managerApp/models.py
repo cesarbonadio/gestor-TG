@@ -9,7 +9,6 @@ from simple_history.models import HistoricalRecords
 '''TODO->VER LO DEL ATRIBUTOS UNIQUE'''
 
 # Para la autenticacion y autorización
-# Extender de AbstractUser
 class User(AbstractUser):
     is_admin = models.BooleanField(default=False, verbose_name="Es administrador")
     is_manager = models.BooleanField(default=False, verbose_name="Es gestor")
