@@ -43,6 +43,11 @@ class CreateUserView(generic.CreateView):
     fields = CREATE_FIELDS
     template_name = 'managerApp/user/create.html'
 
+    def get_form(self):
+        form = super().get_form()
+        form.fields['date_joined'].widget.attrs['readonly'] = True
+        return form
+
     def form_valid(self, form):
         user = form.save(commit=False)
         user.save_hashing()
@@ -57,6 +62,11 @@ class UpdateUserView(generic.UpdateView):
     fields = USER_CRUD_FIELDS
     template_name = 'managerApp/user/update.html'
     context_object_name = USER_CRUD_CONTEXT_OBJECT_NAME
+
+    def get_form(self):
+        form = super().get_form()
+        form.fields['date_joined'].widget.attrs['readonly'] = True
+        return form
 
     def form_valid(self, form):
         user = form.save(commit=False)

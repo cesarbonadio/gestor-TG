@@ -1,5 +1,4 @@
 from . import *
-from ..forms import *
 
 
 @method_decorator([login_required, guest_permissions], name='dispatch')
@@ -22,7 +21,6 @@ class CreateProposalView(generic.CreateView):
     model = Proposal
     fields = "__all__"
     template_name = 'managerApp/proposal/create.html'
-    #form_class = ProposalForm
 
     def get_form(self):
         form = super().get_form()
@@ -45,6 +43,16 @@ class UpdateProposalView(generic.UpdateView):
     model = Proposal
     fields = "__all__"
     template_name = 'managerApp/proposal/update.html'
+
+    def get_form(self):
+        form = super().get_form()
+        form.fields['delivery_date'].widget = DateTimePickerInput(
+            options = {
+                "format": "DD/MM/YYYY hh:mm:ss",
+                "locale": "es"
+            }
+        )
+        return form
 
     def form_valid(self, form):
         proposal = form.save(commit=False)

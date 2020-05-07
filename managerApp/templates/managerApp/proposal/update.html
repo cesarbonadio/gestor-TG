@@ -1,4 +1,9 @@
 {% extends 'base.html' %}
+
+{% block extrahead %}
+  {{ form.media }}
+{% endblock %}
+
 {% block content %}
   <br><h4 class="mb-3">Editando propuesta</h4>
   {% include './form.html'  %}

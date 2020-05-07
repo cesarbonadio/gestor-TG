@@ -44,6 +44,16 @@ class CreateDefenseView(generic.CreateView):
     fields = DEFENSE_CRUD_FIELDS
     template_name = 'managerApp/defense/create.html'
 
+    def get_form(self):
+        form = super().get_form()
+        form.fields['defense_date'].widget = DateTimePickerInput(
+            options = {
+                "format": "DD/MM/YYYY hh:mm:ss",
+                "locale": "es"
+            }
+        )
+        return form
+
     def form_valid(self, form):
         defense = form.save(commit=False)
         defense.save_creating()
@@ -56,6 +66,16 @@ class UpdateDefenseView(generic.UpdateView):
     model = Defense
     fields = DEFENSE_CRUD_FIELDS
     template_name = 'managerApp/defense/update.html'
+
+    def get_form(self):
+        form = super().get_form()
+        form.fields['defense_date'].widget = DateTimePickerInput(
+            options = {
+                "format": "DD/MM/YYYY hh:mm:ss",
+                "locale": "es"
+            }
+        )
+        return form
 
     def form_valid(self, form):
         defense = form.save(commit=False)
